@@ -10,7 +10,6 @@
 #import "XLCycleScrollView.h"
 
 @interface HomeViewController : KBaseViewController <XLCycleScrollViewDatasource>
-
 @property (nonatomic, assign) IBOutlet XLCycleScrollView *xlCycleScrollView;
 @property (nonatomic, assign) IBOutlet UIView *contentView;
 @property (assign) BOOL isLogin;
