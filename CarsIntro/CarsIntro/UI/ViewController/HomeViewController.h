@@ -15,5 +15,5 @@
 @property (assign) BOOL isLogin;
 @property (nonatomic, assign) IBOutlet UIView *homeView;
 @property (nonatomic, assign) IBOutlet UIImageView *homeViewbackImage;
-
+ 
 @end
