@@ -193,7 +193,7 @@
 }
 
 - (IBAction)toMemberView:(id)sender {
-    self.isLogin = NO;
+    self.isLogin = YES;
     if (self.isLogin) {
         if (memberNav) {
             [self pushCurrentViewController:self toNavigation:memberNav isAdded:YES Driection:2];

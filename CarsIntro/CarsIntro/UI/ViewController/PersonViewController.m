@@ -25,12 +25,12 @@
 
 -(void)readDataSource
 {
-    NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_0@2x.png", @"KEY_IMAGE", nil];
-    NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_1@2x.png", @"KEY_IMAGE", nil];
-    NSDictionary * dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_2@2x.png", @"KEY_IMAGE", nil];
-    NSDictionary * dict4 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_3@2x.png", @"KEY_IMAGE", nil];
-    NSDictionary * dict5 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_4@2x.png", @"KEY_IMAGE", nil];
-    NSDictionary * dict6 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_1@2x.png", @"KEY_IMAGE", nil];
+    NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_0.png", @"KEY_IMAGE", nil];
+    NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_1.png", @"KEY_IMAGE", nil];
+    NSDictionary * dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_2.png", @"KEY_IMAGE", nil];
+    NSDictionary * dict4 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_3.png", @"KEY_IMAGE", nil];
+    NSDictionary * dict5 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_4.png", @"KEY_IMAGE", nil];
+    NSDictionary * dict6 = [NSDictionary dictionaryWithObjectsAndKeys:@"Center_1.png", @"KEY_IMAGE", nil];
     [self.personTable.personArray addObjectsFromArray:[NSArray arrayWithObjects:dict1, dict2, dict3, dict4, dict5, dict6, nil]];
     [self.personTable reloadData];
 }
@@ -40,12 +40,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.titleView.layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [self.titleView.layer setShadowOpacity:0.5];
-    [self.titleView.layer setShadowOffset:CGSizeMake(2, 2)];
+    [self.titleView.layer setShadowOpacity:0.3];
+    [self.titleView.layer setShadowRadius:1];
+    [self.titleView.layer setShadowOffset:CGSizeMake(0.5,0.5)];
     
     [self.contentView.layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [self.contentView.layer setShadowOpacity:0.5];
-    [self.contentView.layer setShadowOffset:CGSizeMake(2, 2)];
+    [self.contentView.layer setShadowOpacity:0.3];
+    [self.contentView.layer setShadowOffset:CGSizeMake(1, 1)];
     
     self.scrollView.scrollEnabled = YES;
     self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView) * 1.07);
