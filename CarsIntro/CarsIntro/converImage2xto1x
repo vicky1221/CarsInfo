@@ -1,0 +1,31 @@
+#!/bin/bash
+function ergodic(){
+        for file in ` ls $1 `
+        do
+                if [ -d $1"/"$file ]
+                then
+                        ergodic $1"/"$file
+                else
+			#echo $1"/"$file
+			#fullPath = $1"/"$file
+			if [[ $file =~ (.*)@2x.png ]]; then
+				#$path $file _$file
+				echo $file
+				echo #{$1}
+				convert -resize 50%x50% $1"/"$file $1"/"${BASH_REMATCH[1]}.png
+
+				#convert $file -resize 50%*50% ${BASH_REMATCH[1]}.png
+				#convert -sample %50x%50 $file ${BASH_REMATCH[1]}.png
+				#echo "0 ${BASH_REMATCH[0]}"
+				#echo "1 ${BASH_REMATCH[1]}"
+			fi
+
+                fi
+        done
+}
+#INIT_PATH="./Image/Activity"
+INIT_PATH="./Image/Member"
+#INIT_PATH="./Image/Home"
+#INIT_PATH="./Image/Cars"
+#INIT_PATH="./Image/Base"
+ergodic $INIT_PATH

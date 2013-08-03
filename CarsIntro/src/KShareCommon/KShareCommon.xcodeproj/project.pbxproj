@@ -1,0 +1,430 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E7139C4316BA5006005957F0 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7139C3D16BA4FCD005957F0 /* libGPUImage.a */; };
+		E7177FEC1681C9E7001A2543 /* libCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7177FCE1681C9B1001A2543 /* libCommon.a */; };
+		E7177FED1681C9E7001A2543 /* libMWPhotoBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7177FD41681C9B9001A2543 /* libMWPhotoBrowser.a */; };
+		E717801B1681DA6E001A2543 /* UIAsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E717801A1681DA6E001A2543 /* UIAsyncImageView.m */; };
+		E7942ACD16996D1900F024B5 /* UIViewController+custom.m in Sources */ = {isa = PBXBuildFile; fileRef = E7942ACC16996D1900F024B5 /* UIViewController+custom.m */; };
+		E7FECEEE1681B60F0056E31F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FECEED1681B60F0056E31F /* Foundation.framework */; };
+		E7FECEF31681B60F0056E31F /* KShareCommon.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E7FECEF21681B60F0056E31F /* KShareCommon.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E7139C3C16BA4FCD005957F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7139C3316BA4FCC005957F0 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		E7139C3E16BA4FCD005957F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7139C3316BA4FCC005957F0 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A34414DDB1EC00852800;
+			remoteInfo = GPUImageTests;
+		};
+		E7139C4116BA4FFC005957F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7139C3316BA4FCC005957F0 /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		E7177FCD1681C9B1001A2543 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7177FC91681C9B1001A2543 /* Common.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E78E2E3C167F089000E2F13C;
+			remoteInfo = Common;
+		};
+		E7177FD31681C9B9001A2543 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7177FCF1681C9B8001A2543 /* MWPhotoBrowser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C6F96C414AF704100F8389A;
+			remoteInfo = MWPhotoBrowser;
+		};
+		E7177FE31681C9E0001A2543 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7177FC91681C9B1001A2543 /* Common.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E78E2E3B167F089000E2F13C;
+			remoteInfo = Common;
+		};
+		E7177FE71681C9E0001A2543 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7177FCF1681C9B8001A2543 /* MWPhotoBrowser.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C6F96C314AF704100F8389A;
+			remoteInfo = MWPhotoBrowser;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E7FECEE81681B60F0056E31F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				E7FECEF31681B60F0056E31F /* KShareCommon.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E7139C3316BA4FCC005957F0 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		E7177FC91681C9B1001A2543 /* Common.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Common.xcodeproj; path = ../Common/Common.xcodeproj; sourceTree = "<group>"; };
+		E7177FCF1681C9B8001A2543 /* MWPhotoBrowser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MWPhotoBrowser.xcodeproj; path = ../MWPhotoBrowser/MWPhotoBrowser.xcodeproj; sourceTree = "<group>"; };
+		E71780191681DA6E001A2543 /* UIAsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAsyncImageView.h; sourceTree = "<group>"; };
+		E717801A1681DA6E001A2543 /* UIAsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAsyncImageView.m; sourceTree = "<group>"; };
+		E7942ACB16996D1900F024B5 /* UIViewController+custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+custom.h"; sourceTree = "<group>"; };
+		E7942ACC16996D1900F024B5 /* UIViewController+custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+custom.m"; sourceTree = "<group>"; };
+		E7FECEEA1681B60F0056E31F /* libKShareCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKShareCommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7FECEED1681B60F0056E31F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E7FECEF11681B60F0056E31F /* KShareCommon-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KShareCommon-Prefix.pch"; sourceTree = "<group>"; };
+		E7FECEF21681B60F0056E31F /* KShareCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KShareCommon.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E7FECEE71681B60F0056E31F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7139C4316BA5006005957F0 /* libGPUImage.a in Frameworks */,
+				E7177FEC1681C9E7001A2543 /* libCommon.a in Frameworks */,
+				E7177FED1681C9E7001A2543 /* libMWPhotoBrowser.a in Frameworks */,
+				E7FECEEE1681B60F0056E31F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E7139C3416BA4FCC005957F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7139C3D16BA4FCD005957F0 /* libGPUImage.a */,
+				E7139C3F16BA4FCD005957F0 /* GPUImageTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7177FC21681C998001A2543 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				E7139C3316BA4FCC005957F0 /* GPUImage.xcodeproj */,
+				E7177FCF1681C9B8001A2543 /* MWPhotoBrowser.xcodeproj */,
+				E7177FC91681C9B1001A2543 /* Common.xcodeproj */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		E7177FCA1681C9B1001A2543 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7177FCE1681C9B1001A2543 /* libCommon.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7177FD01681C9B8001A2543 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7177FD41681C9B9001A2543 /* libMWPhotoBrowser.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7FECEDF1681B60F0056E31F = {
+			isa = PBXGroup;
+			children = (
+				E7177FC21681C998001A2543 /* Dependencies */,
+				E7FECEEF1681B60F0056E31F /* KShareCommon */,
+				E7FECEEC1681B60F0056E31F /* Frameworks */,
+				E7FECEEB1681B60F0056E31F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E7FECEEB1681B60F0056E31F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7FECEEA1681B60F0056E31F /* libKShareCommon.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7FECEEC1681B60F0056E31F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7FECEED1681B60F0056E31F /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7FECEEF1681B60F0056E31F /* KShareCommon */ = {
+			isa = PBXGroup;
+			children = (
+				E7942ACB16996D1900F024B5 /* UIViewController+custom.h */,
+				E7942ACC16996D1900F024B5 /* UIViewController+custom.m */,
+				E71780191681DA6E001A2543 /* UIAsyncImageView.h */,
+				E717801A1681DA6E001A2543 /* UIAsyncImageView.m */,
+				E7FECEF21681B60F0056E31F /* KShareCommon.h */,
+				E7FECEF01681B60F0056E31F /* Supporting Files */,
+			);
+			path = KShareCommon;
+			sourceTree = "<group>";
+		};
+		E7FECEF01681B60F0056E31F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E7FECEF11681B60F0056E31F /* KShareCommon-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E7FECEE91681B60F0056E31F /* KShareCommon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7FECEF81681B60F0056E31F /* Build configuration list for PBXNativeTarget "KShareCommon" */;
+			buildPhases = (
+				E7FECEE61681B60F0056E31F /* Sources */,
+				E7FECEE71681B60F0056E31F /* Frameworks */,
+				E7FECEE81681B60F0056E31F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E7139C4216BA4FFC005957F0 /* PBXTargetDependency */,
+				E7177FE41681C9E0001A2543 /* PBXTargetDependency */,
+				E7177FE81681C9E0001A2543 /* PBXTargetDependency */,
+			);
+			name = KShareCommon;
+			productName = KShareCommon;
+			productReference = E7FECEEA1681B60F0056E31F /* libKShareCommon.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E7FECEE11681B60F0056E31F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = BanShengGua;
+			};
+			buildConfigurationList = E7FECEE41681B60F0056E31F /* Build configuration list for PBXProject "KShareCommon" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E7FECEDF1681B60F0056E31F;
+			productRefGroup = E7FECEEB1681B60F0056E31F /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E7177FCA1681C9B1001A2543 /* Products */;
+					ProjectRef = E7177FC91681C9B1001A2543 /* Common.xcodeproj */;
+				},
+				{
+					ProductGroup = E7139C3416BA4FCC005957F0 /* Products */;
+					ProjectRef = E7139C3316BA4FCC005957F0 /* GPUImage.xcodeproj */;
+				},
+				{
+					ProductGroup = E7177FD01681C9B8001A2543 /* Products */;
+					ProjectRef = E7177FCF1681C9B8001A2543 /* MWPhotoBrowser.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				E7FECEE91681B60F0056E31F /* KShareCommon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E7139C3D16BA4FCD005957F0 /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = E7139C3C16BA4FCD005957F0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E7139C3F16BA4FCD005957F0 /* GPUImageTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests.octest;
+			remoteRef = E7139C3E16BA4FCD005957F0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E7177FCE1681C9B1001A2543 /* libCommon.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCommon.a;
+			remoteRef = E7177FCD1681C9B1001A2543 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E7177FD41681C9B9001A2543 /* libMWPhotoBrowser.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMWPhotoBrowser.a;
+			remoteRef = E7177FD31681C9B9001A2543 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E7FECEE61681B60F0056E31F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E717801B1681DA6E001A2543 /* UIAsyncImageView.m in Sources */,
+				E7942ACD16996D1900F024B5 /* UIViewController+custom.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E7139C4216BA4FFC005957F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage;
+			targetProxy = E7139C4116BA4FFC005957F0 /* PBXContainerItemProxy */;
+		};
+		E7177FE41681C9E0001A2543 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Common;
+			targetProxy = E7177FE31681C9E0001A2543 /* PBXContainerItemProxy */;
+		};
+		E7177FE81681C9E0001A2543 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MWPhotoBrowser;
+			targetProxy = E7177FE71681C9E0001A2543 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E7FECEF61681B60F0056E31F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E7FECEF71681B60F0056E31F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E7FECEF91681B60F0056E31F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/KShareCommon.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KShareCommon/KShareCommon-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../**";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/KaraokeShare3.0-dlilrindomkwmbabraqvejlmwwik/Build/Products/Debug-iphoneos\"",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "../**";
+			};
+			name = Debug;
+		};
+		E7FECEFA1681B60F0056E31F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/KShareCommon.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KShareCommon/KShareCommon-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../**";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/KaraokeShare3.0-dlilrindomkwmbabraqvejlmwwik/Build/Products/Debug-iphoneos\"",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "../**";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E7FECEE41681B60F0056E31F /* Build configuration list for PBXProject "KShareCommon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7FECEF61681B60F0056E31F /* Debug */,
+				E7FECEF71681B60F0056E31F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7FECEF81681B60F0056E31F /* Build configuration list for PBXNativeTarget "KShareCommon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7FECEF91681B60F0056E31F /* Debug */,
+				E7FECEFA1681B60F0056E31F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E7FECEE11681B60F0056E31F /* Project object */;
+}

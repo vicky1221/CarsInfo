@@ -1,0 +1,6 @@
+#define Server                  @"http://www.ard9.com/qiche/index.php?"
+#define TimeOut                 @"20"
+#define UserName                @"userName"
+#define Password                @"password"
+#define UserID                  @"uid"
+#define ServerAddress           @"http://www.ard9.com"
