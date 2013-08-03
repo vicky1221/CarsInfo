@@ -17,6 +17,6 @@
 - (IBAction)Register:(id)sender;
 
 - (IBAction)toHomeVC:(id)sender;
-
+@property (nonatomic, assign) IBOutlet UIView *currentView;
 
 @end

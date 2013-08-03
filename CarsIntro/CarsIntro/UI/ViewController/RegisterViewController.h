@@ -8,6 +8,8 @@
 
 #import "KBaseViewController.h"
 #import "RegisterTable.h"
+#import "LoginViewController.h"
+
 @interface RegisterViewController : KBaseViewController
 
 @property (assign) BOOL isRegister;
@@ -25,5 +27,8 @@
 @property (retain, nonatomic) IBOutlet RegisterTable *registerTable;
 
 @property (retain, nonatomic) NSMutableArray * dataArray; //存注册信息
+@property (assign, nonatomic) UINavigationController *nav;
+@property (assign, nonatomic) LoginViewController *loginVC;
+@property (assign, nonatomic) IBOutlet UIView *keyBordView;
 
 @end

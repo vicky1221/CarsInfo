@@ -65,6 +65,7 @@
         NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
         
         UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(240, 11, 30, 20)];
+        label.backgroundColor = [UIColor clearColor];
         label.text = [dic objectForKey:@"CFBundleVersion"];
         setCell.accessoryType = UITableViewCellAccessoryNone;
         [setCell addSubview:label];

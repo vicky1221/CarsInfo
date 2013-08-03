@@ -8,11 +8,10 @@
 
 #import "KBaseViewController.h"
 
-@interface DynamicViewController : KBaseViewController<UIWebViewDelegate>
-@property (retain, nonatomic) IBOutlet UIWebView *webView;
+@interface DynamicViewController : KBaseViewController
+
 @property (retain, nonatomic) IBOutlet UITextView *text;
 
 @property (retain, nonatomic) NSString *infoID;
--(void)loadWebPageWithString:(NSString *)urlString;
 
 @end

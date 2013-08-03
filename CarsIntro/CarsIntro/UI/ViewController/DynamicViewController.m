@@ -27,10 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    self.webView.scalesPageToFit = YES;
-    self.webView.delegate = self;
-    //[self loadWebPageWithString:@"http://www.baidu.com"];
     [self performSelector:@selector(sendAPI)];
 }
 
@@ -41,36 +37,10 @@
 }
 
 - (void)dealloc {
-    [_webView release];
     [super dealloc];
 }
 - (void)viewDidUnload {
-    [self setWebView:nil];
     [super viewDidUnload];
-}
-
--(void)loadWebPageWithString:(NSString *)urlString
-{
-    NSURL * url = [NSURL URLWithString:urlString];
-    NSLog(@"%@", urlString);
-    NSURLRequest * request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
-    
-}
-
-#pragma UIWebViewDelegate
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    
-}
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"error!");
 }
 
 - (void)sendAPI {
@@ -81,6 +51,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request {
     NSDictionary *dic = [[request responseString] JSONValue];
     NSLog(@"%@",dic);
+    self.text.text = [dic objectForKey:@"body"];
     
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {

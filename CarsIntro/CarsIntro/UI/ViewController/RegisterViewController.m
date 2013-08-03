@@ -58,47 +58,40 @@
     memberVC = [[MemberViewController alloc] initWithNibName:@"MemberViewController" bundle:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-//重写了KBaseViewController的方法
-- (void) backToHomeView:(UINavigationController *)navController {
-    [UIView animateWithDuration:0.1 animations:^{
-        navController.view.alpha = 0;
+#pragma mark - button Action
+
+- (IBAction)back:(id)sender {
+    [self hideKeyView];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.loginVC.currentView.frame = CGRectMake(0, 0, VIEW_WIDTH(self.loginVC.currentView), VIEW_HEIGHT(self.loginVC.currentView));
+        self.view.frame = CGRectMake(0, -VIEW_HEIGHT(self.view), VIEW_WIDTH(self.view), VIEW_HEIGHT(self.view));
     } completion:^(BOOL finished) {
-        navController.view.hidden = YES;
+        [self.view removeFromSuperview];
     }];
 }
 
-#pragma mark - button Action
-
-- (IBAction)back:(id)sender {    
-    if (loginNav) {
-        [self pushCurrentViewController:self toNavigation:loginNav isAdded:YES Driection:5];
-    } else {
-        LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-        loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-        loginNav.navigationBarHidden = YES;
-        [loginVC release];
-        [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:5];
-    }
-}
-
-
 - (IBAction)toHomeVC:(id)sender {
-    [self backToHomeView:self.navigationController];
+    [self hideKeyView];
+    [self backToHomeView:self.nav WithTime:0.1];
 }
 
 - (IBAction)loginButton:(id)sender {
+    [self hideKeyView];
     NSArray *cells = [self.registerTable visibleCells];
     NSMutableArray *textArray = [NSMutableArray array];
     for (RegisterCell *cell in cells) {
         [textArray addObject:cell.textField.text];
     }
-    
     NSLog(@"textArray :%@", [textArray description]);
 
     for (NSString *str in textArray) {
@@ -151,5 +144,19 @@
     [_registerTable release];
     [_loginBtn release];
     [super dealloc];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    if (touch.view==self.view) {
+        [self hideKeyView];
+    }
+}
+
+- (void)hideKeyView {
+    NSArray *cells = [self.registerTable visibleCells];
+    for (RegisterCell *cell in cells) {
+        [cell.textField resignFirstResponder];
+    }
 }
 @end

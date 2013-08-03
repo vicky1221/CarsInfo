@@ -10,9 +10,10 @@
 #import "RegisterViewController.h"
 #import "UIView+custom.h"
 #import "HomeViewController.h"
+
 @interface LoginViewController ()
 {
-    UINavigationController * registerNav;
+    RegisterViewController * registerVC;
 }
 @end
 
@@ -48,50 +49,46 @@
 }
 
 - (IBAction)login:(id)sender {
-    if (registerNav) {
-        [self pushCurrentViewController:self toNavigation:registerNav isAdded:YES Driection:4];
-    } else {
-        RegisterViewController * registerVC = [[RegisterViewController alloc] initWithNibName:@"RegisterViewController" bundle:nil];        
-        registerNav = [[UINavigationController alloc] initWithRootViewController:registerVC];
-        registerNav.navigationBarHidden = YES;
-        [registerVC release];
-        [self pushCurrentViewController:self toNavigation:registerNav isAdded:NO Driection:4];
-        registerVC.isRegister = YES;
-    }
+    [registerVC release];
+    registerVC = [[RegisterViewController alloc] initWithNibName:@"RegisterViewController" bundle:nil];
+    registerVC.loginVC = self;
+    registerVC.nav = self.navigationController;
+
+    registerVC.isRegister = YES;
+    [self.view addSubview:registerVC.view];
+    registerVC.view.frame = CGRectMake(0, -VIEW_HEIGHT(registerVC.view), VIEW_WIDTH(registerVC.view), VIEW_HEIGHT(registerVC.view));
+    [UIView animateWithDuration:0.5 animations:^{
+        registerVC.view.frame = CGRectMake(0, 0, VIEW_WIDTH(registerVC.view), VIEW_HEIGHT(registerVC.view));
+        self.currentView.frame = CGRectMake(0, VIEW_HEIGHT(self.currentView), VIEW_WIDTH(self.currentView), VIEW_HEIGHT(self.currentView));
+    } completion:^(BOOL finished) {
+        
+    }];
+//    [registerVC release];
 }
 
 - (IBAction)Register:(id)sender {
-    
-    if (registerNav) {
-        [self pushCurrentViewController:self toNavigation:registerNav isAdded:YES Driection:4];
-    } else {
-        RegisterViewController * registerVC = [[RegisterViewController alloc] initWithNibName:@"RegisterViewController" bundle:nil];
-        registerNav = [[UINavigationController alloc] initWithRootViewController:registerVC];
-        registerNav.navigationBarHidden = YES;
-        [registerVC release];
-        
-        [self pushCurrentViewController:self toNavigation:registerNav isAdded:NO Driection:4];
-        registerVC.isRegister = NO;
-    }
-}
-
-//重写了KBaseViewController的方法
-- (void) backToHomeView:(UINavigationController *)navController {
-    [UIView animateWithDuration:0.1 animations:^{
-        navController.view.alpha = 0;
+    [registerVC release];
+    registerVC = [[RegisterViewController alloc] initWithNibName:@"RegisterViewController" bundle:nil];
+    registerVC.loginVC = self;
+    registerVC.nav = self.navigationController;
+    registerVC.isRegister = NO;
+    [self.view addSubview:registerVC.view];
+    registerVC.view.frame = CGRectMake(0, -VIEW_HEIGHT(registerVC.view), VIEW_WIDTH(registerVC.view), VIEW_HEIGHT(registerVC.view));
+    [UIView animateWithDuration:0.5 animations:^{
+        registerVC.view.frame = CGRectMake(0, 0, VIEW_WIDTH(registerVC.view), VIEW_HEIGHT(registerVC.view));
+        self.currentView.frame = CGRectMake(0, VIEW_HEIGHT(self.currentView), VIEW_WIDTH(self.currentView), VIEW_HEIGHT(self.currentView));
     } completion:^(BOOL finished) {
-        navController.view.hidden = YES;
+        
     }];
 }
 
-
 - (IBAction)toHomeVC:(id)sender {
-    [self backToHomeView:self.navigationController];
+    [self backToHomeView:self.navigationController WithTime:0.1];
 }
 
 -(void)dealloc
 {
-    [registerNav release];
+    [registerVC release];
     [super dealloc];
 }
 

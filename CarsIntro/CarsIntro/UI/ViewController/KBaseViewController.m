@@ -110,7 +110,11 @@
 }
 
 - (void) backToHomeView:(UINavigationController *)navController {
-    [UIView animateWithDuration:0.5 animations:^{
+    [self backToHomeView:navController WithTime:0.5];
+}
+
+- (void) backToHomeView:(UINavigationController *)navController WithTime:(float)time {
+    [UIView animateWithDuration:time animations:^{
         navController.view.alpha = 0;
     } completion:^(BOOL finished) {
         navController.view.hidden = YES;
