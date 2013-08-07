@@ -8,6 +8,8 @@
 
 #import "SafeViewController.h"
 #import "UIView+custom.h"
+#import "iToast.h"
+#import "DetailedViewController.h"
 @interface SafeViewController ()
 
 @end
@@ -38,9 +40,10 @@
     // Do any additional setup after loading the view from its nib.
     self.btnTime.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.priceTextField.keyboardType =  UIKeyboardTypeNumberPad;
-    
+    self.priceTextField.delegate = self;
     self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.view), VIEW_HEIGHT(self.contentView));
-    [self.contentView addSubview:self.pickView];
+    [self readPickerViewDataSource];
+    self.pickView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,10 +55,17 @@
 #pragma mark - button Action
 
 - (IBAction)quoteButton:(id)sender {
+    if (![self.priceTextField.text length]) {
+        [[iToast makeText:@"请正确填写"] show];
+        return;
+    }
+    DetailedViewController * detailedVC = [[DetailedViewController alloc] initWithNibName:@"DetailedViewController" bundle:nil];
+    [self.navigationController pushViewController:detailedVC animated:YES];
+    [detailedVC release];
 }
 
 - (IBAction)timeButton:(id)sender {
-    [self readPickerViewDataSource];
+    [self.priceTextField resignFirstResponder];
     [UIView animateWithDuration:0.4 animations:^{
         self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view)-VIEW_HEIGHT(self.contentView), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
     } completion:^(BOOL finished) {
@@ -65,16 +75,27 @@
 
 - (IBAction)backgroundTap:(id)sender {
     [self.priceTextField resignFirstResponder];
-//    [UIView animateWithDuration:0.4 animations:^{
-//        self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
-//    } completion:^(BOOL finished) {
-//        nil;
-//    }];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
+    } completion:^(BOOL finished) {
+        nil;
+    }];
 }
 
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (IBAction)sure:(UIBarButtonItem *)sender {
+    NSInteger row = [self.pickView selectedRowInComponent:0];
+    [self.btnTime setTitle:[self.pickerArray objectAtIndex:row] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
+    } completion:^(BOOL finished) {
+        nil;
+    }];
+}
+
 
 #pragma mark - UIPickerViewDelegate
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -88,15 +109,15 @@
 }
 
 #pragma mark - UITextFieldDelegate
-//-(void)textFieldDidBeginEditing:(UITextField *)textField
-//{
-//    [UIView animateWithDuration:0.4 animations:^{
-//        self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
-//    } completion:^(BOOL finished) {
-//        nil;
-//    }];
-//
-//}
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
+    } completion:^(BOOL finished) {
+        nil;
+    }];
+
+}
 
 - (void)dealloc {
     [_pickerArray release];

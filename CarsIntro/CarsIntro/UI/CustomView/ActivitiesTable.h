@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ActivitiesTableDelegate <NSObject>
+@optional
+-(UIViewController *)viewController;
+@end
+
 @interface ActivitiesTable : UITableView<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, retain) NSMutableArray * activityArray;
 @property (nonatomic, retain) NSMutableArray * couponArray;
 @property (nonatomic, assign) BOOL isActivityData;
+@property (assign) id<ActivitiesTableDelegate> ActivitiesDelegate;
 @end

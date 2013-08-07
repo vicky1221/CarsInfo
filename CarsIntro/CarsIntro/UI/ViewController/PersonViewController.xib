@@ -49,7 +49,7 @@
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
+						<object class="NSCustomResource" key="IBUIImage" id="881244194">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">nav.png</string>
 						</object>
@@ -163,7 +163,7 @@
 										<reference key="NSNextResponder" ref="872633189"/>
 										<int key="NSvFlags">272</int>
 										<array class="NSMutableArray" key="NSSubviews"/>
-										<string key="NSFrame">{{4, 0}, {303, 300}}</string>
+										<string key="NSFrame">{{4, 0}, {303, 348}}</string>
 										<reference key="NSSuperview" ref="872633189"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="552368882"/>
@@ -334,7 +334,7 @@
 							<object class="IBUIButton" id="552368882">
 								<reference key="NSNextResponder" ref="818167765"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 420}, {300, 30}}</string>
+								<string key="NSFrame">{{10, 470}, {300, 30}}</string>
 								<reference key="NSSuperview" ref="818167765"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -343,7 +343,6 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">退出登录</string>
 								<reference key="IBUIHighlightedTitleColor" ref="666766128"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
@@ -351,6 +350,7 @@
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="804610204"/>
+								<reference key="IBUINormalBackgroundImage" ref="881244194"/>
 								<reference key="IBUIFontDescription" ref="527540888"/>
 								<reference key="IBUIFont" ref="13074320"/>
 							</object>
@@ -602,6 +602,7 @@
 				<string key="21.CustomClassName">PersonTable</string>
 				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="0.0" key="22.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

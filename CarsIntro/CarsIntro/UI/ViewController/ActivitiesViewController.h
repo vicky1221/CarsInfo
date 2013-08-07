@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "KBaseViewController.h"
 #import "ActivitiesTable.h"
-@interface ActivitiesViewController : KBaseViewController
+@interface ActivitiesViewController : KBaseViewController<ActivitiesTableDelegate>
 @property (retain, nonatomic) IBOutlet UIView *choiceView;
 - (IBAction)back:(id)sender;
 @property (retain, nonatomic) IBOutlet ActivitiesTable *activitiesTable;

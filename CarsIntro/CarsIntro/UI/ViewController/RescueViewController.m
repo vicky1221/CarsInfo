@@ -35,12 +35,15 @@
     //开始定位
     [manager startUpdatingLocation];
     [manager release];
+    [self.btnHelp setImage:[UIImage imageNamed:@"Rescue_2@2x.png"] forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.btnHelp setImage:[UIImage imageNamed:@"Rescue_2@2x.png"] forState:UIControlStateDisabled];
+    
     CLLocationCoordinate2D center;
     center.latitude = 40.0516041972908;
     center.longitude = 116.294965283102;
@@ -85,10 +88,12 @@
 
 - (void)dealloc {
     [_mapKit release];
+    [_btnHelp release];
     [super dealloc];
 }
 - (void)viewDidUnload {
     [self setMapKit:nil];
+    [self setBtnHelp:nil];
     [super viewDidUnload];
 }
 

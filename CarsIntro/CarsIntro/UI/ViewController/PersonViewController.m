@@ -49,7 +49,7 @@
     [self.contentView.layer setShadowOffset:CGSizeMake(1, 1)];
     
     self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView) * 1.07);
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView) * 1.18);
     
     [self readDataSource];
 }

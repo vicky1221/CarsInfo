@@ -39,4 +39,9 @@
 
 @property (retain, nonatomic) IBOutlet UIPickerView *pickerView;
 
+@property (assign) BOOL btn1HasImage;
+@property (assign) BOOL btn2HasImage;
+@property (assign) BOOL btn3HasImage;
+@property (assign) BOOL btn4HasImage;
+
 @end

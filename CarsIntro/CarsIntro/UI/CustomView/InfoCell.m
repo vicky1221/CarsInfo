@@ -37,15 +37,16 @@
     float max = 0;
     if (info.hasPic) {
         // 如果有图片
-        max = 200;
+        max = 230;
         [self.asyImageView LoadImage:info.picPath];
         [self.asyImageView enableHighlight:NO];
     } else {
         max = 300;
+        self.asyImageView.backgroundColor = [UIColor clearColor];
     }
     _timeLabel.text = [[NSString stringWithFormat:@"%f", info.time] dateStringSinceNow];
     
-    CGSize labelSize = [info.title sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(max, 3000) lineBreakMode:_titleLabel.lineBreakMode];
+    CGSize labelSize = [info.title sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(max, 30) lineBreakMode:_titleLabel.lineBreakMode];
     _titleLabel.frame = CGRectMake(VIEW_LEFT(_titleLabel), VIEW_TOP(_titleLabel), labelSize.width, labelSize.height);
     _titleLabel.text = info.title;
 }

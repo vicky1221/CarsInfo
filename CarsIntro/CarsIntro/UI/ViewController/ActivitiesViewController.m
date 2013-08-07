@@ -57,6 +57,7 @@
     // Do any additional setup after loading the view from its nib.
     [self addButtonsToChoiceView];
     [self performSelector:@selector(sendAPI:) withObject:@"activity"];
+    self.activitiesTable.ActivitiesDelegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,5 +130,10 @@
     
 }
 
+#pragma mark - ActivitiesTableDelegate
+-(UIViewController *)viewController
+{
+    return self;
+}
 
 @end

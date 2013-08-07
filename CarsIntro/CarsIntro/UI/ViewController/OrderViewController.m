@@ -54,10 +54,10 @@
         dayStr = [NSString stringWithFormat:@"%d",day];
     }
     
-    NSString * nsDateString= [NSString stringWithFormat:@"%d-%@-%@ %@", year, monthStr, dayStr, locationString];
+    self.strDate = [NSString stringWithFormat:@"%d-%@-%@ %@", year, monthStr, dayStr, locationString];
     
     
-    [self.timeButton setTitle:nsDateString forState:UIControlStateNormal];
+    [self.timeButton setTitle:self.strDate forState:UIControlStateNormal];
     
     self.timeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.timeButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -70,8 +70,9 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.contentView.layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [self.contentView.layer setShadowOpacity:0.5];
-    [self.contentView.layer setShadowOffset:CGSizeMake(2, 2)];
+    [self.contentView.layer setShadowOpacity:0.3];
+    [self.contentView.layer setShadowRadius:1];
+    [self.contentView.layer setShadowOffset:CGSizeMake(0.5, 0.5)];
     
     [self showCurrentTime];
     
@@ -84,12 +85,22 @@
     
     self.dataPickerView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.dataPickerView), VIEW_HEIGHT(self.dataPickerView));
     [self.dataPicker addTarget:self action:@selector(pickerChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)resignTextField
+{
+    [self.nameTextField resignFirstResponder];
+    [self.phoneTextField resignFirstResponder];
+    [self.remarkTextField resignFirstResponder];
 }
 
 #pragma mark - button Action
@@ -99,6 +110,7 @@
 }
 
 - (IBAction)orderBtn:(id)sender {
+    [self resignTextField];
     if (!self.nameTextField || [self.nameTextField.text length] == 0) {
         [[iToast makeText:@"姓名不可为空."] show];
         return;
@@ -112,13 +124,11 @@
 }
 
 - (IBAction)timeBtn:(id)sender {
-    [self.nameTextField resignFirstResponder];
-    [self.phoneTextField resignFirstResponder];
-    [self.remarkTextField resignFirstResponder];
+    [self resignTextField];
     [UIView animateWithDuration:0.4 animations:^{
         self.dataPickerView.frame = CGRectMake(0, (VIEW_HEIGHT(self.view)- VIEW_HEIGHT(self.dataPickerView)), VIEW_WIDTH(self.dataPickerView), VIEW_HEIGHT(self.dataPickerView));
     } completion:^(BOOL finished) {
-        nil;
+        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.13);
     }];
 }
 
@@ -141,6 +151,7 @@
     [_remarkTextField release];
     [_dataPicker release];
     [_dataPickerView release];
+    [_scrollView release];
     [super dealloc];
 }
 - (void)viewDidUnload {
@@ -153,14 +164,17 @@
     [self setRemarkTextField:nil];
     [self setDataPicker:nil];
     [self setDataPickerView:nil];
+    [self setScrollView:nil];
     [super viewDidUnload];
 }
 - (IBAction)btnCancel:(id)sender {
     [UIView animateWithDuration:0.4 animations:^{
         self.dataPickerView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.dataPickerView), VIEW_HEIGHT(self.dataPickerView));
+        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
     } completion:^(BOOL finished) {
         nil;
     }];
+    
 }
 
 - (IBAction)btnDetermine:(id)sender {
@@ -168,6 +182,7 @@
     [self.timeButton setTitle:self.strDate forState:UIControlStateNormal];
     [UIView animateWithDuration:0.4 animations:^{
         self.dataPickerView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.dataPickerView), VIEW_HEIGHT(self.dataPickerView));
+        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
     } completion:^(BOOL finished) {
         nil;
     }];    
@@ -176,6 +191,27 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self btnCancel:nil];
+    if (textField == self.remarkTextField) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.scrollView.contentOffset = CGPointMake(0, 100);
+        }];
+    }
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.13);
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
+    } completion:^(BOOL finished) {
+        nil;
+    }];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

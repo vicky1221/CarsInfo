@@ -56,6 +56,7 @@
     if (personCell == nil) {
         personCell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
     }
+    personCell.selectionStyle =  UITableViewCellSelectionStyleBlue;
     NSDictionary * dic = [self.personArray objectAtIndex:indexPath.row];
     [personCell cellForDic:dic];
     return personCell;

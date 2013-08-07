@@ -15,6 +15,7 @@
 
 @property (retain, nonatomic) IBOutlet UITextField *remarkTextField; //备注
 
+@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (retain, nonatomic) IBOutlet UIView *contentView;
 @property (retain, nonatomic) IBOutlet UILabel *titleLabel;

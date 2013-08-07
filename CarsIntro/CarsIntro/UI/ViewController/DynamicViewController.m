@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     [self performSelector:@selector(sendAPI)];
+    [self.text setEditable:NO]; //禁止编辑
 }
 
 - (void)didReceiveMemoryWarning

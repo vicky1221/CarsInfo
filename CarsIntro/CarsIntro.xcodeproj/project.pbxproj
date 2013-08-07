@@ -57,6 +57,9 @@
 		8747C4391778102300A2EB16 /* KBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8747C4381778102300A2EB16 /* KBaseViewController.m */; };
 		8747C43C1778103400A2EB16 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8747C43B1778103400A2EB16 /* HomeViewController.m */; };
 		8747C43E1778104000A2EB16 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8747C43D1778104000A2EB16 /* HomeViewController.xib */; };
+		B10273ED17B1D88F00785293 /* Rescue_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B10273EA17B1D88F00785293 /* Rescue_1@2x.png */; };
+		B10273EE17B1D88F00785293 /* Rescue_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B10273EB17B1D88F00785293 /* Rescue_2@2x.png */; };
+		B10273EF17B1D88F00785293 /* Rescue_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B10273EC17B1D88F00785293 /* Rescue_3@2x.png */; };
 		B108111A1797F4E50010A292 /* CImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B10811181797F4E20010A292 /* CImageViewController.m */; };
 		B108111B1797F4E50010A292 /* CImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B10811191797F4E30010A292 /* CImageViewController.xib */; };
 		B109870617A2583000818B4B /* UCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B109870417A2583000818B4B /* UCarViewController.m */; };
@@ -79,8 +82,6 @@
 		B12D47EA178C1A420086BCDD /* ActivitiesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B12D47E9178C1A420086BCDD /* ActivitiesTable.m */; };
 		B12D4811178CF3080086BCDD /* ActivitiesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B12D4810178CF3080086BCDD /* ActivitiesCell.m */; };
 		B12D4813178CF3FB0086BCDD /* ActivitiesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B12D4812178CF3FB0086BCDD /* ActivitiesCell.xib */; };
-		B13267F717A67369003B6C9D /* SafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B13267F517A67369003B6C9D /* SafeViewController.m */; };
-		B13267F817A67369003B6C9D /* SafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B13267F617A67369003B6C9D /* SafeViewController.xib */; };
 		B133B0FA17A8A2F4001BFB20 /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B133B0F917A8A2F4001BFB20 /* PersonCell.m */; };
 		B133B0FC17A8A34C001BFB20 /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B133B0FB17A8A34C001BFB20 /* PersonCell.xib */; };
 		B141D48E1799398B0040B042 /* Parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = B141D48D1799398B0040B042 /* Parameter.m */; };
@@ -105,10 +106,18 @@
 		B1A5714E1797B056008D4A30 /* VehicleTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A5714D1797B055008D4A30 /* VehicleTable.m */; };
 		B1A571511797B13E008D4A30 /* VehicleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A571501797B13E008D4A30 /* VehicleCell.m */; };
 		B1A571531797B1B1008D4A30 /* VehicleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1A571521797B1B1008D4A30 /* VehicleCell.xib */; };
+		B1A7F28617B1028200992916 /* Advice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B1A7F28517B1028200992916 /* Advice@2x.png */; };
 		B1B0A165178D299D008FA072 /* RegisterTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B0A164178D299D008FA072 /* RegisterTable.m */; };
 		B1B0A168178D2C11008FA072 /* RegisterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B0A167178D2C11008FA072 /* RegisterCell.m */; };
 		B1B0A16A178D2CBA008FA072 /* RegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1B0A169178D2CBA008FA072 /* RegisterCell.xib */; };
 		B1C3CCB81793F7C700ECFD86 /* XLCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C3CCB61793F7C700ECFD86 /* XLCycleScrollView.m */; };
+		B1C984D917B0CCB800AE5BB8 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C984D717B0CCB800AE5BB8 /* CouponViewController.m */; };
+		B1C984DA17B0CCB800AE5BB8 /* CouponViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1C984D817B0CCB800AE5BB8 /* CouponViewController.xib */; };
+		B1C984DE17B0D2FC00AE5BB8 /* DetailedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C984DC17B0D2FC00AE5BB8 /* DetailedViewController.m */; };
+		B1C984DF17B0D2FC00AE5BB8 /* DetailedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1C984DD17B0D2FC00AE5BB8 /* DetailedViewController.xib */; };
+		B1C984E217B0D55000AE5BB8 /* DetailedTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C984E117B0D55000AE5BB8 /* DetailedTable.m */; };
+		B1C984E517B0D6A300AE5BB8 /* DetailedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C984E417B0D6A300AE5BB8 /* DetailedCell.m */; };
+		B1C984E717B0D70000AE5BB8 /* DetailedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1C984E617B0D70000AE5BB8 /* DetailedCell.xib */; };
 		B1CA46431795253500CB60A0 /* VehicleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1CA46411795253500CB60A0 /* VehicleViewController.m */; };
 		B1CA46441795253500CB60A0 /* VehicleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1CA46421795253500CB60A0 /* VehicleViewController.xib */; };
 		B1CA464C1795344B00CB60A0 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1CA464A1795344B00CB60A0 /* OrderViewController.m */; };
@@ -219,6 +228,8 @@
 		B1D5D441178E5E6700DCFFBD /* Information.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D5D440178E5E6600DCFFBD /* Information.m */; };
 		B1D5D444178E615200DCFFBD /* VehicleType.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D5D443178E615200DCFFBD /* VehicleType.m */; };
 		B1D5D447178E620700DCFFBD /* UsedCarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D5D446178E620700DCFFBD /* UsedCarInfo.m */; };
+		B1D9E6BA17B0E275003A56FB /* SafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D9E6B817B0E273003A56FB /* SafeViewController.m */; };
+		B1D9E6BB17B0E275003A56FB /* SafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1D9E6B917B0E274003A56FB /* SafeViewController.xib */; };
 		B1F2E24317A8D93400A56A8A /* DynamicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1F2E24117A8D93400A56A8A /* DynamicViewController.xib */; };
 		B1F2E24617A8DB5B00A56A8A /* DynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F2E24517A8DB5B00A56A8A /* DynamicViewController.m */; };
 /* End PBXBuildFile section */
@@ -301,6 +312,9 @@
 		8747C43A1778103400A2EB16 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		8747C43B1778103400A2EB16 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		8747C43D1778104000A2EB16 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		B10273EA17B1D88F00785293 /* Rescue_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rescue_1@2x.png"; sourceTree = "<group>"; };
+		B10273EB17B1D88F00785293 /* Rescue_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rescue_2@2x.png"; sourceTree = "<group>"; };
+		B10273EC17B1D88F00785293 /* Rescue_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rescue_3@2x.png"; sourceTree = "<group>"; };
 		B10811171797F4E20010A292 /* CImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CImageViewController.h; sourceTree = "<group>"; };
 		B10811181797F4E20010A292 /* CImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CImageViewController.m; sourceTree = "<group>"; };
 		B10811191797F4E30010A292 /* CImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CImageViewController.xib; path = ../ViewController/CImageViewController.xib; sourceTree = "<group>"; };
@@ -336,9 +350,6 @@
 		B12D480F178CF3080086BCDD /* ActivitiesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitiesCell.h; sourceTree = "<group>"; };
 		B12D4810178CF3080086BCDD /* ActivitiesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitiesCell.m; sourceTree = "<group>"; };
 		B12D4812178CF3FB0086BCDD /* ActivitiesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivitiesCell.xib; sourceTree = "<group>"; };
-		B13267F417A67369003B6C9D /* SafeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeViewController.h; sourceTree = "<group>"; };
-		B13267F517A67369003B6C9D /* SafeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafeViewController.m; sourceTree = "<group>"; };
-		B13267F617A67369003B6C9D /* SafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SafeViewController.xib; path = ../ViewController/SafeViewController.xib; sourceTree = "<group>"; };
 		B133B0F817A8A2F4001BFB20 /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCell.h; sourceTree = "<group>"; };
 		B133B0F917A8A2F4001BFB20 /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCell.m; sourceTree = "<group>"; };
 		B133B0FB17A8A34C001BFB20 /* PersonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonCell.xib; sourceTree = "<group>"; };
@@ -380,6 +391,7 @@
 		B1A5714F1797B13E008D4A30 /* VehicleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VehicleCell.h; sourceTree = "<group>"; };
 		B1A571501797B13E008D4A30 /* VehicleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VehicleCell.m; sourceTree = "<group>"; };
 		B1A571521797B1B1008D4A30 /* VehicleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VehicleCell.xib; sourceTree = "<group>"; };
+		B1A7F28517B1028200992916 /* Advice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Advice@2x.png"; sourceTree = "<group>"; };
 		B1B0A163178D299D008FA072 /* RegisterTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTable.h; sourceTree = "<group>"; };
 		B1B0A164178D299D008FA072 /* RegisterTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTable.m; sourceTree = "<group>"; };
 		B1B0A166178D2C10008FA072 /* RegisterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterCell.h; sourceTree = "<group>"; };
@@ -387,6 +399,17 @@
 		B1B0A169178D2CBA008FA072 /* RegisterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterCell.xib; sourceTree = "<group>"; };
 		B1C3CCB61793F7C700ECFD86 /* XLCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCycleScrollView.m; sourceTree = "<group>"; };
 		B1C3CCB71793F7C700ECFD86 /* XLCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCycleScrollView.h; sourceTree = "<group>"; };
+		B1C984D617B0CCB800AE5BB8 /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
+		B1C984D717B0CCB800AE5BB8 /* CouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
+		B1C984D817B0CCB800AE5BB8 /* CouponViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CouponViewController.xib; path = ../ViewController/CouponViewController.xib; sourceTree = "<group>"; };
+		B1C984DB17B0D2FB00AE5BB8 /* DetailedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedViewController.h; sourceTree = "<group>"; };
+		B1C984DC17B0D2FC00AE5BB8 /* DetailedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedViewController.m; sourceTree = "<group>"; };
+		B1C984DD17B0D2FC00AE5BB8 /* DetailedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DetailedViewController.xib; path = ../ViewController/DetailedViewController.xib; sourceTree = "<group>"; };
+		B1C984E017B0D55000AE5BB8 /* DetailedTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedTable.h; sourceTree = "<group>"; };
+		B1C984E117B0D55000AE5BB8 /* DetailedTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedTable.m; sourceTree = "<group>"; };
+		B1C984E317B0D6A200AE5BB8 /* DetailedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedCell.h; sourceTree = "<group>"; };
+		B1C984E417B0D6A300AE5BB8 /* DetailedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedCell.m; sourceTree = "<group>"; };
+		B1C984E617B0D70000AE5BB8 /* DetailedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DetailedCell.xib; path = ../ViewController/DetailedCell.xib; sourceTree = "<group>"; };
 		B1CA46401795253500CB60A0 /* VehicleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VehicleViewController.h; sourceTree = "<group>"; };
 		B1CA46411795253500CB60A0 /* VehicleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VehicleViewController.m; sourceTree = "<group>"; };
 		B1CA46421795253500CB60A0 /* VehicleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VehicleViewController.xib; path = ../ViewController/VehicleViewController.xib; sourceTree = "<group>"; };
@@ -507,6 +530,9 @@
 		B1D5D443178E615200DCFFBD /* VehicleType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VehicleType.m; sourceTree = "<group>"; };
 		B1D5D445178E620700DCFFBD /* UsedCarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsedCarInfo.h; sourceTree = "<group>"; };
 		B1D5D446178E620700DCFFBD /* UsedCarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsedCarInfo.m; sourceTree = "<group>"; };
+		B1D9E6B717B0E272003A56FB /* SafeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeViewController.h; sourceTree = "<group>"; };
+		B1D9E6B817B0E273003A56FB /* SafeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafeViewController.m; sourceTree = "<group>"; };
+		B1D9E6B917B0E274003A56FB /* SafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SafeViewController.xib; path = ../ViewController/SafeViewController.xib; sourceTree = "<group>"; };
 		B1F2E24117A8D93400A56A8A /* DynamicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DynamicViewController.xib; path = ../ViewController/DynamicViewController.xib; sourceTree = "<group>"; };
 		B1F2E24417A8DB5B00A56A8A /* DynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicViewController.h; sourceTree = "<group>"; };
 		B1F2E24517A8DB5B00A56A8A /* DynamicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicViewController.m; sourceTree = "<group>"; };
@@ -735,6 +761,10 @@
 				B133B0F917A8A2F4001BFB20 /* PersonCell.m */,
 				B155914717A7C11200520465 /* PersonTable.h */,
 				B155914817A7C11200520465 /* PersonTable.m */,
+				B1C984E317B0D6A200AE5BB8 /* DetailedCell.h */,
+				B1C984E417B0D6A300AE5BB8 /* DetailedCell.m */,
+				B1C984E017B0D55000AE5BB8 /* DetailedTable.h */,
+				B1C984E117B0D55000AE5BB8 /* DetailedTable.m */,
 			);
 			name = Member;
 			sourceTree = "<group>";
@@ -797,6 +827,7 @@
 			children = (
 				B12D4812178CF3FB0086BCDD /* ActivitiesCell.xib */,
 				B12D47E5178C16650086BCDD /* ActivitiesViewController.xib */,
+				B1C984D817B0CCB800AE5BB8 /* CouponViewController.xib */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -805,14 +836,16 @@
 			isa = PBXGroup;
 			children = (
 				7C2B3F31177B4D800026828E /* MemberViewController.xib */,
+				B155914417A7BDF200520465 /* PersonViewController.xib */,
 				B1A564BB17A7A70300017E9F /* RescueViewController.xib */,
 				B1CA464B1795344B00CB60A0 /* OrderViewController.xib */,
-				B15619B5179E181E00C291E5 /* AdviceViewController.xib */,
 				B109870517A2583000818B4B /* UCarViewController.xib */,
+				B15619B5179E181E00C291E5 /* AdviceViewController.xib */,
 				B1233864179E8B3000861498 /* AccidentViewController.xib */,
-				B13267F617A67369003B6C9D /* SafeViewController.xib */,
-				B155914417A7BDF200520465 /* PersonViewController.xib */,
+				B1D9E6B917B0E274003A56FB /* SafeViewController.xib */,
+				B1C984DD17B0D2FC00AE5BB8 /* DetailedViewController.xib */,
 				B133B0FB17A8A34C001BFB20 /* PersonCell.xib */,
+				B1C984E617B0D70000AE5BB8 /* DetailedCell.xib */,
 			);
 			name = Member;
 			sourceTree = "<group>";
@@ -921,14 +954,16 @@
 				B1A564BA17A7A70300017E9F /* RescueViewController.m */,
 				B1CA46491795344B00CB60A0 /* OrderViewController.h */,
 				B1CA464A1795344B00CB60A0 /* OrderViewController.m */,
-				B15619B3179E181E00C291E5 /* AdviceViewController.h */,
-				B15619B4179E181E00C291E5 /* AdviceViewController.m */,
 				B109870317A2583000818B4B /* UCarViewController.h */,
 				B109870417A2583000818B4B /* UCarViewController.m */,
+				B15619B3179E181E00C291E5 /* AdviceViewController.h */,
+				B15619B4179E181E00C291E5 /* AdviceViewController.m */,
 				B1233862179E8B3000861498 /* AccidentViewController.h */,
 				B1233863179E8B3000861498 /* AccidentViewController.m */,
-				B13267F417A67369003B6C9D /* SafeViewController.h */,
-				B13267F517A67369003B6C9D /* SafeViewController.m */,
+				B1D9E6B717B0E272003A56FB /* SafeViewController.h */,
+				B1D9E6B817B0E273003A56FB /* SafeViewController.m */,
+				B1C984DB17B0D2FB00AE5BB8 /* DetailedViewController.h */,
+				B1C984DC17B0D2FC00AE5BB8 /* DetailedViewController.m */,
 			);
 			name = Member;
 			sourceTree = "<group>";
@@ -958,6 +993,8 @@
 			children = (
 				B12D47E3178C16650086BCDD /* ActivitiesViewController.h */,
 				B12D47E4178C16650086BCDD /* ActivitiesViewController.m */,
+				B1C984D617B0CCB800AE5BB8 /* CouponViewController.h */,
+				B1C984D717B0CCB800AE5BB8 /* CouponViewController.m */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -1080,6 +1117,10 @@
 		B1D32C0217A7C89C0020322D /* Member */ = {
 			isa = PBXGroup;
 			children = (
+				B10273EA17B1D88F00785293 /* Rescue_1@2x.png */,
+				B10273EB17B1D88F00785293 /* Rescue_2@2x.png */,
+				B10273EC17B1D88F00785293 /* Rescue_3@2x.png */,
+				B1A7F28517B1028200992916 /* Advice@2x.png */,
 				7C79EBDB17AD2052004B9D5C /* Center_0.png */,
 				7C79EBDC17AD2053004B9D5C /* Center_1.png */,
 				7C79EBDD17AD2055004B9D5C /* Center_2.png */,
@@ -1230,7 +1271,6 @@
 				B15619B7179E181E00C291E5 /* AdviceViewController.xib in Resources */,
 				B1233866179E8B3000861498 /* AccidentViewController.xib in Resources */,
 				B109870717A2583000818B4B /* UCarViewController.xib in Resources */,
-				B13267F817A67369003B6C9D /* SafeViewController.xib in Resources */,
 				B1A564BD17A7A70300017E9F /* RescueViewController.xib in Resources */,
 				B1A564C417A7B1D000017E9F /* BeijingLocation.gpx in Resources */,
 				B155914617A7BDF200520465 /* PersonViewController.xib in Resources */,
@@ -1339,6 +1379,14 @@
 				7C79EBE217AD205A004B9D5C /* Center_2.png in Resources */,
 				7C79EBE317AD205A004B9D5C /* Center_3.png in Resources */,
 				7C79EBE417AD205A004B9D5C /* Center_4.png in Resources */,
+				B1C984DA17B0CCB800AE5BB8 /* CouponViewController.xib in Resources */,
+				B1C984DF17B0D2FC00AE5BB8 /* DetailedViewController.xib in Resources */,
+				B1C984E717B0D70000AE5BB8 /* DetailedCell.xib in Resources */,
+				B1D9E6BB17B0E275003A56FB /* SafeViewController.xib in Resources */,
+				B1A7F28617B1028200992916 /* Advice@2x.png in Resources */,
+				B10273ED17B1D88F00785293 /* Rescue_1@2x.png in Resources */,
+				B10273EE17B1D88F00785293 /* Rescue_2@2x.png in Resources */,
+				B10273EF17B1D88F00785293 /* Rescue_3@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1395,13 +1443,17 @@
 				B1233861179E837E00861498 /* CPTextViewPlaceholder.m in Sources */,
 				B1233865179E8B3000861498 /* AccidentViewController.m in Sources */,
 				B109870617A2583000818B4B /* UCarViewController.m in Sources */,
-				B13267F717A67369003B6C9D /* SafeViewController.m in Sources */,
 				B1A564BC17A7A70300017E9F /* RescueViewController.m in Sources */,
 				B1A564C217A7AC0500017E9F /* MyAnnotation.m in Sources */,
 				B155914517A7BDF200520465 /* PersonViewController.m in Sources */,
 				B155914917A7C11200520465 /* PersonTable.m in Sources */,
 				B133B0FA17A8A2F4001BFB20 /* PersonCell.m in Sources */,
 				B1F2E24617A8DB5B00A56A8A /* DynamicViewController.m in Sources */,
+				B1C984D917B0CCB800AE5BB8 /* CouponViewController.m in Sources */,
+				B1C984DE17B0D2FC00AE5BB8 /* DetailedViewController.m in Sources */,
+				B1C984E217B0D55000AE5BB8 /* DetailedTable.m in Sources */,
+				B1C984E517B0D6A300AE5BB8 /* DetailedCell.m in Sources */,
+				B1D9E6BA17B0E275003A56FB /* SafeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -128,7 +128,7 @@
             break;
         case 1:{
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSString *userID = [defaults objectForKey:UserID];
+            //NSString *userID = [defaults objectForKey:UserID];
             NSDictionary *dic = [NSDictionary dictionaryWithObject:@"1" forKey:@"uid"];
             ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:nil MothodName:@"qiandao" andArgs:dic delegate:self];
             request.tag = 1;
@@ -218,6 +218,7 @@
     }
 }
 
+
 - (IBAction)toSetView:(id)sender {
     if (setNav) {
         [self pushCurrentViewController:self toNavigation:setNav isAdded:YES Driection:2];
@@ -230,52 +231,6 @@
     }
 
 }
-
-//- (void) pushCurrentViewController:(UIViewController *)viewController toNavigation:(UINavigationController *)naviation isAdded:(BOOL)isadd Driection:(NSInteger)driction{
-//    if (isadd) {
-//        naviation.view.hidden = NO;
-//        naviation.view.alpha = 1;
-//    } else {
-//        UIWindow *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-//        [window addSubview:naviation.view];
-//    }
-//
-//    switch (driction) {
-//        case 1: {
-//            naviation.view.frame = CGRectMake(VIEW_WIDTH(viewController.view), 0, VIEW_WIDTH(naviation.view), VIEW_HEIGHT(naviation.view));
-//            [UIView animateWithDuration:0.4 animations:^{
-//                self.homeView.frame = CGRectMake(-VIEW_WIDTH(self.homeView), 0,VIEW_WIDTH(self.homeView), VIEW_HEIGHT(self.homeView));
-//                naviation.view.frame = CGRectMake(0, 0, VIEW_WIDTH(naviation.view), VIEW_HEIGHT(naviation.view));
-//            } completion:^(BOOL finished) {
-//                self.homeView.frame = CGRectMake(0, 0,VIEW_WIDTH(self.homeView), VIEW_HEIGHT(self.homeView));
-//            }];
-//        }
-//            break;
-//        case 2: {
-//            naviation.view.frame = CGRectMake(0, -VIEW_HEIGHT(viewController.view), VIEW_WIDTH(naviation.view), VIEW_HEIGHT(naviation.view));
-//            [UIView animateWithDuration:0.4 animations:^{
-//                self.homeView.frame = CGRectMake(0, VIEW_HEIGHT(self.homeView),VIEW_WIDTH(self.homeView), VIEW_HEIGHT(self.homeView));
-//                naviation.view.frame = CGRectMake(0, 0, VIEW_WIDTH(naviation.view), VIEW_HEIGHT(naviation.view));
-//            } completion:^(BOOL finished) {
-//                self.homeView.frame = CGRectMake(0, 0,VIEW_WIDTH(self.homeView), VIEW_HEIGHT(self.homeView));
-//            }];
-//        }
-//            break;
-//        case 3: {
-//            naviation.view.frame = CGRectMake(0, VIEW_HEIGHT(viewController.view), VIEW_WIDTH(naviation.view), VIEW_HEIGHT(naviation.view));
-//            [UIView animateWithDuration:0.4 animations:^{
-//                naviation.view.frame = CGRectMake(0, 0, VIEW_WIDTH(naviation.view), VIEW_HEIGHT(naviation.view));
-//            } completion:^(BOOL finished) {
-//                nil;
-//            }];
-//
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    NSLog(@"%@", self);
-//}
 
 #pragma mark - XLCycleScrollViewDatasource
 - (NSInteger)numberOfPages {

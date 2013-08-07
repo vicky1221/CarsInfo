@@ -46,7 +46,7 @@
 }
 
 - (IBAction)titleButton:(id)sender {
-    if ([self.textView.text isEqualToString:@""]) {
+    if ([self.textView.text isEqualToString:@"请输入投诉内容"] ) {
         [[iToast makeText:@"请输入投诉内容."] show];
     } else {
         [self.navigationController popViewControllerAnimated:YES];

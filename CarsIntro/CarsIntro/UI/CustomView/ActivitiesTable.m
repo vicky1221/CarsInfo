@@ -8,6 +8,7 @@
 
 #import "ActivitiesTable.h"
 #import "ActivitiesCell.h"
+#import "CouponViewController.h"
 @implementation ActivitiesTable
 
 -(void)myInit
@@ -77,5 +78,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CouponViewController * couponVC = [[CouponViewController alloc] initWithNibName:@"CouponViewController" bundle:nil];
+    if (self.isActivityData) {
+        Activity * act = [self.activityArray objectAtIndex:indexPath.row];
+        couponVC.activityID = act.activityId;
+        couponVC.tid = act.tid;
+    } else {
+        Activity * act = [self.couponArray objectAtIndex:indexPath.row];
+        couponVC.activityID = act.activityId;
+        couponVC.tid = act.tid;
+    }
+    [[self.ActivitiesDelegate viewController].navigationController pushViewController:couponVC animated:YES];
+    [couponVC release];
+    NSLog(@"123");
 }
 @end

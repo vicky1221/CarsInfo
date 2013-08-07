@@ -12,7 +12,7 @@
 @interface AccidentViewController ()
 {
     UIButton * btn;
-    //int a;
+    int a;
 }
 @end
 
@@ -40,11 +40,12 @@
         float y = i/2* (Button_Height + 20) +Button_Height/2 +20;
         button.frame = CGRectMake(0, 0, Button_Width, Button_Height);
         button.center = CGPointMake(x, y);
+        NSLog(@"%f,%f",x,y);
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:button];
     }
-    self.scrollView.scrollEnabled = NO;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.02);
 }
 
 - (void)viewDidLoad
@@ -53,6 +54,7 @@
     // Do any additional setup after loading the view from its nib.
     [self addButtonsToScrollView];
     self.textView.delegate = self;
+    self.textView.scrollEnabled = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,6 +83,24 @@
 -(void)buttonPressed:(id)sender
 {
     btn = (UIButton *)sender;
+    [self.textView resignFirstResponder];
+    [UIView animateWithDuration:0.4 animations:^{
+        //self.scrollView.transform = CGAffineTransformIdentity;
+        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.02);
+    } completion:^(BOOL finished) {
+        nil;
+    }];
+    
+    if (btn.tag ==1) {
+        a = 1;
+    } else if(btn.tag == 2) {
+        a = 2;
+    } else if(btn.tag == 3) {
+        a = 3;
+    } else if(btn.tag == 4) {
+        a = 4;
+    }
+
     UIActionSheet * as=[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"相机" otherButtonTitles:@"相册", nil];
     [as showInView:self.view];
     [as release];
@@ -88,27 +108,33 @@
 
 - (IBAction)submit:(id)sender {
     [self.textView resignFirstResponder];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.02);
+    } completion:^(BOOL finished) {
+        nil;
+    }];
     if (!self.textView.text.length) {
         [[iToast makeText:@"描述内容不可为空"] show];
     } else if (self.textView.text.length<10) {
         [[iToast makeText:@"描述内容不得低于10个字"] show];
+    } else if (!self.btn1HasImage || !self.btn2HasImage || !self.btn3HasImage || !self.btn4HasImage) {
+        [[iToast makeText:@"请补全图片."] show];
     } else {
         [[iToast makeText:@"处理中，请稍等"] show];
         [[iToast makeText:@"事故理赔发送成功"] show];
         [self.navigationController popViewControllerAnimated:YES];
     }
-//
-//    if ([btn.imageView.image isEqual:[UIImage imageNamed:@"AccidentBtn_0"]] || [btn.imageView.image isEqual:[UIImage imageNamed:@"AccidentBtn_1"]] || [btn.imageView.image isEqual:[UIImage imageNamed:@"AccidentBtn_2"]] || [btn.imageView.image isEqual:[UIImage imageNamed:@"AccidentBtn_3"]]) {
-//        [[iToast makeText:@"请补全图片"] show];
-//    }
+
 }
 
 #pragma mark - UITextViewDelegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     [UIView animateWithDuration:0.3f animations:^{
-        CGRect rect = CGRectMake(0.0f, -160, VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
-        self.scrollView.frame = rect;
+        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.5);
+        self.scrollView.contentOffset = CGPointMake(0, 205);
+    } completion:^(BOOL finished) {
+        nil;
     }];
 }
 
@@ -142,6 +168,8 @@
 {
     [btn setBackgroundImage:image forState:UIControlStateNormal];
     [picker dismissModalViewControllerAnimated:YES];
+    
+    
 }
 //取消
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
