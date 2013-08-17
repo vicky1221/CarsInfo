@@ -14,7 +14,7 @@
 #import "UIImage+custom.h"
 #import "SDImageCacheDelegate.h"
 #import <Accelerate/Accelerate.h>
-#import "GPUImage.h"
+//#import "GPUImage.h"
 
 @interface UIAsyncImageView (sdcache) <SDImageCacheDelegate>
 
@@ -91,9 +91,9 @@
 	if (highlighted) {
 		if (m_image) {
 //			m_pImageView.image = [m_image brightness:brightness + 1.2];
-			GPUImageBrightnessFilter *filter = [[[GPUImageBrightnessFilter alloc] init] autorelease];
-			filter.brightness = brightness + 0.2;
-			m_pImageView.image = [filter imageByFilteringImage:m_image];
+//			GPUImageBrightnessFilter *filter = [[[GPUImageBrightnessFilter alloc] init] autorelease];
+//			filter.brightness = brightness + 0.2;
+//			m_pImageView.image = [filter imageByFilteringImage:m_image];
 		}
 	} else {
 		if (m_image)
@@ -204,22 +204,22 @@
 		
 		//请求图片时没有默认背景，用默认的背景
 		[self LoadImageIfCached:strURL foundBlock:^(UIImage *_image) {
-			GPUImageGaussianBlurFilter *filter = [[[GPUImageGaussianBlurFilter alloc] init] autorelease];
-			filter.blurSize = 1;
-			_image = [filter imageByFilteringImage:_image];
-//			_image = [self boxblurImage:_image boxSize:39];
-			[self setImage:_image];
-			finishBlock(_image);
-			m_isStarted = NO;
+//			GPUImageGaussianBlurFilter *filter = [[[GPUImageGaussianBlurFilter alloc] init] autorelease];
+//			filter.blurSize = 1;
+//			_image = [filter imageByFilteringImage:_image];
+////			_image = [self boxblurImage:_image boxSize:39];
+//			[self setImage:_image];
+//			finishBlock(_image);
+//			m_isStarted = NO;
 		} notFoundBlock:^{
 			[m_pImageView setImageWithURL:[NSURL URLWithString:strURL] placeholderImage:[self getClipImage:[UIImage defaultImage]] success:^(UIImage *_image) {
-				GPUImageGaussianBlurFilter *filter = [[[GPUImageGaussianBlurFilter alloc] init] autorelease];
-				filter.blurSize = 1;
-				_image = [filter imageByFilteringImage:_image];
-//				_image = [self boxblurImage:_image boxSize:39];
-				[self setImage:_image];
-				finishBlock(_image);
-				m_isStarted = NO;
+//				GPUImageGaussianBlurFilter *filter = [[[GPUImageGaussianBlurFilter alloc] init] autorelease];
+//				filter.blurSize = 1;
+//				_image = [filter imageByFilteringImage:_image];
+////				_image = [self boxblurImage:_image boxSize:39];
+//				[self setImage:_image];
+//				finishBlock(_image);
+//				m_isStarted = NO;
 			} failure:^(NSError *error) {
 				failedBlock(error);
 				m_isStarted = NO;

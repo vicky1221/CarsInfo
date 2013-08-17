@@ -9,6 +9,9 @@
 #import "CouponViewController.h"
 #import "JSON.h"
 #import "UIView+custom.h"
+#import "NSString+Date.h"
+#import "iToast.h"
+
 @interface CouponViewController ()<ASIHTTPRequestDelegate>
 
 @end
@@ -27,15 +30,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     [self performSelector:@selector(sendAPI)];
-    [self.textView setEditable:NO];
-    self.textView.pagingEnabled = NO;
-    self.textView.backgroundColor = [UIColor whiteColor];
-    
-    self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.03);
-    self.scrollView.backgroundColor = [UIColor grayColor];
+    self.navLabel.text = self.activeTitle;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:103];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,33 +47,26 @@
 
 - (void)sendAPI {
     //    http://www.ard9.com/qiche/index.php?c=channel&molds=huodong&a=info_json&id=编号
-    ASIHTTPRequest * request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=huodong&a=info_json&id=%@", self.activityID] andArgs:nil delegate:self];
-    if ([self.tid isEqualToString:@"24"]) {
-        request.tag = 100;
-    } else if([self.tid isEqualToString:@"25"]) {
-        request.tag = 101;
-    }
-    NSLog(@"request.tag,,,,%d",request.tag);
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=huodong&a=info_json&id=%@", self.activityID] andArgs:nil delegate:self andTag:103];
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
     NSDictionary *dic = [[request responseString] JSONValue];
-    self.textView.text = [dic objectForKey:@"content"];
-    self.titleLabel.text = [dic objectForKey:@"title"];
-    self.timeLabel.text = [dic objectForKey:@"addtime"];
-    NSLog(@"jzsj,,,,%@", [dic objectForKey:@"jzsj"]);
-    [self.titleBtn setTitle:[dic objectForKey:@"jzsj"] forState:UIControlStateNormal];
-    self.numberLabel.text = [dic objectForKey:@"sysl"];
-    if (request.tag == 100) {
-        self.navLabel.text = @"活动";
-    } else if(request.tag == 101) {
-        self.navLabel.text = @"优惠劵";
+    NSLog(@"dic,,,%@",dic);
+    if ([[dic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
+        [[iToast makeText:[dic objectForKey:@"msg"]] show];
+    } else {
+        [self.webView loadHTMLString:[dic objectForKey:@"content"] baseURL:nil];
+        self.titleLabel.text = [dic objectForKey:@"title"];
+        self.timeLabel.text = [[dic objectForKey:@"addtime"] dateStringSince1970];
+        NSLog(@"jzsj,,,,%@", [dic objectForKey:@"jzsj"]);
+        [self.titleBtn setTitle:[dic objectForKey:@"jzsj"] forState:UIControlStateNormal];
+        self.numberLabel.text = [dic objectForKey:@"sysl"];
     }
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
-    
+    [[iToast makeText:@"网络返回错误"] show];
 }
-
 
 #pragma mark - buttonAction
 
@@ -81,23 +75,15 @@
 }
 
 - (void)dealloc {
+    [_activityID release];
+    [_activeTitle release];
     [_navLabel release];
     [_titleBtn release];
     [_titleLabel release];
     [_timeLabel release];
     [_numberLabel release];
-    [_textView release];
-    [_scrollView release];
+    [_webView release];
     [super dealloc];
 }
-- (void)viewDidUnload {
-    [self setNavLabel:nil];
-    [self setTitleBtn:nil];
-    [self setTitleLabel:nil];
-    [self setTimeLabel:nil];
-    [self setNumberLabel:nil];
-    [self setTextView:nil];
-    [self setScrollView:nil];
-    [super viewDidUnload];
-}
+
 @end

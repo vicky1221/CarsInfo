@@ -31,9 +31,9 @@
 
 -(void)readDataSource
 {
-    NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"0.jpg", @"KEY_IMAGE", @"4S店信息", @"KEY_INFO", nil];
-    NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"1.jpg", @"KEY_IMAGE", @"用户反馈", @"KEY_INFO", nil];
-    NSDictionary * dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"3.jpg", @"KEY_IMAGE", @"版本信息", @"KEY_INFO", nil];
+    NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"info.png", @"KEY_IMAGE", @"4S店信息", @"KEY_INFO", nil];
+    NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"feedback.png", @"KEY_IMAGE", @"用户反馈", @"KEY_INFO", nil];
+    NSDictionary * dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"edtioninfo.png", @"KEY_IMAGE", @"版本信息", @"KEY_INFO", nil];
     [self.setTable.setArray addObjectsFromArray:[NSArray arrayWithObjects:dict1, dict2, dict3, nil]];
     self.setTable.backgroundColor = [UIColor clearColor];
     self.setTable.backgroundView = nil;
@@ -45,6 +45,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self readDataSource];
+    self.setTable.controller = self;
 }
 
 - (void)dealloc {

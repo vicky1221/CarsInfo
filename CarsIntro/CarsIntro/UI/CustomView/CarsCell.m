@@ -37,14 +37,16 @@
 //@property (nonatomic, copy) NSString * structure; //车体结构
 //@property (nonatomic, copy) NSString * image;
 
--(void)cellForDic:(VehicleType *)vehicleType
+-(void)cellForDic:(UsedCarInfo *)usedCarInfo
 {
 //  [self.asyImageView LoadImage:[dic objectForKey:@"image"]];
 //  _typeLable.text = [dic objectForKey:@"type"];
-    self.asyImageView.image = [UIImage imageNamed:vehicleType.image];
-    _titleLabel.text = vehicleType.title;
-    _priceLabel.text = vehicleType.price;
-    _displacementLabel.text = vehicleType.displacement;
+    //self.asyImageView.image = [UIImage imageNamed:vehicleType.image];
+    [self.asyImageView LoadImage:usedCarInfo.litpic];
+    _titleLabel.text = usedCarInfo.title;
+    _priceLabel.text = usedCarInfo.addTime;
+    _typeLable.text = usedCarInfo.className;
+    _displacementLabel.text = usedCarInfo.orders;
 }
 
 - (void)dealloc {

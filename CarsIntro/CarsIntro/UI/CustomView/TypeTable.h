@@ -10,8 +10,7 @@
 #import "TypeCell.h"
 @interface TypeTable : UITableView<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, retain) NSMutableArray * xfArray;
-@property (nonatomic, retain) NSMutableArray * xjArray;
-@property (nonatomic, assign) BOOL isXfData;
+@property (nonatomic, retain) NSMutableArray * typeArray;
+
 @property (nonatomic, assign) UIViewController * viewController;
 @end

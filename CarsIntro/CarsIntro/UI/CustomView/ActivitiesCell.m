@@ -34,15 +34,12 @@
 
 -(void)cellForDic:(Activity *)activity
 {
-    //self.asyImageView.image = [UIImage imageNamed:[dic objectForKey:@"image"]];
     [self.asyImageView LoadImage:activity.pic];
     [self.asyImageView enableHighlight:NO];
     _titleLabel.text = activity.title;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _titleLabel.numberOfLines = 2;
     _timeLabel.text = activity.addtime;
-    _timeLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _timeLabel.numberOfLines = 2;
     _footLabel.text = activity.jzsj;
 }
 

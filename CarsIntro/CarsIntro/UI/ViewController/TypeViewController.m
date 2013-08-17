@@ -9,7 +9,10 @@
 #import "TypeViewController.h"
 #import "VehicleType.h"
 #import "CarsViewController.h"
-@interface TypeViewController ()
+#import "JSON.h"
+#import "WebRequest.h"
+#import "iToast.h"
+@interface TypeViewController ()<ASIHTTPRequestDelegate>
 
 @end
 
@@ -24,52 +27,59 @@
     return self;
 }
 
--(void)readXfDataSource
-{
-    for (int i=0; i<5; i++) {
-        VehicleType * vehicelType = [[VehicleType alloc] init];
-        vehicelType.image = [NSString stringWithFormat:@"%d.jpg", i];
-        vehicelType.title = [NSString stringWithFormat:@"XF123456%d", i];
-        vehicelType.price = [NSString stringWithFormat:@"342%d",i];
-        vehicelType.gearbox = @"自动";
-        vehicelType.displacement = [NSString stringWithFormat:@"10%d", i];
-        [self.typeTable.xfArray addObject:vehicelType];
-        [vehicelType release];
-    }
-}
-
--(void)readXjDataSource
-{
-    for (int i =0; i<5; i++) {
-        VehicleType * vehicelType = [[VehicleType alloc] init];
-        vehicelType.image = [NSString stringWithFormat:@"%d.jpg", i+2];
-        vehicelType.title = [NSString stringWithFormat:@"XJ123456%d", i];
-        vehicelType.price = [NSString stringWithFormat:@"342%d",i];
-        vehicelType.gearbox = @"自动";
-        vehicelType.displacement = [NSString stringWithFormat:@"10%d", i];
-        [self.typeTable.xjArray addObject:vehicelType];
-        [vehicelType release];
-    }
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.titleLabel.text = self.vehicleType.title;
+    self.titleLabel.text = self.usedCarInfo.title;
     NSLog(@"%@", self.titleLabel.text);
-    
-    if ([self.titleLabel.text isEqualToString:@"XF"]) {
-        self.typeTable.isXfData = YES;
-        [self readXfDataSource];
-    } else if([self.titleLabel.text isEqualToString:@"XJ"]) {
-        self.typeTable.isXfData = NO;
-        [self readXjDataSource];
-    }
-
-    [self.typeTable reloadData];
+    [self performSelector:@selector(sendAPI)];
     self.typeTable.viewController = self;
 }
+
+//http://www.ard9.com/qiche/index.php?c=product&a=type_json&tid=38
+//二手车
+//http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
+- (void)sendAPI {
+    if (self.isNewCarData) {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%d", self.usedCarInfo.usedCarTid.intValue+2] andArgs:nil delegate:self andTag:600];
+        NSLog(@"%d", self.usedCarInfo.usedCarTid.intValue + 2);
+    } else {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=esc&a=info_json&id=%@", self.usedCarInfo.usedCarInfoId] andArgs:nil delegate:self andTag:601];
+    }
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+    [self.typeTable.typeArray removeAllObjects];
+
+    if (request.tag == 600) {
+        NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        for (NSDictionary *d in array) {
+            VehicleType * vehicleType = [[VehicleType alloc] init];
+            [vehicleType fromDic:d];
+            [self.typeTable.typeArray addObject:vehicleType];
+            [vehicleType release];
+        }
+    } else if (request.tag == 601) {
+        NSDictionary * dic = [NSDictionary dictionaryWithDictionary:[[request responseString] JSONValue]];
+        if ([[dic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
+            [[iToast makeText:[dic objectForKey:@"msg"]] show];
+        } else {
+            VehicleType * vehicleType = [[VehicleType alloc] init];
+            [vehicleType fromDic:dic];
+            [self.typeTable.typeArray addObject:vehicleType];
+            [vehicleType release];
+        }
+        NSLog(@"%@",dic);
+    }
+    [self.typeTable reloadData];
+    
+}
+- (void)requestFailed:(ASIHTTPRequest *)request {
+    NSLog(@"请求失败了");
+   
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -84,6 +94,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
+    [_usedCarInfo release];
     [_vehicleType release];
     [_titleLabel release];
     [_typeTable release];

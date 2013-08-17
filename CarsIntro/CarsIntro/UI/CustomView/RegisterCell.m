@@ -31,7 +31,6 @@
     _textField.placeholder = str;
     _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
 }
-
 - (void)dealloc {
     [_textField release];
     [super dealloc];

@@ -146,10 +146,6 @@
     [_detailedTable release];
     [super dealloc];
 }
-- (void)viewDidUnload {
-    [self setDetailedTable:nil];
-    [super viewDidUnload];
-}
 
 #pragma mark - button Action
 

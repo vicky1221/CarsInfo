@@ -14,6 +14,7 @@
 - (void)myInit {
     self.delegate = self;
     self.dataSource = self;
+    self.backgroundColor = [UIColor clearColor];
     self.infoArray = [NSMutableArray array];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -40,7 +41,7 @@
 
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 82;
+    return 60;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

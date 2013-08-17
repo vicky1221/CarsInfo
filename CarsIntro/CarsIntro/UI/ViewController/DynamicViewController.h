@@ -10,8 +10,7 @@
 
 @interface DynamicViewController : KBaseViewController
 
-@property (retain, nonatomic) IBOutlet UITextView *text;
-
 @property (retain, nonatomic) NSString *infoID;
+@property (assign, nonatomic) IBOutlet UIWebView *webView;
 
 @end

@@ -28,7 +28,11 @@
 {
     [super viewDidLoad];
     [self performSelector:@selector(sendAPI)];
-    [self.text setEditable:NO]; //禁止编辑
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:100];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,14 +50,13 @@
 
 - (void)sendAPI {
 //    http://www.ard9.com/qiche/index.php?c=article&a=info_json&id=63
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=article&a=info_json&id=%@", self.infoID] andArgs:nil delegate:self];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=article&a=info_json&id=%@", self.infoID] andArgs:nil delegate:self andTag:100];
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
     NSDictionary *dic = [[request responseString] JSONValue];
     NSLog(@"%@",dic);
-    self.text.text = [dic objectForKey:@"body"];
-    
+    [self.webView loadHTMLString:[dic objectForKey:@"body"] baseURL:nil];    
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
     

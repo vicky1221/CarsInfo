@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "RegisterViewController.h"
 @interface RegisterCell : UITableViewCell
 
 @property (retain, nonatomic) IBOutlet UITextField *textField;

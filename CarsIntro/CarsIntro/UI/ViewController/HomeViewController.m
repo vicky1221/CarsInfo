@@ -19,8 +19,10 @@
 #import "JSON.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIAsyncImageView.h"
+#import "WeatherViewController.h"
 
 @interface HomeViewController ()<ASIHTTPRequestDelegate> {
+    NSInteger abc; //判断签到次数
     NSMutableArray *cycleArray;
     UINavigationController *infoNav;
     UINavigationController *carsNav;
@@ -28,6 +30,7 @@
     UINavigationController * setNav;
     UINavigationController * memberNav;
     UINavigationController * loginNav;
+    UINavigationController * weatherNav;
 }
 @end
 
@@ -75,6 +78,7 @@
 
 - (void)viewDidLoad
 {
+    abc = 0;
     [super viewDidLoad];
     [self initXLCycleScrollView];
     [self addButtonsToContentView];
@@ -82,10 +86,16 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:1];
+    [[WebRequest instance] clearRequestWithTag:11];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
-
+                                                                    
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -93,6 +103,7 @@
 }
 
 - (void)dealloc {
+    [weatherNav release];
     [memberNav release];
     [setNav release];
     [infoNav release];
@@ -103,7 +114,7 @@
 }
 
 - (void)sendAPI {
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=article&a=ad_list_json&tid=5" andArgs:nil delegate:self];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=article&a=ad_list_json&tid=5" andArgs:nil delegate:self andTag:11];
 }
 
 #pragma mark - isLogin
@@ -124,27 +135,27 @@
 - (void)buttonPressed:(id)sender {
     NSInteger buttonTag = ((UIButton *)sender).tag;
     switch (buttonTag) {
-        case 0:
+        case 0: {
+            if (weatherNav) {
+                [self pushCurrentViewController:self toNavigation:weatherNav isAdded:YES Driection:1];
+            } else {
+                WeatherViewController * weatherVC = [[WeatherViewController alloc] initWithNibName:@"WeatherViewController" bundle:nil];
+                weatherNav = [[UINavigationController alloc] initWithRootViewController:weatherVC];
+                weatherNav.navigationBarHidden = YES;
+                [weatherVC release];
+                [self pushCurrentViewController:self toNavigation:weatherNav isAdded:NO Driection:1];
+            }
+
+        }
             break;
         case 1:{
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            //NSString *userID = [defaults objectForKey:UserID];
-            NSDictionary *dic = [NSDictionary dictionaryWithObject:@"1" forKey:@"uid"];
-            ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:nil MothodName:@"qiandao" andArgs:dic delegate:self];
-            request.tag = 1;
-            return;
-//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//            NSString *userID = [defaults objectForKey:UserID];
-//            NSLog(@"这是用户ID:%@",userID);
-//            if (userID && userID.length > 0) {
-////                    client/clientRequestV1.php?method=qiandao&uid=用户编号
-//                NSDictionary *dic = [NSDictionary dictionaryWithObject:userID forKey:@"uid"];
-//                ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:nil MothodName:@"qiandao" andArgs:dic delegate:self];
-//                request.tag = 1;
-//            } else {
-//                
-//                [self toMemberView:nil];
-//            }
+            if ([[DataCenter shareInstance].accont isAnonymous]) {
+                [self toMemberView:nil];
+            } else {
+                NSDictionary *dic = [NSDictionary dictionaryWithObject:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
+                ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:nil MothodName:@"qiandao" andArgs:dic delegate:self];
+                request.tag = 1;
+            }
         }
             break;
         case 2:{
@@ -193,7 +204,7 @@
 }
 
 - (IBAction)toMemberView:(id)sender {
-    self.isLogin = YES;
+    self.isLogin = ![DataCenter shareInstance].accont.isAnonymous;
     if (self.isLogin) {
         if (memberNav) {
             [self pushCurrentViewController:self toNavigation:memberNav isAdded:YES Driection:2];
@@ -211,13 +222,13 @@
         } else {
             LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
             loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-            loginNav.navigationBarHidden = YES;
+            loginNav.navigationBarHidden = YES;                     
             [loginVC release];
             [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:3];
         }        
     }
 }
-
+                
 
 - (IBAction)toSetView:(id)sender {
     if (setNav) {
@@ -248,8 +259,13 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
     if (request.tag == 1) {
+        abc++;
+        if (abc>=1) {
+            [[iToast makeText:@"今天已经签过到了."] show];
+            return;
+        }                                                       
         [[iToast makeText:@"签到成功"] show];
-    } else {
+    } else {                                                    
         //NSString *str = [request responseString];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
         if (array.count > 0) {
@@ -264,7 +280,7 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
     if (request.tag == 1) {
-        
+        NSLog(@"签到失败");
     }
 }
 

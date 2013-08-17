@@ -10,5 +10,6 @@
 @interface SetTable : UITableView<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray * setArray;
+@property (nonatomic, assign) UIViewController *controller;
 
 @end

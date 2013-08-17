@@ -8,7 +8,9 @@
 
 #import "RescueViewController.h"
 #import "iToast.h"
-@interface RescueViewController ()
+#import "WebRequest.h"
+#import "JSON.h"
+@interface RescueViewController ()<ASIHTTPRequestDelegate>
 
 @end
 
@@ -62,6 +64,11 @@
     [self positioning];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:110];
+}
+
 #pragma mark - CLLocationManagerDelegate
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -103,8 +110,28 @@
     [self positioning];
 }
 
+//http://www.ard9.com/qiche/index.php?c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app
+-(void)senderAPI
+{
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:110];
+}
+
+-(void)requestFinished:(ASIHTTPRequest *)request
+{
+    NSDictionary *dic = [[request responseString] JSONValue];
+    if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+        [self back:nil];
+    }
+    [[iToast makeText: [dic objectForKey:@"msg"]] show];
+}
+
+-(void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"信息错误");
+}
+
 - (IBAction)help:(id)sender {
-    [[iToast makeText:@"救援信息发送成功,请耐心等待."] show];
+    [self performSelector:@selector(senderAPI)];
 }
 - (IBAction)phone:(id)sender {
     NSLog(@"123");

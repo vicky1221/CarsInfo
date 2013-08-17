@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KBaseTableView.h"
 
 @protocol ActivitiesTableDelegate <NSObject>
 @optional
 -(UIViewController *)viewController;
 @end
 
-@interface ActivitiesTable : UITableView<UITableViewDelegate,UITableViewDataSource>
+@interface ActivitiesTable : KBaseTableView<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, retain) NSMutableArray * activityArray;
 @property (nonatomic, retain) NSMutableArray * couponArray;

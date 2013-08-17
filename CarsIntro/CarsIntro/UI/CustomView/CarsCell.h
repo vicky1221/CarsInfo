@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIAsyncImageView.h"
-#import "VehicleType.h"
+#import "UsedCarInfo.h"
 @interface CarsCell : UITableViewCell
 
 @property (retain, nonatomic) IBOutlet UIAsyncImageView *asyImageView;
@@ -17,6 +17,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *typeLable;
 @property (retain, nonatomic) IBOutlet UILabel *displacementLabel;
 
-- (void)cellForDic:(VehicleType *)vehicleType;
+- (void)cellForDic:(UsedCarInfo *)usedCarInfo;
 
 @end

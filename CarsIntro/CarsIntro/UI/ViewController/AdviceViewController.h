@@ -9,9 +9,9 @@
 #import "KBaseViewController.h"
 #import "CPTextViewPlaceholder.h"
 @interface AdviceViewController : KBaseViewController
-@property (retain, nonatomic) IBOutlet CPTextViewPlaceholder *textView;
+@property (retain, nonatomic) IBOutlet UITextView *textView;
+@property (assign, nonatomic) IBOutlet UILabel *placeHolder;
 
 - (IBAction)titleButton:(id)sender;
-
 - (IBAction)back:(id)sender;
 @end

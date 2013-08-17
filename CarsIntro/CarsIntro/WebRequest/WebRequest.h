@@ -26,4 +26,5 @@
 
 //取消所有请求
 -(void)clearAllRequest;
+- (void)clearRequestWithTag:(NSInteger)tag;
 @end

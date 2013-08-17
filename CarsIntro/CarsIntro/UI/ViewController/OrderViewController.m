@@ -9,7 +9,10 @@
 #import "OrderViewController.h"
 #import "iToast.h"
 #import "UIView+custom.h"
-@interface OrderViewController ()
+#import "NSString+Date.h"
+#import "WebRequest.h"
+#import "JSON.h"
+@interface OrderViewController ()<ASIHTTPRequestDelegate>
 
 @end
 
@@ -26,37 +29,13 @@
 
 -(void)showCurrentTime
 {
-    NSDate * senddate=[NSDate date];
-    NSDateFormatter *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"HH:mm"];
-    NSString * locationString=[dateformatter stringFromDate:senddate];
-    [dateformatter release];
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    self.strDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSLog(@"currentdate:%@", self.strDate);
+    [dateFormatter release];
     
-    NSCalendar * cal=[NSCalendar currentCalendar];
-    NSUInteger unitFlags=NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit;
-    NSDateComponents * conponent= [cal components:unitFlags fromDate:senddate];
-    NSInteger year=[conponent year];
-    NSInteger month=[conponent month];
-    NSInteger day=[conponent day];
-    
-    NSString * monthStr = [NSString string];
-    NSString * dayStr = [NSString string];
-    
-    if (month<10) {
-        monthStr = [NSString stringWithFormat:@"0%d",month];
-    } else {
-        monthStr = [NSString stringWithFormat:@"%d",month];
-    }
-    
-    if (day<10) {
-        dayStr = [NSString stringWithFormat:@"0%d",day];
-    } else {
-        dayStr = [NSString stringWithFormat:@"%d",day];
-    }
-    
-    self.strDate = [NSString stringWithFormat:@"%d-%@-%@ %@", year, monthStr, dayStr, locationString];
-    
-    
+    self.dataPicker.minimumDate = [NSDate date];
     [self.timeButton setTitle:self.strDate forState:UIControlStateNormal];
     
     self.timeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -68,12 +47,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self.contentView.layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [self.contentView.layer setShadowOpacity:0.3];
-    [self.contentView.layer setShadowRadius:1];
-    [self.contentView.layer setShadowOffset:CGSizeMake(0.5, 0.5)];
-    
+    [self shadowView:self.contentView];
     [self showCurrentTime];
     
     self.phoneTextField.delegate = self;
@@ -88,6 +62,13 @@
     
     self.scrollView.scrollEnabled = YES;
     self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:120];
+    [[WebRequest instance] clearRequestWithTag:121];
+    [[WebRequest instance] clearRequestWithTag:122];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,6 +91,7 @@
 }
 
 - (IBAction)orderBtn:(id)sender {
+    NSLog(@"%@",self.timeButton.titleLabel.text);
     [self resignTextField];
     if (!self.nameTextField || [self.nameTextField.text length] == 0) {
         [[iToast makeText:@"姓名不可为空."] show];
@@ -119,8 +101,54 @@
         [[iToast makeText:@"联系方式不可为空."] show];
         return;
     }
-    [self.navigationController popViewControllerAnimated:YES];
-    [[iToast makeText:@"预约发送成功."] show];
+    
+    [self performSelector:@selector(sendAPI)];
+
+}
+
+- (void)sendAPI {
+//    http://www.ard9.com/qiche/index.php?c=member&a=release&tid=34&hand=160135389&id=&go=1&from=app
+//    预约试驾
+//    http://www.ard9.com/qiche/index.php?c=member&a=release&tid=35&hand=160135389&id=&go=1&from=app
+//    预约保养
+//    http://www.ard9.com/qiche/index.php?c=member&a=release&tid=36&hand=160135389&id=&go=1&from=app
+//    预约维修
+//    参数:
+//    
+//    姓名name
+//    电话 tel
+//    时间shijian
+//    备注  benzhu 
+//    用户编号 uid
+    NSString *time = @"";
+    
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *date = [dateFormatter dateFromString:self.strDate];
+    time = [NSString stringWithFormat:@"%0.f", [date timeIntervalSince1970]];
+    [dateFormatter release];
+    
+    
+    if ([self.titleLabel.text isEqualToString:@"预约试驾"]) {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=34&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, time, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:120];
+    } else if([self.titleLabel.text isEqualToString:@"预约保养"]) {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=35&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, time, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:121];
+    } else if([self.titleLabel.text isEqualToString:@"预约维修"]) {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=36&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, time, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:122];
+    }
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+    NSDictionary *dic = [[request responseString] JSONValue];
+    NSLog(@"%@......", @"123");
+    if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+        [self back:nil];
+    }
+    [[iToast makeText: [dic objectForKey:@"msg"]] show];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request {
+    NSLog(@"网络错误.");
 }
 
 - (IBAction)timeBtn:(id)sender {
@@ -137,6 +165,7 @@
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     self.strDate = [dateFormatter stringFromDate:[sender date]];
+//    self.strDate= [NSString stringWithFormat:@"%f",[[sender date] timeIntervalSince1970]];
     [dateFormatter release];
 }
 
@@ -172,7 +201,7 @@
         self.dataPickerView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.dataPickerView), VIEW_HEIGHT(self.dataPickerView));
         self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView));
     } completion:^(BOOL finished) {
-        nil;
+        
     }];
     
 }

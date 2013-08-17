@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KBaseTableView.h"
 
 @protocol CarsTableDelegate <NSObject>
 @optional
@@ -14,7 +15,7 @@
 
 @end
 
-@interface CarsTable : UITableView<UITableViewDelegate,UITableViewDataSource>
+@interface CarsTable :KBaseTableView <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, retain) NSMutableArray * newCarsArray;
 @property (nonatomic, retain) NSMutableArray * usedCarsArray;

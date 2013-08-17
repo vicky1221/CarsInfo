@@ -8,21 +8,15 @@
 
 #import "KBaseViewController.h"
 
-@interface CouponViewController : KBaseViewController
+@interface CouponViewController : KBaseViewController //<UIWebViewDelegate>
 
 @property (retain, nonatomic) IBOutlet UILabel *navLabel;
-
 @property (retain, nonatomic) IBOutlet UIButton *titleBtn;
-
 @property (retain, nonatomic) IBOutlet UILabel *titleLabel;
-
 @property (retain, nonatomic) IBOutlet UILabel *timeLabel;
 @property (retain, nonatomic) IBOutlet UILabel *numberLabel;
-@property (retain, nonatomic) IBOutlet UITextView *textView;
-
-@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
-
+@property (retain, nonatomic) IBOutlet UIWebView *webView;
 
 @property (retain, nonatomic) NSString * activityID;
-@property (retain, nonatomic) NSString * tid;
+@property (retain, nonatomic) NSString * activeTitle;
 @end

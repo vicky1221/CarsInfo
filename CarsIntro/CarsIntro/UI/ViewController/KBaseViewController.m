@@ -45,6 +45,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)shadowView:(UIView *)view {
+    [view.layer setBorderColor:[[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] CGColor]];
+    [view.layer setBorderWidth:0.5];
+    [view.layer setCornerRadius:4];
+}
+
 #pragma mark - view transform animation
 - (void) pushCurrentViewController:(UIViewController *)viewController toNavigation:(UINavigationController *)naviation isAdded:(BOOL)isadd Driection:(NSInteger)driction{
     if (isadd) {

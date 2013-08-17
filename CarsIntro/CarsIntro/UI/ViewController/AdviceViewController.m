@@ -8,7 +8,8 @@
 
 #import "AdviceViewController.h"
 #import "iToast.h"
-@interface AdviceViewController ()
+#import "WebRequest.h"
+@interface AdviceViewController ()<ASIHTTPRequestDelegate, UITextViewDelegate>
 
 @end
 
@@ -27,7 +28,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.textView.placeholder = @"请输入投诉内容";
+    [self shadowView:self.textView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:150];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,16 +52,50 @@
 }
 
 - (IBAction)titleButton:(id)sender {
-    if ([self.textView.text isEqualToString:@"请输入投诉内容"] ) {
+    [self.textView resignFirstResponder];
+    if ([self.textView.text isEqualToString:@"请输入投诉内容"]||self.textView.text.length==0) {
         [[iToast makeText:@"请输入投诉内容."] show];
+        return;
     } else {
-        [self.navigationController popViewControllerAnimated:YES];
-        [[iToast makeText:@"投诉建议发送成功."] show];
+        [self performSelector:@selector(senderAPI)];
     }
 }
 
+//http://www.ard9.com/qiche/index.php?c=message&a=add&tid=37&from=app
+//参数
+//title  标题
+//body  详情
+//uid   用户编号
+
+-(void)senderAPI
+{
+     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=message&a=add&tid=37&from=app&title=%@&body=%@&uid=%@", nil, self.textView.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:140];
+}
+
+-(void)requestFinished:(ASIHTTPRequest *)request
+{
+    [[iToast makeText:@"投诉建议发送成功."] show];
+}
+
+-(void)requestStarted:(ASIHTTPRequest *)request
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"网络错误.");
+}
 
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if (textView.text.length>0) {
+        self.placeHolder.hidden = YES;
+    } else {
+        self.placeHolder.hidden = NO;
+    }
 }
 @end

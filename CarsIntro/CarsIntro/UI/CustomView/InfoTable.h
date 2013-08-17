@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface InfoTable : UITableView<UITableViewDataSource, UITableViewDelegate>
+#import "KBaseTableView.h"
+@interface InfoTable : KBaseTableView <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *infoArray;
 

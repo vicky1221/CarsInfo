@@ -17,6 +17,13 @@
     }
 }
 
+- (void)clearRequestWithTag:(NSInteger)tag {
+    for (ASIHTTPRequest *request in allRequest) {
+        if (request.tag == tag) {
+            [request clearDelegatesAndCancel];
+        }                                               
+    }
+}
 +(NSString*)cateWithIndex:(NSInteger)index
 {
     NSArray *array = [NSArray arrayWithObjects:@"member",@"forum",@"goods",@"auction", nil];

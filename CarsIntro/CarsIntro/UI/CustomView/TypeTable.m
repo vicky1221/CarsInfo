@@ -13,8 +13,7 @@
 
 -(void)myInit
 {
-    self.xjArray = [NSMutableArray array];
-    self.xfArray = [NSMutableArray array];
+    self.typeArray = [NSMutableArray array];
     self.dataSource = self;
     self.delegate = self;
 }
@@ -37,8 +36,7 @@
 
 -(void)dealloc
 {
-    [_xfArray release];
-    [_xjArray release];
+    [_typeArray release];
     [super dealloc];
 }
 
@@ -49,11 +47,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.isXfData) {
-        return [self.xfArray count];
-    } else {
-        return [self.xjArray count];
-    }
+    return [self.typeArray count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,13 +57,9 @@
     if (typeCell == nil) {
         typeCell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
     }
-    if (self.isXfData) {
-        VehicleType * _vehicleType = [self.xfArray objectAtIndex:indexPath.row];
-        [typeCell cellForDic:_vehicleType];
-    } else {
-        VehicleType * _vehicleType = [self.xjArray objectAtIndex:indexPath.row];
-        [typeCell cellForDic:_vehicleType];
-    }
+   
+    VehicleType * _vehicleType = [self.typeArray objectAtIndex:indexPath.row];
+    [typeCell cellForDic:_vehicleType];
     return typeCell;
 }
 
@@ -78,13 +68,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     VehicleViewController * vehicleVC = [[VehicleViewController alloc] initWithNibName:@"VehicleViewController" bundle:nil];
-    if (self.isXfData) {
-        VehicleType * _vehicleType = [self.xfArray objectAtIndex:indexPath.row];
-        vehicleVC.vehicleType = _vehicleType;
-    } else {
-        VehicleType * _vehicleType = [self.xjArray objectAtIndex:indexPath.row];
-        vehicleVC.vehicleType = _vehicleType;
-    }
+    
+    VehicleType * _vehicleType = [self.typeArray objectAtIndex:indexPath.row];
+    vehicleVC.vehicleType = _vehicleType;
     [self.viewController.navigationController pushViewController:vehicleVC animated:YES];
     [vehicleVC release];
 }

@@ -50,8 +50,8 @@
 }
 
 - (id)initWithFrame:(CGRect)frame arrowImageName:(NSString *)arrow textColor:(UIColor *)textColor  {
-	UIImage *image = [UIImage imageNamed:@"egoPullRefreshBackground"];
-    frame = CGRectMake(0, -image.size.height, image.size.width, image.size.height);
+	UIImage *image = [UIImage imageNamed:@""];
+    frame = CGRectMake(0, -480, 320, 480);
 	if((self = [super initWithFrame:frame])) {
 		lastRefreshTime = 0.0;
 		UIImageView *imageViewBackground = [[UIImageView alloc] initWithImage:image];
@@ -59,7 +59,8 @@
 		[imageViewBackground release];
 
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
+		self.backgroundColor = [UIColor clearColor];
+//        [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
 
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 30.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -104,7 +105,6 @@
 		[self addSubview:view];
 		_activityView = view;
 		[view release];
-		
 		
 		[self setState:EGOOPullRefreshNormal];
 		

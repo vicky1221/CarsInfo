@@ -24,5 +24,5 @@ enum DRIECTION
 - (void) backToHomeView:(UINavigationController *)navController WithTime:(float)time;
 
 - (void) pushCurrentViewController:(UIViewController *)viewController toNavigation:(UINavigationController *)naviation isAdded:(BOOL)isadd Driection:(NSInteger)driction;
-
+- (void)shadowView:(UIView *)view;
 @end

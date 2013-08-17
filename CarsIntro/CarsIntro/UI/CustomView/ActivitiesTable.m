@@ -44,7 +44,7 @@
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 72.0;
+    return 60;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -79,17 +79,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CouponViewController * couponVC = [[CouponViewController alloc] initWithNibName:@"CouponViewController" bundle:nil];
+    Activity *act = nil;
     if (self.isActivityData) {
-        Activity * act = [self.activityArray objectAtIndex:indexPath.row];
-        couponVC.activityID = act.activityId;
-        couponVC.tid = act.tid;
+        act = [self.activityArray objectAtIndex:indexPath.row];
+        couponVC.activeTitle = @"活动";
     } else {
-        Activity * act = [self.couponArray objectAtIndex:indexPath.row];
-        couponVC.activityID = act.activityId;
-        couponVC.tid = act.tid;
+        act = [self.couponArray objectAtIndex:indexPath.row];
+        couponVC.activeTitle = @"优惠券";
     }
+    couponVC.activityID = act.activityId;
     [[self.ActivitiesDelegate viewController].navigationController pushViewController:couponVC animated:YES];
     [couponVC release];
-    NSLog(@"123");
 }
 @end

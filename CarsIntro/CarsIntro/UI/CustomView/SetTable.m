@@ -8,6 +8,8 @@
 
 #import "SetTable.h"
 #import "SetCell.h"
+#import "FBackViewController.h"
+#import "ShopViewController.h"
 @implementation SetTable
 
 -(void)myInit
@@ -68,6 +70,7 @@
         label.backgroundColor = [UIColor clearColor];
         label.text = [dic objectForKey:@"CFBundleVersion"];
         setCell.accessoryType = UITableViewCellAccessoryNone;
+        setCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [setCell addSubview:label];
         [label release];
     }
@@ -78,6 +81,22 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0: {
+            ShopViewController * shopVC = [[ShopViewController alloc] initWithNibName:@"ShopViewController" bundle:nil];
+            [self.controller.navigationController pushViewController:shopVC animated:YES];
+            [shopVC release];
+        }
+            break;
+        case 1:{
+            FBackViewController * fbVC = [[FBackViewController alloc] initWithNibName:@"FBackViewController" bundle:nil];
+            [self.controller.navigationController pushViewController:fbVC animated:YES];
+            [fbVC release];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

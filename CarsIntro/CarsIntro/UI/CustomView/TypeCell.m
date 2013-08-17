@@ -30,9 +30,9 @@
 {
     _titleLabel.text = vehicleType.title;
     _priceLabel.text = vehicleType.price;
-    _gearboxLabel.text = vehicleType.gearbox;
-    _displacement.text = vehicleType.displacement;
-    _asyImageView.image = [UIImage imageNamed:vehicleType.image];
+    _gearboxLabel.text = vehicleType.addtime;
+    _displacement.text = vehicleType.addtime;
+    [_asyImageView LoadImage:vehicleType.litpic];
 }
 
 - (void)dealloc {

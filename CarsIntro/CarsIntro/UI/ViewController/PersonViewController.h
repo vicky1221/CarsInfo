@@ -7,15 +7,16 @@
 //
 
 #import "KBaseViewController.h"
-#import "PersonTable.h"
+
 @interface PersonViewController : KBaseViewController
-// test
+
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (retain, nonatomic) IBOutlet UIView *titleView;
 
 @property (retain, nonatomic) IBOutlet UIView *contentView;
-
-
-@property (retain, nonatomic) IBOutlet PersonTable *personTable;
+@property (retain, nonatomic) IBOutlet UILabel *UserNameLabel;
+@property (retain, nonatomic) IBOutlet UILabel *ScoreLabel;
+@property (assign, nonatomic) IBOutlet UIButton *logoutButton;
+- (IBAction)logout:(id)sender;
 @end

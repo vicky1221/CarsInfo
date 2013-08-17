@@ -42,7 +42,12 @@
 @property (nonatomic, copy) NSString * mrank;
 @property (nonatomic, copy) NSString * mgold;
 @property (nonatomic, copy) NSString * isshow;
-@property (nonatomic, copy) NSString *user; //"user" : "admin"
+@property (nonatomic, copy) NSString * user; //"user" : "admin"
+@property (nonatomic, copy) NSString * className;
+@property (nonatomic, copy) NSString * litpic;
+@property (nonatomic, copy) NSString * description;
+@property (nonatomic, copy) NSString * msubmit;
+@property (nonatomic, copy) NSString * molds;
 
 //@property (nonatomic, copy) NSString * color;
 //@property (nonatomic, copy) NSString * gearbox; //变速箱

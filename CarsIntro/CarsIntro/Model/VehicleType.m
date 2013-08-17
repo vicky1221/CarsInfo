@@ -7,7 +7,7 @@
 //
 
 #import "VehicleType.h"
-
+#import "NSDictionary+type.h"
 @implementation VehicleType
 
 -(id)init
@@ -16,13 +16,9 @@
         self.vehicleTypeId = @"";
         self.title = @"";
         self.price = @"";
-        self.gearbox = @"";
-        self.displacement = @"";
-        self.qualityQuarantee = @"";
-        self.oilConsumption = @"";
-        self.manufacturers = @"";
-        self.structure = @"";
-        self.image = @"";
+        self.tid = @"";
+        self.addtime = @"";
+        self.isshow = @"";
     }
     return self;
 }
@@ -32,29 +28,21 @@
     [_vehicleTypeId release];
     [_title release];
     [_price release];
-    [_gearbox release];
-    [_displacement release];
-    [_qualityQuarantee release];
-    [_oilConsumption release];
-    [_manufacturers release];
-    [_structure release];
-    [_image release];
+    [_tid release];
+    [_addtime release];
+    [_isshow release];
     [super dealloc];
 }
 
 //id:"编号",title:"标题",zdj:"指导价",bsx:"变速箱",pl:"排量",zb:"质保",zhgkhy:"综合工况耗油",cj:"厂家",ctjg:"车体结构",pic:"图片1|图片2"
 -(void)fromDic:(NSDictionary *)vehicleTypeDic
 {
-    self.vehicleTypeId = [vehicleTypeDic objectForKey:@"id"];
-    self.title = [vehicleTypeDic objectForKey:@"title"];
-    self.price = [vehicleTypeDic objectForKey:@"zdj"];
-    self.gearbox = [vehicleTypeDic objectForKey:@"bsx"];
-    self.displacement = [vehicleTypeDic objectForKey:@"pl"];
-    self.qualityQuarantee = [vehicleTypeDic objectForKey:@"zb"];
-    self.oilConsumption = [vehicleTypeDic objectForKey:@"zhgkhy"];
-    self.manufacturers = [vehicleTypeDic objectForKey:@"cj"];
-    self.structure = [vehicleTypeDic objectForKey:@"ctjg"];
-    self.image = [vehicleTypeDic objectForKey:@"pic"];
+    self.vehicleTypeId = [vehicleTypeDic stringForKey:@"id"];
+    self.title = [vehicleTypeDic stringForKey:@"title"];
+    self.price = [vehicleTypeDic stringForKey:@"price"];
+    self.tid = [vehicleTypeDic stringForKey:@"tid"];
+    self.addtime = [vehicleTypeDic stringForKey:@"addtime"];
+    self.litpic = [NSString stringWithFormat:@"%@%@",ServerAddress ,[vehicleTypeDic stringForKey:@"litpic"]];
 }
 
 @end

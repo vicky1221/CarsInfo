@@ -9,7 +9,8 @@
 #import "UCarViewController.h"
 #import "UIView+custom.h"
 #import "iToast.h"
-@interface UCarViewController ()
+#import "WebRequest.h"
+@interface UCarViewController ()<ASIHTTPRequestDelegate>
 {
     UIButton * btn;
     int a; //判断添加图片时,点击的哪个button
@@ -49,32 +50,12 @@
 
 -(void)showCurrentTime
 {
-    NSDate * senddate=[NSDate date];
-    NSCalendar * cal=[NSCalendar currentCalendar];
-    NSUInteger unitFlags=NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit;
-    NSDateComponents * conponent= [cal components:unitFlags fromDate:senddate];
-    NSInteger year=[conponent year];
-    NSInteger month=[conponent month];
-    NSInteger day=[conponent day];
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    self.strDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSLog(@"currentdate:%@", self.strDate);
+    [dateFormatter release];
     
-    NSString * monthStr = [NSString string];
-    NSString * dayStr = [NSString string];
-    
-    if (month<10) {
-        monthStr = [NSString stringWithFormat:@"0%d",month];
-    } else {
-        monthStr = [NSString stringWithFormat:@"%d",month];
-    }
-    
-    if (day<10) {
-        dayStr = [NSString stringWithFormat:@"0%d",day];
-    } else {
-        dayStr = [NSString stringWithFormat:@"%d",day];
-    }
-    
-   self.strDate= [NSString stringWithFormat:@"%d-%@-%@ ", year, monthStr, dayStr];
-    
-
     [self.btnTime setTitle:self.strDate forState:UIControlStateNormal];
     self.btnTime.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.btnTime.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -110,6 +91,11 @@
     
     
     self.pickerArray = [NSArray arrayWithObjects:@"自动变速箱(AT)", @"手动变速箱(MT)", @"手自一体", @"无级变速箱(VCT)", @"无级变速(VDT)", @"双离合变速箱(DCT)", @"序列变速箱(AMT)", nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:130];
 }
 
 - (void)didReceiveMemoryWarning
@@ -166,6 +152,31 @@
     [self.phoneTextField resignFirstResponder];
 }
 
+//http://www.ard9.com/qiche/index.php?c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app
+//参数
+//用户编号 uid
+
+-(void)senderAPI
+{
+     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:130];
+}
+
+-(void)requestStarted:(ASIHTTPRequest *)request
+{
+    [[iToast makeText:@"处理中，请稍等."] show];
+}
+
+-(void)requestFinished:(ASIHTTPRequest *)request
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [[iToast makeText:@"发布成功."] show];
+}
+
+-(void)requestFailed:(ASIHTTPRequest *)request
+{
+
+}
+
 #pragma mark - button Action
 
 - (IBAction)back:(id)sender {
@@ -197,10 +208,13 @@
         return;
     } else if(self.phoneTextField.text.length == 0) {
         [[iToast makeText:@"联系电话不可为空."] show];
+        return;
     }
     if (!self.btn1HasImage || !self.btn2HasImage || !self.btn3HasImage || !self.btn4HasImage) {
         [[iToast makeText:@"请补全图片."] show];
+        return;
     }
+    [self performSelector:@selector(senderAPI)];
 }
 
 - (IBAction)gearboxButton:(id)sender {

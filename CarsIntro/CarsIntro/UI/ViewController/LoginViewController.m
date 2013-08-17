@@ -44,7 +44,6 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.navigationController.view.frame = CGRectMake(0, VIEW_HEIGHT(self.navigationController.view), VIEW_WIDTH(self.navigationController.view), VIEW_HEIGHT(self.navigationController.view));
     } completion:^(BOOL finished) {
-        nil;
     }];
 }
 
@@ -83,7 +82,7 @@
 }
 
 - (IBAction)toHomeVC:(id)sender {
-    [self backToHomeView:self.navigationController WithTime:0.1];
+    [self backToHomeView:self.navigationController WithTime:0.5];
 }
 
 -(void)dealloc

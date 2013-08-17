@@ -24,7 +24,9 @@ function ergodic(){
         done
 }
 #INIT_PATH="./Image/Activity"
-INIT_PATH="./Image/Member"
+INIT_PATH="./Image/setting"
+#INIT_PATH="./Image/Login"
+#INIT_PATH="./Image/Member"
 #INIT_PATH="./Image/Home"
 #INIT_PATH="./Image/Cars"
 #INIT_PATH="./Image/Base"

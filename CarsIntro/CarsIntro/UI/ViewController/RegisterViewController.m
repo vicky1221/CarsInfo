@@ -12,12 +12,15 @@
 #import "RegisterCell.h"
 #import "UIView+custom.h"
 #import "LoginViewController.h"
+#import "iToast.h"
+#import "JSON.h"
 
-@interface RegisterViewController ()
+@interface RegisterViewController () <ASIHTTPRequestDelegate, UITextFieldDelegate>
 {
     HomeViewController * homeVC;
     MemberViewController * memberVC;
     UINavigationController * loginNav;
+    NSMutableArray *textFieldArray;
 }
 @end
 
@@ -38,13 +41,15 @@
     if (self.isRegister) {
         self.registerTable.isRegister = YES;
         self.titleLabel.text = @"会员登录";
-        [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-        [self.registerTable.loginArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名/手机号", @"密码", nil]];
+        self.loginBtn.center = CGPointMake(VIEW_WIDTH(self.view)/2, VIEW_HEIGHT(self.view)/2);
+        [self.loginBtn setImage:[UIImage imageNamed:@"LoginBtn"] forState:UIControlStateNormal];
+        [self.registerTable.loginArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名", @"密码", nil]];
     }else {
         self.registerTable.isRegister = NO;
         self.titleLabel.text = @"会员注册";
-        [self.loginBtn setTitle:@"注册" forState:UIControlStateNormal];
-        [self.registerTable.registerArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名/手机号", @"密码", @"邮箱", nil]];
+        self.loginBtn.center = CGPointMake(VIEW_WIDTH(self.view)/2, VIEW_HEIGHT(self.view)-106);
+        [self.loginBtn setImage:[UIImage imageNamed:@"RegisterBtn"] forState:UIControlStateNormal];
+        [self.registerTable.registerArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名", @"密码", @"确认密码", @"手机号", @"邮箱", nil]];
     }
     [self.registerTable reloadData];
 }
@@ -56,16 +61,42 @@
     self.dataArray = [NSMutableArray arrayWithCapacity:0];
     homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     memberVC = [[MemberViewController alloc] initWithNibName:@"MemberViewController" bundle:nil];
+    textFieldArray = [[NSMutableArray alloc] init];
+    [self addTextDelegate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:2];
+    [[WebRequest instance] clearRequestWithTag:3];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [textFieldArray release];
+    [loginNav release];
+    [homeVC release];
+    [memberVC release];
+    [_dataArray release];
+    [_titleLabel release];
+    [_registerTable release];
+    [_loginBtn release];
+    [super dealloc];
+}
+
+- (void)addTextDelegate {
+    NSArray *cells = [self.registerTable visibleCells];
+    for (int i = 0; i<cells.count; i++) {
+        RegisterCell *cell = [cells objectAtIndex:i];
+        cell.textField.tag = i;
+        cell.textField.delegate = self;
+        [textFieldArray addObject:cell.textField];
+    }
 }
 
 #pragma mark - button Action
@@ -105,45 +136,23 @@
             [alert show];
             [alert release];
             return;
-        }
+        }                                                           
     }
-    
-    //用户注册
-    if ([textArray count] == 3) {
-        NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:[textArray objectAtIndex:0], UserName, [textArray objectAtIndex:1], Password, [textArray objectAtIndex:2], @"email", nil];
-        NSLog(@"dict: %@", dict);
-        [self.dataArray addObject:dict];
-        NSLog(@"dataArray: %@", self.dataArray);
-        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:self.dataArray forKey:@"data"];
-        [defaults synchronize];
-        [self.navigationController pushViewController:memberVC animated:YES];
-    }
-    //用户登录
-    if ([textArray count] == 2) {
-        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-        NSArray * array = [defaults objectForKey:@"data"];
-        NSLog(@",,,,%@", array);
-        for (NSDictionary *dic in array) {
-            NSLog(@"dic...%@", dic);
-            if ([[textArray objectAtIndex:0] isEqualToString:[dic objectForKey:UserName]] && [[textArray objectAtIndex:1] isEqualToString:[dic objectForKey:Password]]) {
-                //memberVC.isPush = NO;
-                [self.navigationController pushViewController:memberVC animated:YES];  //退出登录时pop
-            };
-        }
-    }
-    // 发送注册API
-}
 
-- (void)dealloc {
-    [loginNav release];
-    [homeVC release];
-    [memberVC release];
-    [_dataArray release];
-    [_titleLabel release];
-    [_registerTable release];
-    [_loginBtn release];
-    [super dealloc];
+    if (self.isRegister){
+        //用户登录
+        NSString *userName = [textArray objectAtIndex:0];
+        NSString *passWord = [textArray objectAtIndex:1];
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=login&go=1&from=app&url=?c=member&user=%@&pass=%@",userName, passWord] andArgs:nil delegate:self andTag:2];
+    } else {
+        //用户注册
+        NSString *userName = [textArray objectAtIndex:0];
+        NSString *email = [textArray objectAtIndex:4];
+        NSString *mobile = [textArray objectAtIndex:3];
+        NSString *pass1 = [textArray objectAtIndex:1];
+        NSString *pass2 = [textArray objectAtIndex:2];
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=reg&go=1&from=app&user=%@&email=%@&mobile=%@&pass1=%@&pass2=%@",userName, email, mobile,pass1,pass2] andArgs:nil delegate:self andTag:3];
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -156,7 +165,48 @@
 - (void)hideKeyView {
     NSArray *cells = [self.registerTable visibleCells];
     for (RegisterCell *cell in cells) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.registerTable.transform = CGAffineTransformIdentity;
+        }];
         [cell.textField resignFirstResponder];
     }
 }
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+    if (request.tag == 2) {
+        NSDictionary *dic = [[request responseString] JSONValue];
+        if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+            NSString *path = [NSString stringWithFormat:@"%@/%@",[[DataCenter shareInstance] documentPath],UserInfo];
+            Account *account = [[Account alloc] init];
+            [account fromDic:dic];
+            NSDictionary *saveDic = [account toDic];
+            if([saveDic writeToFile:path atomically:YES])
+            {
+                [self back:nil];
+                [[DataCenter shareInstance] updateUserInfo];
+            }
+            [account release];
+            [self toHomeVC:nil];
+        }
+        [iToast makeText:[dic objectForKey:@"msg"]];
+    } else if (request.tag == 3) {
+        NSDictionary *dic = [[request responseString] JSONValue];
+        if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+            [self back:nil];
+        }
+        [iToast makeText:[dic objectForKey:@"msg"]];
+    }
+}
+- (void)requestFailed:(ASIHTTPRequest *)request {
+    [[iToast makeText:@"网络请求返回失败"] show];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField.tag>2) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.registerTable.transform = CGAffineTransformMakeTranslation(0, -44*(textField.tag-2));
+        }];
+    }
+}
+
 @end

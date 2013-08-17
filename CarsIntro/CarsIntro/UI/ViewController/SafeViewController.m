@@ -38,9 +38,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.btnTime.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.priceTextField.keyboardType =  UIKeyboardTypeNumberPad;
+    self.timeField.delegate = self;
     self.priceTextField.delegate = self;
+    [self shadowView:self.backView];
     self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.view), VIEW_HEIGHT(self.contentView));
     [self readPickerViewDataSource];
     self.pickView.delegate = self;
@@ -69,7 +69,6 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view)-VIEW_HEIGHT(self.contentView), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
     } completion:^(BOOL finished) {
-        nil;
     }];
 }
 
@@ -78,7 +77,6 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
     } completion:^(BOOL finished) {
-        nil;
     }];
 }
 
@@ -88,11 +86,10 @@
 
 - (IBAction)sure:(UIBarButtonItem *)sender {
     NSInteger row = [self.pickView selectedRowInComponent:0];
-    [self.btnTime setTitle:[self.pickerArray objectAtIndex:row] forState:UIControlStateNormal];
+    self.timeField.text = [self.pickerArray objectAtIndex:row];
     [UIView animateWithDuration:0.4 animations:^{
         self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
     } completion:^(BOOL finished) {
-        nil;
     }];
 }
 
@@ -111,27 +108,22 @@
 #pragma mark - UITextFieldDelegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [UIView animateWithDuration:0.4 animations:^{
-        self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
-    } completion:^(BOOL finished) {
-        nil;
-    }];
-
+    if (textField == self.priceTextField) {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
+        } completion:^(BOOL finished) {
+            nil;
+        }];
+    } else {
+        [textField resignFirstResponder];
+    }
 }
 
 - (void)dealloc {
     [_pickerArray release];
     [_priceTextField release];
-    [_btnTime release];
     [_contentView release];
     [_pickView release];
     [super dealloc];
-}
-- (void)viewDidUnload {
-    [self setPriceTextField:nil];
-    [self setBtnTime:nil];
-    [self setContentView:nil];
-    [self setPickView:nil];
-    [super viewDidUnload];
 }
 @end

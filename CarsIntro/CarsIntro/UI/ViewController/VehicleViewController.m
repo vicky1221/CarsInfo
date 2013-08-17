@@ -24,9 +24,9 @@
 
 - (void)addButtonsToScrollview
 {
-    UIButton * button1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton * button1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button1.tag = 101;
-    [button1 setBackgroundImage:[UIImage imageNamed:@"newCar_1@2x.png"] forState:UIControlStateNormal];
+    [button1 setBackgroundImage:[UIImage imageNamed:@"btn_online"] forState:UIControlStateNormal];
     float x = VIEW_WIDTH(self.scrollView)/2 - Button_Width/2;
     float y = (Button_Width - 100)/2;
     button1.frame = CGRectMake(0, 0, Button_Width, Button_Height);
@@ -34,9 +34,9 @@
     [button1 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:button1];
     
-    UIButton * button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton * button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button2.tag = 102;
-    [button2 setBackgroundImage:[UIImage imageNamed:@"usedCar_1@2x.png"] forState:UIControlStateNormal];
+    [button2 setBackgroundImage:[UIImage imageNamed:@"btn_phone"] forState:UIControlStateNormal];
     x = VIEW_WIDTH(self.scrollView)/2 + Button_Width/2;
     y = (Button_Width - 100)/2;
     button2.frame = CGRectMake(0, 0, Button_Width, Button_Height);
@@ -45,7 +45,7 @@
     [self.scrollView addSubview:button2];
     
     self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), 630);
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.4);
 }
 
 - (void)initCarsImageView {
@@ -75,43 +75,43 @@
     
     Parameter * parameter2 = [[Parameter alloc] init];
     parameter2.title = @"变速箱";
-    parameter2.content = self.vehicleType.gearbox;
+    parameter2.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter2];
     [parameter2 release];
     
     Parameter * parameter3 = [[Parameter alloc] init];
     parameter3.title = @"驱动方式";
-    parameter3.content = @"前置驱动";
+    parameter3.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter3];
     [parameter3 release];
     
     Parameter * parameter4 = [[Parameter alloc] init];
     parameter4.title = @"排量";
-    parameter4.content = self.vehicleType.displacement;
+    parameter4.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter4];
     [parameter4 release];
     
     Parameter * parameter5 = [[Parameter alloc] init];
     parameter5.title = @"质保";
-    parameter5.content = @"两年不限公里";
+    parameter5.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter5];
     [parameter5 release];
     
     Parameter * parameter6 = [[Parameter alloc] init];
     parameter6.title = @"综合工况油耗";
-    parameter6.content = @"-";
+    parameter6.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter6];
     [parameter6 release];
     
     Parameter * parameter7 = [[Parameter alloc] init];
     parameter7.title = @"厂家";
-    parameter7.content = @"捷豹";
+    parameter7.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter7];
     [parameter7 release];
     
     Parameter * parameter8 = [[Parameter alloc] init];
     parameter8.title = @"车体结构";
-    parameter8.content = @"承载式";
+    parameter8.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter8];
     [parameter8 release];
     
@@ -132,8 +132,7 @@
     [self initCarsImageView];
     
     self.typeLabel.text = self.vehicleType.title;
-    self.asyImageView.image = [UIImage imageNamed:self.vehicleType.image];
-    
+    [self.asyImageView  LoadImage:self.vehicleType.litpic];
     UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imagePress:)];
     [self.asyImageView addGestureRecognizer:imageTap];
     [imageTap release];

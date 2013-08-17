@@ -9,7 +9,8 @@
 #import "AccidentViewController.h"
 #import "UIView+custom.h"
 #import "iToast.h"
-@interface AccidentViewController ()
+#import "WebRequest.h"
+@interface AccidentViewController ()<ASIHTTPRequestDelegate>
 {
     UIButton * btn;
     int a;
@@ -34,7 +35,7 @@
 {
     for (int i = 0; i < 4; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.tag  = i;
+        button.tag  = i+1;
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"AccidentBtn_%d", i]] forState:UIControlStateNormal];
         float x = VIEW_WIDTH(self.scrollView)/2 + (i%2?1:-1)* (Button_Width/2 + 6);
         float y = i/2* (Button_Height + 20) +Button_Height/2 +20;
@@ -55,6 +56,11 @@
     [self addButtonsToScrollView];
     self.textView.delegate = self;
     self.textView.scrollEnabled = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:160];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,16 +121,39 @@
     }];
     if (!self.textView.text.length) {
         [[iToast makeText:@"描述内容不可为空"] show];
+        return;
     } else if (self.textView.text.length<10) {
         [[iToast makeText:@"描述内容不得低于10个字"] show];
+        return;
     } else if (!self.btn1HasImage || !self.btn2HasImage || !self.btn3HasImage || !self.btn4HasImage) {
         [[iToast makeText:@"请补全图片."] show];
-    } else {
-        [[iToast makeText:@"处理中，请稍等"] show];
-        [[iToast makeText:@"事故理赔发送成功"] show];
-        [self.navigationController popViewControllerAnimated:YES];
+        return;
     }
+    [self performSelector:@selector(senderAPI)];
+}
 
+//提交接口
+//http://www.ard9.com/qiche/index.php?c=member&a=release&tid=30&hand=161444713&id=&go=1&from=app
+
+-(void)senderAPI
+{
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=30&hand=161444713&id=&go=1&from=app&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:160];
+}
+
+-(void)requestStarted:(ASIHTTPRequest *)request
+{
+    [[iToast makeText:@"处理中,请稍等."] show];
+}
+
+-(void)requestFinished:(ASIHTTPRequest *)request
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [[iToast makeText:@"发送成功."] show];
+}
+
+-(void)requestFailed:(ASIHTTPRequest *)request
+{
+    [[iToast makeText:@"网络错误."] show];
 }
 
 #pragma mark - UITextViewDelegate
@@ -168,8 +197,22 @@
 {
     [btn setBackgroundImage:image forState:UIControlStateNormal];
     [picker dismissModalViewControllerAnimated:YES];
-    
-    
+    switch (a) {
+        case 1:
+            self.btn1HasImage = YES;
+            break;
+        case 2:
+            self.btn2HasImage = YES;
+            break;
+        case 3:
+            self.btn3HasImage = YES;
+            break;
+        case 4:
+            self.btn4HasImage = YES;
+            break;
+        default:
+            break;
+    }    
 }
 //取消
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
