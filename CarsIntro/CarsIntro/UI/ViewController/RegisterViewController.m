@@ -41,15 +41,15 @@
     if (self.isRegister) {
         self.registerTable.isRegister = YES;
         self.titleLabel.text = @"会员登录";
-        self.loginBtn.center = CGPointMake(VIEW_WIDTH(self.view)/2, VIEW_HEIGHT(self.view)/2);
-        [self.loginBtn setImage:[UIImage imageNamed:@"LoginBtn"] forState:UIControlStateNormal];
-        [self.registerTable.loginArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名", @"密码", nil]];
+        self.loginBtn.center = CGPointMake(VIEW_WIDTH(self.view)/2, VIEW_HEIGHT(self.view)/2-15);
+        [self.loginBtn setImage:[UIImage imageNamed:@"loginBtn"] forState:UIControlStateNormal];
+        [self.registerTable.loginArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名/手机号", @"密码", nil]];
     }else {
         self.registerTable.isRegister = NO;
         self.titleLabel.text = @"会员注册";
-        self.loginBtn.center = CGPointMake(VIEW_WIDTH(self.view)/2, VIEW_HEIGHT(self.view)-106);
+        self.loginBtn.center = CGPointMake(VIEW_WIDTH(self.view)/2, VIEW_HEIGHT(self.view)/2-15);
         [self.loginBtn setImage:[UIImage imageNamed:@"RegisterBtn"] forState:UIControlStateNormal];
-        [self.registerTable.registerArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名", @"密码", @"确认密码", @"手机号", @"邮箱", nil]];
+        [self.registerTable.registerArray addObjectsFromArray:[NSArray arrayWithObjects:@"用户名/手机号", @"密码", @"邮箱", nil]];
     }
     [self.registerTable reloadData];
 }
@@ -147,11 +147,11 @@
     } else {
         //用户注册
         NSString *userName = [textArray objectAtIndex:0];
-        NSString *email = [textArray objectAtIndex:4];
-        NSString *mobile = [textArray objectAtIndex:3];
+        NSString *email = [textArray objectAtIndex:2];
+        NSString *mobile = [textArray objectAtIndex:2];
+        NSString *pass2 = [textArray objectAtIndex:1];
         NSString *pass1 = [textArray objectAtIndex:1];
-        NSString *pass2 = [textArray objectAtIndex:2];
-        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=reg&go=1&from=app&user=%@&email=%@&mobile=%@&pass1=%@&pass2=%@",userName, email, mobile,pass1,pass2] andArgs:nil delegate:self andTag:3];
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=reg&go=1&from=app&user=%@&email=%@&mobile=%@&pass1=%@&pass2=%@",userName, email, mobile, pass1, pass2] andArgs:nil delegate:self andTag:3];
     }
 }
 

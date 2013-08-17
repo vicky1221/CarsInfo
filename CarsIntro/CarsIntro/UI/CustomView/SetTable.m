@@ -70,9 +70,9 @@
         label.backgroundColor = [UIColor clearColor];
         label.text = [dic objectForKey:@"CFBundleVersion"];
         setCell.accessoryType = UITableViewCellAccessoryNone;
-        setCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [setCell addSubview:label];
         [label release];
+        setCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return setCell;

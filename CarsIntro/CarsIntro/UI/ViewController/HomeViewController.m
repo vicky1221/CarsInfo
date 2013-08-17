@@ -57,14 +57,14 @@
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:button];
     }
-//    [self.contentView.layer setCornerRadius:5];
-    
-    float contentY = VIEW_BOTTOM(self.xlCycleScrollView) + (VIEW_HEIGHT(self.view) - VIEW_BOTTOM(self.xlCycleScrollView))/2;
-    
-    self.contentView.frame = CGRectMake(VIEW_LEFT(self.contentView), VIEW_TOP(self.contentView), VIEW_WIDTH(self.contentView), Button_Height*3);
-    self.contentView.center = CGPointMake(VIEW_WIDTH(self.view)/2, contentY);
-    self.homeViewbackImage.image = [[UIImage imageNamed:@"HomeBtn_backGround"] stretchableImageWithLeftCapWidth:40 topCapHeight:40];
-    self.homeViewbackImage.frame = CGRectMake(VIEW_LEFT(self.contentView)-2, VIEW_TOP(self.contentView)-3.5f, VIEW_WIDTH(self.contentView)+5, VIEW_HEIGHT(self.contentView)+6);
+    [self.contentView.layer setCornerRadius:5];
+//    
+//    float contentY = VIEW_BOTTOM(self.xlCycleScrollView) + (VIEW_HEIGHT(self.view) - VIEW_BOTTOM(self.xlCycleScrollView))/2;
+//    
+//    self.contentView.frame = CGRectMake(VIEW_LEFT(self.contentView), VIEW_TOP(self.contentView), VIEW_WIDTH(self.contentView), Button_Height*3);
+//    self.contentView.center = CGPointMake(VIEW_WIDTH(self.view)/2, contentY);
+//    self.homeViewbackImage.image = [[UIImage imageNamed:@"HomeBtn_backGround"] stretchableImageWithLeftCapWidth:40 topCapHeight:40];
+//    self.homeViewbackImage.frame = CGRectMake(VIEW_LEFT(self.contentView)-2, VIEW_TOP(self.contentView)-3.5f, VIEW_WIDTH(self.contentView)+5, VIEW_HEIGHT(self.contentView)+6);
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

@@ -45,7 +45,7 @@
     [self.scrollView addSubview:button2];
     
     self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.4);
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.5);
 }
 
 - (void)initCarsImageView {
