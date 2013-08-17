@@ -32,7 +32,7 @@
 
 -(void)addButtonsToContentView
 {
-    int j = 4;
+    int j = 6;
     for (int i = 0; i < j; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag  = i;
@@ -47,8 +47,7 @@
     float delta = 58*j-VIEW_HEIGHT(self.contentView);
     self.contentView.frame = VIEW_FRAME_HB(self.contentView, 0, delta);
     self.logoutButton.frame = VIEW_FRAME_HB(self.logoutButton, delta, 0);
-    CGSize size = self.scrollView.contentSize;
-    self.scrollView.contentSize = CGSizeMake(size.width, size.height+delta);
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_BOTTOM(self.logoutButton)+20);
 }                                                            
                                                             
 - (void)viewDidLoad
@@ -105,18 +104,42 @@
     NSInteger buttonTag = ((UIButton *)sender).tag;
     switch (buttonTag) {
         case 0: {
+            // 信息中心
             CenterViewController * centerVC = [[CenterViewController alloc] initWithNibName:@"CenterViewController" bundle:nil];
             [self.navigationController pushViewController:centerVC animated:YES];
             [centerVC release];
         }
             break;
         case 1: {
+            // 我的勋章
             MedalViewController * medalVC = [[MedalViewController alloc] initWithNibName:@"MedalViewController" bundle:nil];
             [self.navigationController pushViewController:medalVC animated:YES];
             [medalVC release];
         }
             break;
+        case 2: {
+            // 我的提问
+            MOrderViewController * mOrderVC = [[MOrderViewController alloc] initWithNibName:@"MOrderViewController" bundle:nil];
+            [self.navigationController pushViewController:mOrderVC animated:YES];
+            [mOrderVC release];
+        }
+            break;
         case 3: {
+            // 我的活动
+            MOrderViewController * mOrderVC = [[MOrderViewController alloc] initWithNibName:@"MOrderViewController" bundle:nil];
+            [self.navigationController pushViewController:mOrderVC animated:YES];
+            [mOrderVC release];
+        }
+            break;
+        case 4: {
+            // 我的预约
+            MOrderViewController * mOrderVC = [[MOrderViewController alloc] initWithNibName:@"MOrderViewController" bundle:nil];
+            [self.navigationController pushViewController:mOrderVC animated:YES];
+            [mOrderVC release];
+        }
+            break;
+        case 5: {
+            // 我的优惠券
             MOrderViewController * mOrderVC = [[MOrderViewController alloc] initWithNibName:@"MOrderViewController" bundle:nil];
             [self.navigationController pushViewController:mOrderVC animated:YES];
             [mOrderVC release];

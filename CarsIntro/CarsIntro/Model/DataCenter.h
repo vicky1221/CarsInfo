@@ -10,8 +10,8 @@
 #import "Account.h"
 
 #define UserInfo  @"userInfo.plist"
-
-@interface DataCenter : NSObject
+#import "SinaWeibo.h"
+@interface DataCenter : NSObject<SinaWeiboDelegate>
 
 +(DataCenter *)shareInstance;
 @property(nonatomic,retain) NSString *documentPath;
@@ -19,6 +19,7 @@
 
 @property (assign)          double latitude;
 @property (assign)          double longitude;
+@property (nonatomic, retain) SinaWeibo *sinaEngine;
 - (void)updateUserInfo;
 
 @end

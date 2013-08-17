@@ -52,6 +52,11 @@
     self.content = [infoDic stringForKey:@"description"];
     self.hasPic = [infoDic boolForKey:@"isshow"];
     self.picPath = [NSString stringWithFormat:@"%@%@",ServerAddress ,[infoDic stringForKey:@"litpic"]];
+    if ([infoDic stringForKey:@"litpic"]>0&&![[infoDic stringForKey:@"litpic"] isEqualToString:@""]) {
+        self.hasPic = YES;
+    } else {
+        self.hasPic = NO;
+    }
     self.time = [infoDic floatForKey:@"addtime"];
     self.tid = [infoDic stringForKey:@"tid"];
     self.user = [infoDic stringForKey:@"user"];

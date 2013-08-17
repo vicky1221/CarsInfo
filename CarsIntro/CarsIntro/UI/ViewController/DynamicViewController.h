@@ -12,5 +12,8 @@
 
 @property (retain, nonatomic) NSString *infoID;
 @property (assign, nonatomic) IBOutlet UIWebView *webView;
+@property (assign, nonatomic) IBOutlet UIView *bottomView;
+
+- (IBAction)buttomButton:(id)sender;
 
 @end

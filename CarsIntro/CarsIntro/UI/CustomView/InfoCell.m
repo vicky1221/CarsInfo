@@ -40,9 +40,10 @@
         max = 230;
         [self.asyImageView LoadImage:info.picPath];
         [self.asyImageView enableHighlight:NO];
+        self.asyImageView.hidden = NO;
     } else {
         max = 300;
-        self.asyImageView.backgroundColor = [UIColor clearColor];
+        self.asyImageView.hidden = YES;
     }
     _timeLabel.text = [[NSString stringWithFormat:@"%f", info.time] dateStringSinceNow];
     

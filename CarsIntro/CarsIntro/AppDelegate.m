@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "SinaWeibo.h"
 
 @implementation AppDelegate
 
@@ -54,6 +55,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    SinaWeibo *s = [DataCenter shareInstance].sinaEngine;
+    return [s handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    SinaWeibo *s = [DataCenter shareInstance].sinaEngine;
+    return [s handleOpenURL:url];
 }
 
 @end

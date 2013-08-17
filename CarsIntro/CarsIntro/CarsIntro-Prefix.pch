@@ -15,4 +15,7 @@
     #import "WebRequest.h"
     #import <QuartzCore/QuartzCore.h>
     #import "DataCenter.h"
+
+    #define kAppKey         @"721936388"
+    #define kRedirectURI    @"http://www.readmw.com"
 #endif
