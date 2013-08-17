@@ -8,6 +8,6 @@
 
 #import "KBaseViewController.h"
 
-@interface MyQuestionViewController : KBaseViewController
+@interface MyQuestionViewController : KBaseViewController 
 
 @end

@@ -12,6 +12,7 @@
 #import "CenterViewController.h"
 #import "MedalViewController.h"
 #import "MyActiveViewController.h"
+#import "MyQuestionViewController.h"
 
 @interface PersonViewController () {
     Account *myAccount;
@@ -121,9 +122,8 @@
             break;
         case 2: {
             // 我的提问
-            MOrderViewController * mOrderVC = [[MOrderViewController alloc] initWithNibName:@"MOrderViewController" bundle:nil];
-            [self.navigationController pushViewController:mOrderVC animated:YES];
-            [mOrderVC release];
+            MyQuestionViewController *myQuestionVC = [[MyQuestionViewController new] autorelease];
+            [self.navigationController pushViewController:myQuestionVC animated:YES];
         }
             break;
         case 3: {
