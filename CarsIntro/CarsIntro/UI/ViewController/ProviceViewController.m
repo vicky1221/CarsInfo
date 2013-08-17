@@ -73,6 +73,9 @@
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *dic = [defaults objectForKey:@"City"];
+        [defaults setObject:dic forKey:@"tempCity"];
+        [defaults synchronize];
+        
         WeatherCity *saveCity = [[[WeatherCity alloc] init] autorelease];
         if (dic) {
             if (!saveCity) {
@@ -95,6 +98,25 @@
     [db close];
     [cityTableView reloadData];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dic = [defaults objectForKey:@"tempCity"];
+    WeatherCity *tempCity = [[[WeatherCity alloc] init] autorelease];
+    [tempCity fromDic:dic];
+    NSArray *tempArray = [NSArray arrayWithArray:cityArray];
+    [cityArray removeAllObjects];
+    for (WeatherCity *w in tempArray) {
+        w.selectCity = @"";
+        if ([w.provinceID isEqualToString:tempCity.provinceID]) {
+            w.selectCity = tempCity.cityName;
+        }
+        [cityArray addObject:w];
+    }
+    [cityTableView reloadData];
 }
 
 - (IBAction)toHome:(id)sender {
@@ -144,6 +166,14 @@
     CityViewController *cityVC = [[CityViewController new] autorelease];
     cityVC.provinceID = city.provinceID;
     [self.navigationController pushViewController:cityVC animated:YES];
+}
+//
+- (IBAction)dingzhi:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dic = [defaults objectForKey:@"tempCity"];
+    [defaults setObject:dic forKey:@"City"];
+    [defaults synchronize];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

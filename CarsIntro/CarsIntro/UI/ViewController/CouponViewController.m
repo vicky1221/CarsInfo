@@ -56,7 +56,9 @@
     if ([[dic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
         [[iToast makeText:[dic objectForKey:@"msg"]] show];
     } else {
-        [self.webView loadHTMLString:[dic objectForKey:@"content"] baseURL:nil];
+        NSString *str = [dic objectForKey:@"content"];
+        str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
+        [self.webView loadHTMLString:str baseURL:nil];
         self.titleLabel.text = [dic objectForKey:@"title"];
         self.timeLabel.text = [[dic objectForKey:@"addtime"] dateStringSince1970];
         NSLog(@"jzsj,,,,%@", [dic objectForKey:@"jzsj"]);

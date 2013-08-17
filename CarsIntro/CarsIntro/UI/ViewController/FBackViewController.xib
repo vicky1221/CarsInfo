@@ -39,7 +39,7 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="507732104">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">274</int>
+						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 42}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="325014521"/>
@@ -85,7 +85,7 @@
 					<object class="IBUIButton" id="325014521">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{8, 8}, {52, 25}}</string>
+						<string key="NSFrame">{{10, 9}, {48, 23}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="84504488"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -122,7 +122,7 @@
 					<object class="IBUIButton" id="854035627">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{260, 8}, {52, 25}}</string>
+						<string key="NSFrame">{{262, 9}, {48, 23}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="506411115"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -451,8 +451,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="back.png">{52, 25}</string>
-			<string key="backHome.png">{52, 25}</string>
+			<string key="back.png">{48, 23}</string>
+			<string key="backHome.png">{48, 23}</string>
 			<string key="feedback_1@2x.png">{192, 228}</string>
 			<string key="feedback_2@2x.png">{240, 78}</string>
 			<string key="line.png">{320, 1}</string>

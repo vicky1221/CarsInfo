@@ -140,7 +140,7 @@
 							<object class="IBUIButton" id="503303833">
 								<reference key="NSNextResponder" ref="191373211"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{84, 273}, {152, 40}}</string>
+								<string key="NSFrame">{{85, 274}, {150, 38}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSNextKeyView" ref="733574761"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -153,7 +153,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="466910466"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">LoginBtn@2x.png</string>
+									<string key="NSResourceName">loginBtn.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="976177608"/>
 								<reference key="IBUIFont" ref="568019520"/>
@@ -161,20 +161,20 @@
 							<object class="IBUIButton" id="733574761">
 								<reference key="NSNextResponder" ref="191373211"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{84, 333}, {152, 40}}</string>
+								<string key="NSFrame">{{85, 333}, {150, 37}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<reference key="IBUIHighlightedTitleColor" ref="225573709"/>
 								<reference key="IBUINormalTitleColor" ref="225573709"/>
 								<reference key="IBUINormalTitleShadowColor" ref="466910466"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">RegisterBtn@2x.png</string>
+									<string key="NSResourceName">RegisterBtn.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="976177608"/>
 								<reference key="IBUIFont" ref="568019520"/>
@@ -411,10 +411,10 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="Default.png">{320, 480}</string>
-			<string key="LoginBtn@2x.png">{16, 16}</string>
-			<string key="RegisterBtn@2x.png">{300, 74}</string>
-			<string key="back.png">{52, 25}</string>
-			<string key="backHome.png">{52, 25}</string>
+			<string key="RegisterBtn.png">{150, 37}</string>
+			<string key="back.png">{48, 23}</string>
+			<string key="backHome.png">{48, 23}</string>
+			<string key="loginBtn.png">{150, 38}</string>
 			<string key="nav.png">{320, 42}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

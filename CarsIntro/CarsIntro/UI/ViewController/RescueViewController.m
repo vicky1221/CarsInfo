@@ -36,15 +36,14 @@
     manager.delegate = self;
     //开始定位
     [manager startUpdatingLocation];
-    [manager release];
-    [self.btnHelp setImage:[UIImage imageNamed:@"Rescue_2@2x.png"] forState:UIControlStateNormal];
+    [self.btnHelp setImage:[UIImage imageNamed:@"Rescue_2.png"] forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.btnHelp setImage:[UIImage imageNamed:@"Rescue_2@2x.png"] forState:UIControlStateDisabled];
+    [self.btnHelp setImage:[UIImage imageNamed:@"Rescue_2.png"] forState:UIControlStateDisabled];
     
     CLLocationCoordinate2D center;
     center.latitude = 40.0516041972908;
@@ -52,15 +51,17 @@
     //设置要显示的经纬度
     
     MKCoordinateSpan span;
-    span.latitudeDelta = 0.1;
-    span.longitudeDelta = 0.1;
+    span.latitudeDelta = 1;
+    span.longitudeDelta = 1;
     MKCoordinateRegion region = {center,span};
     [self.mapKit setRegion:region];
     //设置当前位置
     self.mapKit.delegate = self;
     self.mapKit.showsUserLocation = YES;
     self.mapKit.mapType = MKMapTypeStandard;
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     [self positioning];
 }
 
@@ -74,12 +75,17 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     //定位后的新位置
-    MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, MKCoordinateSpanMake(0.1, 0.1));
+    MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, MKCoordinateSpanMake(0.02, 0.02));
+    
+    MKPointAnnotation *ann = [[MKPointAnnotation alloc] init];
+    ann.coordinate = newLocation.coordinate;
+    //触发viewForAnnotation
+//    [self.mapKit addAnnotation:ann];
+    [ann release];
     //设置地图位置,动画显示平移的效果
     [self.mapKit setRegion:region animated:YES];
     //停止定位
     [manager stopUpdatingLocation];
-    [manager release];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -134,7 +140,7 @@
     [self performSelector:@selector(senderAPI)];
 }
 - (IBAction)phone:(id)sender {
-    NSLog(@"123");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://15234249875"]];
 }
 
 - (IBAction)back:(id)sender {

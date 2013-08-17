@@ -56,6 +56,9 @@
 - (void)requestFinished:(ASIHTTPRequest *)request {
     NSDictionary *dic = [[request responseString] JSONValue];
     NSLog(@"%@",dic);
+    NSString *str = [dic objectForKey:@"body"];
+    str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
+    NSLog(@"%@", str);
     [self.webView loadHTMLString:[dic objectForKey:@"body"] baseURL:nil];    
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {

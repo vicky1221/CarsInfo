@@ -160,13 +160,11 @@
     [cityListArray removeAllObjects];
     [cityListArray addObjectsFromArray:tempArray];
     [cityTableView reloadData];
-}
-
-- (IBAction)dingzhi:(id)sender {
+    
     NSDictionary *dic = [currentCity toDic];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:dic forKey:@"City"];
+    [defaults setObject:dic forKey:@"tempCity"];
     [defaults synchronize];
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 @end

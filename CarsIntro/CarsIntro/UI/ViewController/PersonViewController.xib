@@ -157,7 +157,7 @@
 									<object class="IBUILabel" id="392389999">
 										<reference key="NSNextResponder" ref="9229974"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{92, 8}, {86, 21}}</string>
+										<string key="NSFrame">{{135, 8}, {86, 21}}</string>
 										<reference key="NSSuperview" ref="9229974"/>
 										<reference key="NSNextKeyView" ref="772294873"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -184,7 +184,7 @@
 									<object class="IBUILabel" id="772294873">
 										<reference key="NSNextResponder" ref="9229974"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{20, 32}, {47, 21}}</string>
+										<string key="NSFrame">{{63, 32}, {47, 21}}</string>
 										<reference key="NSSuperview" ref="9229974"/>
 										<reference key="NSNextKeyView" ref="16575548"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -204,7 +204,7 @@
 									<object class="IBUILabel" id="16575548">
 										<reference key="NSNextResponder" ref="9229974"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{64, 32}, {56, 21}}</string>
+										<string key="NSFrame">{{107, 32}, {56, 21}}</string>
 										<reference key="NSSuperview" ref="9229974"/>
 										<reference key="NSNextKeyView" ref="872633189"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -224,7 +224,7 @@
 									<object class="IBUILabel" id="274299707">
 										<reference key="NSNextResponder" ref="9229974"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{20, 9}, {65, 19}}</string>
+										<string key="NSFrame">{{63, 9}, {65, 19}}</string>
 										<reference key="NSSuperview" ref="9229974"/>
 										<reference key="NSNextKeyView" ref="392389999"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -240,6 +240,21 @@
 										<reference key="IBUIFontDescription" ref="771541065"/>
 										<reference key="IBUIFont" ref="871904994"/>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+									</object>
+									<object class="IBUIImageView" id="36230061">
+										<reference key="NSNextResponder" ref="9229974"/>
+										<int key="NSvFlags">256</int>
+										<string key="NSFrame">{{5, 5}, {52, 52}}</string>
+										<reference key="NSSuperview" ref="9229974"/>
+										<bool key="IBUIOpaque">NO</bool>
+										<bool key="IBUIClipsSubviews">YES</bool>
+										<int key="IBUIContentMode">4</int>
+										<bool key="IBUIMultipleTouchEnabled">YES</bool>
+										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<object class="NSCustomResource" key="IBUIImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">grtx.png</string>
+										</object>
 									</object>
 								</array>
 								<string key="NSFrame">{{8, 7}, {304, 62}}</string>
@@ -267,7 +282,7 @@
 							<object class="IBUIButton" id="552368882">
 								<reference key="NSNextResponder" ref="818167765"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{9, 368}, {302, 40}}</string>
+								<string key="NSFrame">{{7, 375}, {307, 40}}</string>
 								<reference key="NSSuperview" ref="818167765"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -282,7 +297,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="804610204"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Member_exit@2x.png</string>
+									<string key="NSResourceName">Member_exit.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="527540888"/>
 								<reference key="IBUIFont" ref="13074320"/>
@@ -484,6 +499,7 @@
 							<reference ref="772294873"/>
 							<reference ref="16575548"/>
 							<reference ref="274299707"/>
+							<reference ref="36230061"/>
 						</array>
 						<reference key="parent" ref="818167765"/>
 					</object>
@@ -518,6 +534,11 @@
 						<reference key="object" ref="274299707"/>
 						<reference key="parent" ref="9229974"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">35</int>
+						<reference key="object" ref="36230061"/>
+						<reference key="parent" ref="9229974"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -537,6 +558,7 @@
 				<real value="0.0" key="22.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -544,7 +566,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">34</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -552,9 +574,10 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="Member_exit@2x.png">{607, 79}</string>
-			<string key="back.png">{52, 25}</string>
-			<string key="backHome.png">{52, 25}</string>
+			<string key="Member_exit.png">{307, 41}</string>
+			<string key="back.png">{48, 23}</string>
+			<string key="backHome.png">{48, 23}</string>
+			<string key="grtx.png">{52, 52}</string>
 			<string key="nav.png">{320, 42}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
