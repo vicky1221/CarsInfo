@@ -170,7 +170,6 @@
 								<string key="NSFrame">{{9, 580}, {303, 40}}</string>
 								<reference key="NSSuperview" ref="888269621"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -576,7 +575,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="back.png">{52, 25}</string>
+			<string key="back.png">{48, 23}</string>
 			<string key="backGround@2x.png">{640, 837}</string>
 			<string key="nav.png">{320, 42}</string>
 			<string key="parameterBtn.png">{303, 40}</string>

@@ -1044,7 +1044,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 			<string key="MemberBtn_1.png">{101, 101}</string>
 			<string key="Order_button@2x.png">{236, 64}</string>
 			<string key="Order_image@2x.png">{555, 65}</string>
-			<string key="back.png">{52, 25}</string>
+			<string key="back.png">{48, 23}</string>
 			<string key="backGround.png">{320, 419}</string>
 			<string key="nav.png">{320, 42}</string>
 		</dictionary>

@@ -10,11 +10,16 @@
 #import "JSON.h"
 #import "iToast.h"
 #import "UIViewController+custom.h"
+#import <MessageUI/MessageUI.h>
+#import "UIView+custom.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
 
-@interface DynamicViewController () <ASIHTTPRequestDelegate> {
+@interface DynamicViewController () <ASIHTTPRequestDelegate, MFMailComposeViewControllerDelegate> {
     NSString *previewID;
     NSString *nextID;
+    NSString *infoTitle;
+    NSDictionary *dataDic;
 }
 
 @end
@@ -52,6 +57,9 @@
 }
 
 - (void)dealloc {
+    [_sinaView dealloc];
+    [infoTitle release];
+    [dataDic release];
     [previewID release];
     [nextID release];
     [_infoID release];
@@ -62,7 +70,6 @@
 }
 
 - (void)sendAPI:(NSString *)infoid {
-//    http://www.ard9.com/qiche/index.php?c=article&a=info_json&id=63
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=article&a=info_json&id=%@", infoid] andArgs:nil delegate:self andTag:100];
     self.bottomView.hidden = YES;
     [self showSimpleHUD];
@@ -72,7 +79,10 @@
     [self removeSimpleHUD];
     self.bottomView.hidden = NO;
     NSDictionary *dic = [[request responseString] JSONValue];
+    dataDic = [[NSDictionary alloc] initWithDictionary:dic];
     NSLog(@"%@",dic);
+    [infoTitle release];
+    infoTitle = [[dic objectForKey:@"title"] retain];
     [_infoID release];
     self.infoID = [[NSString stringWithFormat:@"%@", [dic objectForKey:@"aid"]] retain];
     [previewID release];
@@ -119,16 +129,83 @@
         }
             break;
         case 3: {
-            if ([[DataCenter shareInstance].sinaEngine isLoggedIn]) {
-                
-            } else {
-                [[DataCenter shareInstance].sinaEngine logIn];
-            }
-            
+            self.shareview.hidden = NO;
         }
             break;
         default:
             break;
     }
+}
+- (IBAction)share:(id)sender {
+    self.shareview.hidden = YES;
+    NSInteger buttonTag = ((UIButton *)sender).tag;
+    if (buttonTag == 1) {
+        if ([[DataCenter shareInstance].sinaEngine isLoggedIn]) {
+            self.sinaView.frame = CGRectMake(0, 0, 320,VIEW_HEIGHT(self.sinaView));
+            [self.view addSubview:self.sinaView];
+            self.sinaTextView.text = infoTitle;
+            [UIView animateWithDuration:0.5 animations:^{
+                [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
+            }];
+        } else {
+            [[DataCenter shareInstance].sinaEngine logIn];
+        }
+    } else {
+        [self displayMailComposerSheet];
+    }
+}
+
+- (IBAction)close:(id)sender {
+    [self.sinaTextView resignFirstResponder];
+    [UIView animateWithDuration:0.5 animations:^{
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
+    } completion:^(BOOL finished) {
+        [self.sinaView removeFromSuperview];
+    }];
+}
+
+- (IBAction)send:(id)sender {
+    [[DataCenter shareInstance].sinaEngine sendWeiBoWithText:self.sinaTextView.text image:nil];
+    [self close:nil];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    if (touch.view == self.shareview) {
+        [self.shareview setHidden:YES];
+    }
+}
+
+-(void)displayMailComposerSheet
+{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate =self;
+    [picker setSubject:infoTitle];
+    [picker setMessageBody:[dataDic objectForKey:@"body"] isHTML:YES];
+    [self presentModalViewController:picker animated:YES];
+    [picker release];
+}
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+        caseMFMailComposeResultCancelled:
+            NSLog(@"Result: Mail sending canceled");
+            break;
+        caseMFMailComposeResultSaved:
+            NSLog(@"Result: Mail saved");
+            break;
+        caseMFMailComposeResultSent:
+            NSLog(@"Result: Mail sent");
+            break;
+        caseMFMailComposeResultFailed:
+            NSLog(@"Result: Mail sending failed");
+            break;
+        default:
+            NSLog(@"Result: Mail not sent");
+            break;
+    }
+    [self dismissModalViewControllerAnimated:YES];
 }
 @end

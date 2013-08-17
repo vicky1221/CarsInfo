@@ -72,8 +72,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self addButtons];
-    self.requestNumber = 1;
+//    [self addButtons];
+//    self.requestNumber = 1;
     [self performSelector:@selector(senderAPI)];
     self.mOrderTable.backgroundColor = [UIColor clearColor];
     self.mOrderTable.backgroundView = nil;
@@ -95,39 +95,55 @@
                                                                     
 -(void)senderAPI
 {
-    switch (self.requestNumber) {
-        case 1:{
-            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=34&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:105];
-        }
-            break;
-        case 2:{
-            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=35&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:106];
-        }
-            break;
-        case 3:{
-            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=36&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:107];
-        }
-            break;
-        default:
-            break;
-    }
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=34&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:105];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=35&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:106];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=36&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:107];
+//    switch (self.requestNumber) {
+//        case 1:{
+//            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=34&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:105];
+//        }
+//            break;
+//        case 2:{
+//            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=35&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:106];
+//        }
+//            break;
+//        case 3:{
+//            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=36&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:107];
+//        }
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-    [self.mOrderTable.mOrderArray removeAllObjects];
-    NSArray * array = [NSArray arrayWithArray:[[request responseString] JSONValue]];    
-    for (NSDictionary *d in array) {
-        Order * order = [[Order alloc] init];
-        [order fromDic:d];
-        if (self.requestNumber == 1) {
+    if (request.tag == 105) {
+        NSArray * array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        for (NSDictionary *d in array) {
+            Order * order = [[Order alloc] init];
+            [order fromDic:d];
             order.type = @"预约试驾";
-        } else if(self.requestNumber == 2) {
-            order.type = @"预约保养";
-        } else if(self.requestNumber == 3) {
-            order.type = @"预约维修";
+            [self.mOrderTable.mOrderArray addObject:order];
+            [order release];
         }
-        [self.mOrderTable.mOrderArray addObject:order];
-        [order release];
+    } else if (request.tag == 106) {
+        NSArray * array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        for (NSDictionary *d in array) {
+            Order * order = [[Order alloc] init];
+            [order fromDic:d];
+            order.type = @"预约保养";
+            [self.mOrderTable.mOrderArray addObject:order];
+            [order release];
+        }
+    } else if (request.tag == 107) {
+        NSArray * array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        for (NSDictionary *d in array) {
+            Order * order = [[Order alloc] init];
+            [order fromDic:d];
+            order.type = @"预约维修";
+            [self.mOrderTable.mOrderArray addObject:order];
+            [order release];
+        }
     }
     [self.mOrderTable reloadData];
 }

@@ -101,12 +101,10 @@
     NSLog(@"%d", buttonTag);
 }
 
-//http://www.ard9.com/qiche/index.php?c=product&a=sub_type_json&tid=38
 - (void)sendAPI {
     if (self.carsTable.isNewCarData) {
         [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=sub_type_json&tid=38" andArgs:nil delegate:self andTag:101];
     } else {
-    //    http://www.ard9.com/qiche/index.php?c=channel&a=type_json&tid=26
         [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=channel&a=type_json&tid=26" andArgs:nil delegate:self andTag:102];
     }
     isStart = YES;

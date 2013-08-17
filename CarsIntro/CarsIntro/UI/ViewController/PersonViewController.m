@@ -11,6 +11,8 @@
 #import "MOrderViewController.h"
 #import "CenterViewController.h"
 #import "MedalViewController.h"
+#import "MyActiveViewController.h"
+
 @interface PersonViewController () {
     Account *myAccount;
 }
@@ -126,9 +128,9 @@
             break;
         case 3: {
             // 我的活动
-            MOrderViewController * mOrderVC = [[MOrderViewController alloc] initWithNibName:@"MOrderViewController" bundle:nil];
-            [self.navigationController pushViewController:mOrderVC animated:YES];
-            [mOrderVC release];
+            MyActiveViewController *myActive = [[MyActiveViewController new] autorelease];
+            myActive.Type = 101;
+            [self.navigationController pushViewController:myActive animated:YES];
         }
             break;
         case 4: {
@@ -140,9 +142,9 @@
             break;
         case 5: {
             // 我的优惠券
-            MOrderViewController * mOrderVC = [[MOrderViewController alloc] initWithNibName:@"MOrderViewController" bundle:nil];
-            [self.navigationController pushViewController:mOrderVC animated:YES];
-            [mOrderVC release];
+            MyActiveViewController *myActive = [[MyActiveViewController new] autorelease];
+            myActive.Type = 102;
+            [self.navigationController pushViewController:myActive animated:YES];
         }
             break;
         default:
