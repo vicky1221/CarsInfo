@@ -11,7 +11,8 @@
 
 #define UserInfo  @"userInfo.plist"
 #import "SinaWeibo.h"
-@interface DataCenter : NSObject<SinaWeiboDelegate>
+#import "SinaWeiboRequest.h"
+@interface DataCenter : NSObject<SinaWeiboDelegate, SinaWeiboRequestDelegate>
 
 +(DataCenter *)shareInstance;
 @property(nonatomic,retain) NSString *documentPath;

@@ -12,8 +12,11 @@
 #import "CImageViewController.h"
 #import "Parameter.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LoginViewController.h"
+#import "JSON.h"
+#import "iToast.h"
 
-@interface VehicleViewController ()
+@interface VehicleViewController ()<ASIHTTPRequestDelegate>
 
 @end
 
@@ -123,6 +126,10 @@
 
 - (void)viewDidLoad
 {
+    
+//    http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
+//    http://www.ard9.com/qiche/index.php?c=product&a=info_json&id=20
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor grayColor];
@@ -136,6 +143,8 @@
     UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imagePress:)];
     [self.asyImageView addGestureRecognizer:imageTap];
     [imageTap release];
+    
+    [self shadowView:self.questionView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -174,8 +183,20 @@
 {
     NSInteger buttonTag = ((UIButton *)sender).tag;
     switch (buttonTag) {
-        case 101:
-            NSLog(@"在线询价");
+        case 101: {
+            if ([[DataCenter shareInstance].accont isAnonymous]) {
+                LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+                UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                loginNav.navigationBarHidden = YES;
+                [loginVC release];
+                [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:3];
+            } else {
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.onlineView.transform = CGAffineTransformMakeTranslation(-320, 0);
+                }];
+                self.questionView.text = @"";
+            }
+        }
             break;
         case 102:{
             UIActionSheet * as=[[UIActionSheet alloc] initWithTitle:@"拨打商家热线" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"电话-4008170818-1001" otherButtonTitles:nil, nil];
@@ -207,6 +228,35 @@
     [_scrollView release];
     [_vehicleTable release];
     [super dealloc];
+}
+
+- (void)onlineViewBack {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.onlineView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+- (IBAction)sendQuestion:(id)sender {
+    [self onlineViewBack];
+}
+
+- (IBAction)onlineback:(id)sender {
+    
+//     http://www.ard9.com/qiche/index.php?c=message&a=add&tid=11&from=app
+    [self onlineViewBack];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=message&a=add&tid=11&from=app&title=在线咨询&body=%@&uid=%@", self.questionView.text,[DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:55];
+    
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+    if (request.tag == 55) {
+        [iToast makeText:@"提交成功"];
+    } 
+}
+- (void)requestFailed:(ASIHTTPRequest *)request {
+    
 }
 
 @end

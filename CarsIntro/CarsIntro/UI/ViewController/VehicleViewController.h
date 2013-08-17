@@ -20,7 +20,11 @@
 
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (retain, nonatomic) IBOutlet VehicleTable *vehicleTable;
-
+@property (retain, nonatomic) IBOutlet UIView *onlineView;
+@property (assign, nonatomic) IBOutlet UITextView *questionView;
 @property (nonatomic, retain) VehicleType *vehicleType;
+
+- (IBAction)sendQuestion:(id)sender;
+
 
 @end

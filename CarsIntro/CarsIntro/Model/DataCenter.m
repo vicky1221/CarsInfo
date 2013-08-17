@@ -24,6 +24,7 @@ static DataCenter *instance = nil;
         self.documentPath = (NSString *)[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         [self updateUserInfo];
         _sinaEngine = [[SinaWeibo alloc] initWithAppKey:@"721936388" appSecret:@"454bc428824415531c3b010411258915" appRedirectURI:@"http://www.readmw.com" andDelegate:self];
+        _sinaEngine.delegate = self;
     }
     return self;
 }

@@ -8,6 +8,8 @@
 
 #import "KBaseViewController.h"
 
-@interface MyQuestionViewController : KBaseViewController 
+@interface MyQuestionViewController : KBaseViewController <UITableViewDataSource, UITableViewDelegate> {
+    IBOutlet UITableView *questionTable;
+}
 
 @end
