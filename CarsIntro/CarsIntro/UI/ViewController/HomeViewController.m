@@ -152,8 +152,8 @@
             if ([[DataCenter shareInstance].accont isAnonymous]) {
                 [self toMemberView:nil];
             } else {
-                NSDictionary *dic = [NSDictionary dictionaryWithObject:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
-                ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:nil MothodName:@"qiandao" andArgs:dic delegate:self];
+//                http://www.ard9.com/qiche/index.php?c=member&a=release&tid=32&hand=161444713&id=&go=1&from=app
+                ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=32&hand=161444713&id=&go=1&from=app&uid=%@&qdsj=%0.f", [DataCenter shareInstance].accont.loginUserID, [[NSDate date] timeIntervalSince1970]] andArgs:nil delegate:self];
                 request.tag = 1;
             }
         }
@@ -259,12 +259,10 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
     if (request.tag == 1) {
-        abc++;
-        if (abc>=1) {
-            [[iToast makeText:@"今天已经签过到了."] show];
-            return;
-        }                                                       
-        [[iToast makeText:@"签到成功"] show];
+        NSDictionary *dic = [[request responseString] JSONValue];
+        if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+            [[iToast makeText:[dic objectForKey:@"msg"]] show];
+        }
     } else {                                                    
         //NSString *str = [request responseString];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];

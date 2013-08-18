@@ -71,11 +71,23 @@
 {
 	NSObject *obj = [self objectForKey:key];
 	if ([obj isKindOfClass:[NSNumber class]]) {
-		return [obj description];
+        NSString *str = [obj description];
+        if ([str isEqualToString:@"<null>"]|| [str isEqualToString:@"null"]) {
+            str = @"";
+        }
+		return str;
 	} else if ([obj isKindOfClass:[NSString class]]) {
-		return (NSString *)obj;
+        NSString *str = [obj description];
+        if ([str isEqualToString:@"<null>"]|| [str isEqualToString:@"null"]) {
+            str = @"";
+        }
+		return str;
 	} else if (obj) {
-		return [obj description];
+        NSString *str = [obj description];
+        if ([str isEqualToString:@"<null>"]|| [str isEqualToString:@"null"]) {
+            str = @"";
+        }
+		return str;
 	}
 	return nil;
 }

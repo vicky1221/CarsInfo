@@ -98,8 +98,13 @@
     [cell.contentView addSubview:timeLabel];
     timeLabel.font = [UIFont systemFontOfSize:11];
     [timeLabel release];
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
     return cell;
     
+}
+
+- (IBAction)back:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -12,4 +12,6 @@
     IBOutlet UITableView *questionTable;
 }
 
+- (IBAction)back:(id)sender;
+
 @end
