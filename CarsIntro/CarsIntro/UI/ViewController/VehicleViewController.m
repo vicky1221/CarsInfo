@@ -270,14 +270,12 @@
 
 - (IBAction)sendQuestion:(id)sender {
     [self onlineViewBack];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=message&a=add&tid=11&from=app&title=在线咨询&body=%@&uid=%@", self.questionView.text,[DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:55];
 }
 
 - (IBAction)onlineback:(id)sender {
-    
 //     http://www.ard9.com/qiche/index.php?c=message&a=add&tid=11&from=app
     [self onlineViewBack];
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=message&a=add&tid=11&from=app&title=在线咨询&body=%@&uid=%@", self.questionView.text,[DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:55];
-    
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
