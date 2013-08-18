@@ -16,11 +16,13 @@
 #import "JSON.h"
 #import "iToast.h"
 #import "NSString+Date.h"
+#import "MWPhotoBrowser.h"
 
-@interface VehicleViewController ()<ASIHTTPRequestDelegate> {
+@interface VehicleViewController ()<ASIHTTPRequestDelegate, MWPhotoBrowserDelegate> {
     NSMutableArray *fieldArray;
     NSDictionary *dataDic;
     NSMutableArray *parameterArray;
+    NSMutableArray *picArray;
 }
 
 @end
@@ -164,6 +166,7 @@
 }
 
 - (void)dealloc {
+    [picArray release];
     [_carsImageView release];
     [_typeLabel release];
     [_asyImageView release];
@@ -185,6 +188,14 @@
 
 -(void)imagePress:(UITapGestureRecognizer*)recognizer
 {
+    if (picArray&&picArray.count>0) {
+        MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+        browser.displayActionButton = YES;
+        [self.navigationController pushViewController:browser animated:YES];
+    } else {
+        [[iToast makeText:@"相册没有图片"] show];
+    }
+    return;
     CImageViewController * vc = [[CImageViewController alloc] initWithNibName:@"CImageViewController" bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
     vc.asyImageView.image = self.asyImageView.image;
@@ -306,8 +317,32 @@
         [parameterArray addObject:par];
         [par release];
     }
-    
-    [self readDataSource];
+    [self readDataSource];    
+//    "\/qiche\/uploads\/2013\/08\/031056327723.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056328657.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056324006.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056339538.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056337814.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056202230.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056205338.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056205499.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056195083.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056195760.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056202809.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056199190.jpg|,|"
+//    NSString *str = @"\/qiche\/uploads\/2013\/08\/031056327723.jpg";
+    NSString *str = [dataDic objectForKey:@"photo"];
+    NSLog(@"pic address%@", str);
+    NSArray *array = [str componentsSeparatedByString:@"|,||-|"];
+    picArray = [[NSMutableArray alloc] initWithCapacity:10];
+    for (NSString *s in array) {
+        if (s.length>0) {
+            NSString *url = [NSString stringWithFormat:@"%@%@", ServerAddress,s];
+            [picArray addObject:[MWPhoto photoWithURL:[NSURL URLWithString:url]]];
+        }
+    }
+    self.picCountLabel.text = [NSString stringWithFormat:@"一共有%d张照片", picArray.count];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.imageView.transform = CGAffineTransformMakeTranslation(0, -VIEW_HEIGHT(self.imageView));
+    }];
+}
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return picArray.count;
+}
+- (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < picArray.count)
+        return [picArray objectAtIndex:index];
+    return nil;
 }
 
 @end
