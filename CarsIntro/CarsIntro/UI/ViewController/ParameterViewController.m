@@ -85,7 +85,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self readDataSource];
+    self.parameterArray = [NSMutableArray array];
+//    [self readDataSource];
+    [self.parameterArray addObjectsFromArray:self.parameterArray];
+    [self.parameterTable reloadData];
     self.titleLabel.text = self.vehicleType.title;
 }
 
@@ -99,6 +102,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
+    [_parameterArray release];
     [_vehicleType release];
     [_titleLabel release];
     [_parameterTable release];

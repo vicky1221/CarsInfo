@@ -49,30 +49,26 @@
     return 72.0;
 }
 
-//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    // 对于bool的判断一般直接判断变量  不要==yes 你可以搜搜为什么
-////    if (new == YES) { //
-////        return [self.newCarsArray count];
-////    }else
-////    {
-////        return [self.usedCarsArray count];
-////    }
-//    if (self.isNewCarData) { 
-//        return [self.newCarsArray count];
-//    }else
-//    {
-//        return [self.usedCarsArray count];
-//    }
-//}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (self.isNewCarData) { 
+        return [self.newCarsArray count];
+    }else
+    {
+        return [self.usedCarsArray count];
+    }
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.isNewCarData){
-        return [self.newCarsArray count];
-    }else {
-        return [self.usedCarsArray count];
+    NSDictionary *d = [NSDictionary dictionary];
+    if (self.isNewCarData) {
+        d = [self.newCarsArray objectAtIndex:section];
+    } else {
+        d = [self.usedCarsArray objectAtIndex:section];
     }
+    NSArray *array = [d objectForKey:@"data"];
+    return array.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,40 +78,31 @@
     if (carsCell == nil) {
         carsCell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
     }
+    NSDictionary *d = [NSDictionary dictionary];
     if (self.isNewCarData) {
-        UsedCarInfo * _usedCarInfo = [self.newCarsArray objectAtIndex:indexPath.row];
-        [carsCell cellForDic:_usedCarInfo];
+        d = [self.newCarsArray objectAtIndex:indexPath.section];
     } else {
-        UsedCarInfo * _usedCarInfo = [self.usedCarsArray objectAtIndex:indexPath.row];
+        d = [self.usedCarsArray objectAtIndex:indexPath.section];
+    }
+    NSArray *array = [d objectForKey:@"data"];
+    if (array.count>0) {
+        UsedCarInfo * _usedCarInfo = [array objectAtIndex:indexPath.row];
         [carsCell cellForDic:_usedCarInfo];
     }
+    
     return carsCell;
-//    
-//    if (new == YES) {
-//        NSMutableArray * array = [self.newCarsArray objectAtIndex:indexPath.section];
-//        VehicleType * _vehicleType = [array objectAtIndex:indexPath.row];
-//        [carsCell cellForDic:_vehicleType];
-//    }else {
-//        NSMutableArray * array = [self.usedCarsArray objectAtIndex:indexPath.section];
-//        VehicleType * _vehicleType = [array objectAtIndex:indexPath.row];
-//        [carsCell cellForDic:_vehicleType];
-//    }
 }
 
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    switch (section) {
-//        case 0:
-//            return @"捷豹";
-//            break;
-//        case 1:
-//            return @"路虎";
-//            break;
-//        default:
-//            break;
-//    }
-//    return nil;
-//}
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSDictionary *d = [NSDictionary dictionary];
+    if (self.isNewCarData) {
+        d = [self.newCarsArray objectAtIndex:section];
+    } else {
+        d = [self.usedCarsArray objectAtIndex:section];
+    }
+    return [d objectForKey:@"title"];
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -10,10 +10,14 @@
 #import "UIView+custom.h"
 #import "iToast.h"
 #import "WebRequest.h"
+#import "UIAsyncImageView.h"
+#import "JSON.h"
+
 @interface UCarViewController ()<ASIHTTPRequestDelegate>
 {
-    UIButton * btn;
-    int a; //判断添加图片时,点击的哪个button
+    NSMutableArray *imageArray;
+    int a;
+
 }
 @end
 
@@ -34,15 +38,17 @@
 -(void)addButtonsToScrollView
 {
     for (int i = 0; i < 4; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.tag  = i+1;
-        [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"AccidentBtn_%d", i]] forState:UIControlStateNormal];
+        UIAsyncImageView *button = [[UIAsyncImageView alloc] init];
+        button.tag  = i;
+        button.image = [UIImage imageNamed:[NSString stringWithFormat:@"AccidentBtn_%d", i]];
         float x = VIEW_WIDTH(self.scrollView)/2 + (i%2?1:-1)* (Button_Width/2 + 6);
         float y = i/2* (Button_Height + 20) +Button_Height/2 +20;
         button.frame = CGRectMake(0, 0, Button_Width, Button_Height);
         button.center = CGPointMake(x, y);
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:button];
+        [imageArray addObject:button];
+        [button release];
     }
     self.scrollView.scrollEnabled = YES;
     self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), 1.25 *VIEW_HEIGHT(self.scrollView));
@@ -64,6 +70,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    imageArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view from its nib.
     [self addButtonsToScrollView];
     [self.contentView.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -105,6 +112,7 @@
 }
 
 - (void)dealloc {
+    [imageArray release];
     [self.pickerArray release];
     [_strGearbox release];
     [_strDate release];
@@ -158,18 +166,57 @@
 
 -(void)senderAPI
 {
-     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:130];
+    if (self.brandTextField.text.length == 0) {
+        [[iToast makeText:@"品牌不可为空."] show];
+        return;
+    } else if(self.colorTextField.text.length == 0) {
+        [[iToast makeText:@"颜色不可为空."] show];
+        return;
+    } else if(self.lengthTextField.text.length ==0) {
+        [[iToast makeText:@"行驶里程不可为空."] show];
+        return;
+    } else if(self.describeTextField.text.length == 0) {
+        [[iToast makeText:@"详细描述不可为空."] show];
+        return;
+    } else if(self.personTextField.text.length == 0) {
+        [[iToast makeText:@"联系人不可为空."] show];
+        return;
+    } else if(self.phoneTextField.text.length == 0) {
+        [[iToast makeText:@"联系电话不可为空."] show];
+        return;
+    }
+    
+    for (int i = 0; i < 4; i++) {
+        UIAsyncImageView *v = [imageArray objectAtIndex:i];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app", Server]]];
+        [request setPostValue:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
+        [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"pic"];
+        [request setPostValue:self.brandTextField.text forKey:@"pinpai"];
+        [request setPostValue:self.colorTextField.text forKey:@"yanse"];
+        [request setPostValue:self.strGearbox forKey:@"bsx"];
+        [request setPostValue:self.lengthTextField.text forKey:@"xxlc"];
+        [request setPostValue:self.brandTextField.text forKey:@"spsj"];
+        [request setPostValue:self.describeTextField.text forKey:@"xxms"];
+        [request setPostValue:self.personTextField.text forKey:@"lxr"];
+        [request setPostValue:self.phoneTextField.text forKey:@"lxdh"];
+        request.tag = i;
+        request.delegate = self;
+        [request startAsynchronous];
+    }
 }
 
--(void)requestStarted:(ASIHTTPRequest *)request
-{
-    [[iToast makeText:@"处理中，请稍等."] show];
-}
+static int total = 0;
 
 -(void)requestFinished:(ASIHTTPRequest *)request
 {
-    [self.navigationController popViewControllerAnimated:YES];
-    [[iToast makeText:@"发布成功."] show];
+    NSDictionary *d = [[request responseString] JSONValue];
+    if ([[d objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+        total+=1;
+        if (total == 4) {
+            [self.navigationController popViewControllerAnimated:YES];
+            [[iToast makeText:@"发送成功."] show];
+        }
+    }
 }
 
 -(void)requestFailed:(ASIHTTPRequest *)request
@@ -255,16 +302,8 @@
         nil;
     }];
     
-    btn = (UIButton *)sender;
-    if (btn.tag ==1) {
-        a = 1;
-    } else if(btn.tag == 2) {
-        a = 2;
-    } else if(btn.tag == 3) {
-        a = 3;
-    } else if(btn.tag == 4) {
-        a = 4;
-    }
+    UIAsyncImageView *v = (UIAsyncImageView *)sender;
+    a = v.tag;
     UIActionSheet * as=[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"相机" otherButtonTitles:@"相册", nil];
     [as showInView:self.view];
     [as release];
@@ -298,9 +337,7 @@
 //选择相片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {    
-    [btn setBackgroundImage:image forState:UIControlStateNormal];
-    [picker dismissModalViewControllerAnimated:YES];
-    switch (a) {
+    switch (a+1) {
         case 1:
             self.btn1HasImage = YES;
             break;
@@ -316,6 +353,9 @@
         default:
             break;
     }
+    UIAsyncImageView *v= [imageArray objectAtIndex:a];
+    v.image = image;
+    [picker dismissModalViewControllerAnimated:YES];
 }
 //取消
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

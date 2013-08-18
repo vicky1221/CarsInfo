@@ -66,7 +66,7 @@
     
     Parameter * _parameter = [array objectAtIndex:indexPath.row];
     [parameterCell cellForDic:_parameter];
-    
+    parameterCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return parameterCell;
 }
 

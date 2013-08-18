@@ -110,6 +110,10 @@
     isStart = YES;
 }
 
+- (void)sendAPI:(NSString *)type tid:(NSString *)tid {
+    
+}
+
 - (void)requestFinished:(ASIHTTPRequest *)request {
     [self.carsTable.newCarsArray removeAllObjects];
     [self.carsTable.usedCarsArray removeAllObjects];

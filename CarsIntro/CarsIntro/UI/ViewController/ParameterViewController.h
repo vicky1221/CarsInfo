@@ -17,6 +17,8 @@
 
 @property (retain, nonatomic) IBOutlet ParameterTable *parameterTable;
 
+@property (retain, nonatomic) NSMutableArray *parameterArray;
+
 @property (nonatomic, retain) VehicleType *vehicleType;
 
 @end

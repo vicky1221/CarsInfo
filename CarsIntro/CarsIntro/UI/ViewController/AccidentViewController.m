@@ -10,9 +10,12 @@
 #import "UIView+custom.h"
 #import "iToast.h"
 #import "WebRequest.h"
+#import "UIAsyncImageView.h"
+#import "JSON.h"
+
 @interface AccidentViewController ()<ASIHTTPRequestDelegate>
 {
-    UIButton * btn;
+    NSMutableArray *imageArray;
     int a;
 }
 @end
@@ -34,9 +37,9 @@
 -(void)addButtonsToScrollView
 {
     for (int i = 0; i < 4; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.tag  = i+1;
-        [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"AccidentBtn_%d", i]] forState:UIControlStateNormal];
+        UIAsyncImageView *button = [[UIAsyncImageView alloc] init];
+        button.tag  = i;
+        button.image = [UIImage imageNamed:[NSString stringWithFormat:@"AccidentBtn_%d", i]];
         float x = VIEW_WIDTH(self.scrollView)/2 + (i%2?1:-1)* (Button_Width/2 + 6);
         float y = i/2* (Button_Height + 20) +Button_Height/2 +20;
         button.frame = CGRectMake(0, 0, Button_Width, Button_Height);
@@ -44,6 +47,8 @@
         NSLog(@"%f,%f",x,y);
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:button];
+        [imageArray addObject:button];
+        [button release];
     }
     self.scrollView.scrollEnabled = YES;
     self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.02);
@@ -52,6 +57,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    imageArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view from its nib.
     [self addButtonsToScrollView];
     self.textView.delegate = self;
@@ -70,6 +76,7 @@
 }
 
 - (void)dealloc {
+    [imageArray release];
     [_scrollView release];
     [_textView release];
     [super dealloc];
@@ -88,25 +95,16 @@
 
 -(void)buttonPressed:(id)sender
 {
-    btn = (UIButton *)sender;
     [self.textView resignFirstResponder];
-    [UIView animateWithDuration:0.4 animations:^{
-        //self.scrollView.transform = CGAffineTransformIdentity;
-        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.02);
-    } completion:^(BOOL finished) {
-        nil;
-    }];
-    
-    if (btn.tag ==1) {
-        a = 1;
-    } else if(btn.tag == 2) {
-        a = 2;
-    } else if(btn.tag == 3) {
-        a = 3;
-    } else if(btn.tag == 4) {
-        a = 4;
-    }
-
+    a = ((UIAsyncImageView *)sender).tag;
+//    [self.textView resignFirstResponder];
+//    [UIView animateWithDuration:0.4 animations:^{
+//        //self.scrollView.transform = CGAffineTransformIdentity;
+//        self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.02);
+//    } completion:^(BOOL finished) {
+//        nil;
+//    }];
+//
     UIActionSheet * as=[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"相机" otherButtonTitles:@"相册", nil];
     [as showInView:self.view];
     [as release];
@@ -137,18 +135,30 @@
 
 -(void)senderAPI
 {
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=30&hand=161444713&id=&go=1&from=app&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:160];
+    for (int i = 0; i < 4; i++) {
+        UIAsyncImageView *v = [imageArray objectAtIndex:i];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@c=member&a=release&tid=30&hand=161444713&id=&go=1&from=app", Server]]];
+        [request setPostValue:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
+        [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"pic"];
+        [request setPostValue:self.textView.text forKey:@"content"];
+        request.tag = i;
+        request.delegate = self;
+        [request startAsynchronous];
+    }
+
 }
 
--(void)requestStarted:(ASIHTTPRequest *)request
-{
-    [[iToast makeText:@"处理中,请稍等."] show];
-}
-
+static int total=0;
 -(void)requestFinished:(ASIHTTPRequest *)request
 {
-    [self.navigationController popViewControllerAnimated:YES];
-    [[iToast makeText:@"发送成功."] show];
+    NSDictionary *d = [[request responseString] JSONValue];
+    if ([[d objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+        total+=1;
+        if (total == 4) {
+            [self.navigationController popViewControllerAnimated:YES];
+            [[iToast makeText:@"发送成功."] show];
+        }
+    }    
 }
 
 -(void)requestFailed:(ASIHTTPRequest *)request
@@ -195,24 +205,25 @@
 //选择相片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    [btn setBackgroundImage:image forState:UIControlStateNormal];
-    [picker dismissModalViewControllerAnimated:YES];
     switch (a) {
-        case 1:
+        case 0:
             self.btn1HasImage = YES;
             break;
-        case 2:
+        case 1:
             self.btn2HasImage = YES;
             break;
-        case 3:
+        case 2:
             self.btn3HasImage = YES;
             break;
-        case 4:
+        case 3:
             self.btn4HasImage = YES;
             break;
         default:
             break;
-    }    
+    }
+    UIAsyncImageView *v = [imageArray objectAtIndex:a];
+    v.image = image;
+    [picker dismissModalViewControllerAnimated:YES];
 }
 //取消
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

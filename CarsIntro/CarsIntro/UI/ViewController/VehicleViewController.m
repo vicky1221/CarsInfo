@@ -16,7 +16,10 @@
 #import "JSON.h"
 #import "iToast.h"
 
-@interface VehicleViewController ()<ASIHTTPRequestDelegate>
+@interface VehicleViewController ()<ASIHTTPRequestDelegate> {
+    NSMutableArray *fieldArray;
+    NSDictionary *dataDic;
+}
 
 @end
 
@@ -131,6 +134,8 @@
 //    http://www.ard9.com/qiche/index.php?c=product&a=info_json&id=20
     
     [super viewDidLoad];
+    dataDic = [[NSDictionary alloc] init];
+    fieldArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor grayColor];
     
@@ -145,12 +150,32 @@
     [imageTap release];
     
     [self shadowView:self.questionView];
+    
+    [self performSelector:@selector(sendAPI)];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [_carsImageView release];
+    [_typeLabel release];
+    [_asyImageView release];
+    [_vehicleType release];
+    [_scrollView release];
+    [_vehicleTable release];
+    [fieldArray release];
+    [dataDic release];
+    [super dealloc];
+}
+
+- (void)sendAPI {
+//    http://www.ard9.com/qiche/index.php?c=product&a=info_json_field
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json_field" andArgs:nil delegate:self andTag:56];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json&id=20" andArgs:nil delegate:self andTag:57];
 }
 
 #pragma mark - image Action
@@ -220,16 +245,6 @@
     }
 }
 
-- (void)dealloc {
-    [_carsImageView release];
-    [_typeLabel release];
-    [_asyImageView release];
-    [_vehicleType release];
-    [_scrollView release];
-    [_vehicleTable release];
-    [super dealloc];
-}
-
 - (void)onlineViewBack {
     [UIView animateWithDuration:0.5 animations:^{
         self.onlineView.transform = CGAffineTransformIdentity;
@@ -253,10 +268,32 @@
 - (void)requestFinished:(ASIHTTPRequest *)request {
     if (request.tag == 55) {
         [iToast makeText:@"提交成功"];
-    } 
+    } else if (request.tag == 56) {
+        NSArray *array = [[request responseString] JSONValue];
+        [fieldArray addObjectsFromArray:array];
+        if (dataDic.allKeys.count>0) {
+            [self bindData];
+        }
+    } else if (request.tag == 57) {
+        [dataDic release];
+        dataDic = [[request responseString] JSONValue];
+        if (fieldArray.count > 0) {
+            [self bindData];
+        }
+    }
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
     
+}
+
+- (void)bindData {
+    for (int i = 0; i < fieldArray.count; i++) {
+        NSDictionary *d = [fieldArray objectAtIndex:i];
+        Parameter *par = [[Parameter alloc] init];
+        par.title = [d objectForKey:@"fieldsname"];
+        par.content = [dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]];
+        
+    }
 }
 
 @end
