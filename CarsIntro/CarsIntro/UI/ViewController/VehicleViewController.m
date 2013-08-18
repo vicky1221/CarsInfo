@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "JSON.h"
 #import "iToast.h"
+#import "NSString+Date.h"
 
 @interface VehicleViewController ()<ASIHTTPRequestDelegate> {
     NSMutableArray *fieldArray;
@@ -76,49 +77,49 @@
 {
     Parameter * parameter1 = [[Parameter alloc] init];
     parameter1.title = @"厂商指导价";
-    parameter1.content = self.vehicleType.price;
+    parameter1.content = [dataDic objectForKey:@"zdj"];
     [self.vehicleTable.vehicleArray addObject:parameter1];
     [parameter1 release];
     
     Parameter * parameter2 = [[Parameter alloc] init];
     parameter2.title = @"变速箱";
-    parameter2.content = @"";
+    parameter2.content = [dataDic objectForKey:@"bsx"];
     [self.vehicleTable.vehicleArray addObject:parameter2];
     [parameter2 release];
     
     Parameter * parameter3 = [[Parameter alloc] init];
     parameter3.title = @"驱动方式";
-    parameter3.content = @"";
+    parameter3.content = [dataDic objectForKey:@"qdfs"];
     [self.vehicleTable.vehicleArray addObject:parameter3];
     [parameter3 release];
     
     Parameter * parameter4 = [[Parameter alloc] init];
     parameter4.title = @"排量";
-    parameter4.content = @"";
+    parameter4.content = [dataDic objectForKey:@"pl"];
     [self.vehicleTable.vehicleArray addObject:parameter4];
     [parameter4 release];
     
     Parameter * parameter5 = [[Parameter alloc] init];
     parameter5.title = @"质保";
-    parameter5.content = @"";
+    parameter5.content = [dataDic objectForKey:@"zczb"];
     [self.vehicleTable.vehicleArray addObject:parameter5];
     [parameter5 release];
     
     Parameter * parameter6 = [[Parameter alloc] init];
     parameter6.title = @"综合工况油耗";
-    parameter6.content = @"";
+    parameter6.content = [dataDic objectForKey:@"scyh"];
     [self.vehicleTable.vehicleArray addObject:parameter6];
     [parameter6 release];
     
-    Parameter * parameter7 = [[Parameter alloc] init];
-    parameter7.title = @"厂家";
-    parameter7.content = @"";
-    [self.vehicleTable.vehicleArray addObject:parameter7];
-    [parameter7 release];
+//    Parameter * parameter7 = [[Parameter alloc] init];
+//    parameter7.title = @"厂家";
+//    parameter7.content = [dataDic objectForKey:@"bsx"];
+//    [self.vehicleTable.vehicleArray addObject:parameter7];
+//    [parameter7 release];
     
     Parameter * parameter8 = [[Parameter alloc] init];
     parameter8.title = @"车体结构";
-    parameter8.content = @"";
+    parameter8.content = [dataDic objectForKey:@"ctjg"];
     [self.vehicleTable.vehicleArray addObject:parameter8];
     [parameter8 release];
     
@@ -137,11 +138,12 @@
     [super viewDidLoad];
     dataDic = [[NSDictionary alloc] init];
     fieldArray = [[NSMutableArray alloc] init];
+    parameterArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor grayColor];
     
     [self addButtonsToScrollview];
-    [self readDataSource];
+//    [self readDataSource];
     [self initCarsImageView];
     
     self.typeLabel.text = self.vehicleType.title;
@@ -198,6 +200,7 @@
 - (IBAction)button:(id)sender {
     ParameterViewController * parmeterVC = [[ParameterViewController alloc] initWithNibName:@"ParameterViewController" bundle:nil];
     parmeterVC.vehicleType = self.vehicleType;
+    parmeterVC.parameterArray = parameterArray;
     [self.navigationController pushViewController:parmeterVC animated:YES];
     [parmeterVC release];
     NSLog(@"1111");
@@ -277,14 +280,14 @@
         }
     } else if (request.tag == 57) {
         [dataDic release];
-        dataDic = [[request responseString] JSONValue];
+        dataDic = [[[request responseString] JSONValue] retain];
         if (fieldArray.count > 0) {
             [self bindData];
         }
     }
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
-    
+    [[iToast makeText:@"网络请求失败"] show];
 }
 
 - (void)bindData {
@@ -292,11 +295,19 @@
         NSDictionary *d = [fieldArray objectAtIndex:i];
         Parameter *par = [[Parameter alloc] init];
         par.title = [d objectForKey:@"fieldsname"];
-        par.content = [dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]];
+        if ([[d objectForKey:@"fields"] isEqualToString:@"sssj"]) {
+            par.content = [[dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]] dateStringSince1970];
+        } else {
+            par.content = [dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]];
+        }
+        if ([par.content isEqualToString:@""]) {
+            par.content = @"-";
+        }
         [parameterArray addObject:par];
         [par release];
     }
-    [self.vehicleTable reloadData];
+    
+    [self readDataSource];
 }
 
 @end

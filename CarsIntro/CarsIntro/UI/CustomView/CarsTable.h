@@ -20,8 +20,8 @@
 @property (nonatomic, retain) NSMutableArray * newCarsArray;
 @property (nonatomic, retain) NSMutableArray * usedCarsArray;
 @property (nonatomic, assign) BOOL isNewCarData;
-//@property (nonatomic, assign) UIViewController *viewController;
-@property (assign) id<CarsTableDelegate> carsDelegate;
+@property (nonatomic, assign) UIViewController *viewController;
+//@property (assign) id<CarsTableDelegate> carsDelegate;
 
 @end
 

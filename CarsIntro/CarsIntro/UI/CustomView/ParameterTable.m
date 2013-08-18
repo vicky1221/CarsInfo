@@ -42,17 +42,19 @@
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 41.0;
+    return 40.0;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.parameterArray count];
+    return 1;
+//    return [self.parameterArray count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.parameterArray objectAtIndex:section] count];
+    return self.parameterArray.count;
+//    return [[self.parameterArray objectAtIndex:section] count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,9 +64,10 @@
     if (parameterCell== nil) {
         parameterCell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
     }
-    NSMutableArray *array = [self.parameterArray objectAtIndex:indexPath.section];
+//    NSMutableArray *array = [self.parameterArray objectAtIndex:indexPath.section];
     
-    Parameter * _parameter = [array objectAtIndex:indexPath.row];
+//    Parameter * _parameter = [array objectAtIndex:indexPath.row];
+    Parameter * _parameter = [self.parameterArray objectAtIndex:indexPath.row];
     [parameterCell cellForDic:_parameter];
     parameterCell.selectionStyle = UITableViewCellSelectionStyleNone;
     return parameterCell;
@@ -72,6 +75,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    return nil;
     switch (section) {
         case 0:
             return @"基本参数";

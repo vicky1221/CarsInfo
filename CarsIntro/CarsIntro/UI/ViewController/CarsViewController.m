@@ -17,6 +17,7 @@
 
 @interface CarsViewController ()<ASIHTTPRequestDelegate, TableEGODelegate> {
     BOOL isStart;
+    BOOL isNew;
 }
 
 @end
@@ -64,10 +65,17 @@
     [self addButtonsToChoiceView];
     //self.carsTable.viewController = self;
     self.carsTable.isNewCarData = YES;
-    [self performSelector:@selector(sendAPI)];
-    self.carsTable.carsDelegate = self;
+    
+    self.carsTable.viewController = self;
     [self.carsTable createEGOHead];
     self.carsTable.kdelegate = self;
+    
+    self.typeTable.viewController = self;
+    self.typeTable.hidden = YES;
+    self.typeTable.kdelegate = self;
+    [self.typeTable createEGOHead];
+    isNew = YES;
+    [self performSelector:@selector(sendAPI)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -88,13 +96,19 @@
         case 101:
             [self.btnNew setBackgroundImage:[UIImage imageNamed:@"newCar_1"] forState:UIControlStateNormal];
             [self.btnUsed setBackgroundImage:[UIImage imageNamed:@"usedCar_1"] forState:UIControlStateNormal];
-            self.carsTable.isNewCarData = YES;
+//            self.carsTable.isNewCarData = YES;
+            self.carsTable.hidden = NO;
+            self.typeTable.hidden = YES;
+            isNew = YES;
             [self performSelector:@selector(sendAPI)];
             break;
         case 102:
             [self.btnNew setBackgroundImage:[UIImage imageNamed:@"newCar_2"] forState:UIControlStateNormal];
             [self.btnUsed setBackgroundImage:[UIImage imageNamed:@"usedCar_2"] forState:UIControlStateNormal];
-            self.carsTable.isNewCarData = NO;
+//            self.carsTable.isNewCarData = NO;
+            self.carsTable.hidden = YES;
+            self.typeTable.hidden = NO;
+            isNew = NO;
             [self performSelector:@selector(sendAPI)];
             break;
     }
@@ -102,7 +116,7 @@
 }
 
 - (void)sendAPI {
-    if (self.carsTable.isNewCarData) {
+    if (isNew) {
         [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=sub_type_json&tid=38" andArgs:nil delegate:self andTag:101];
     } else {
         [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=channel&a=type_json&tid=26" andArgs:nil delegate:self andTag:102];
@@ -110,33 +124,58 @@
     isStart = YES;
 }
 
-- (void)sendAPI:(NSString *)type tid:(NSString *)tid {
-    
-}
-
 - (void)requestFinished:(ASIHTTPRequest *)request {
-    [self.carsTable.newCarsArray removeAllObjects];
-    [self.carsTable.usedCarsArray removeAllObjects];
-    NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
-    NSLog(@"array,,,%@",[array description]);
-    for (NSDictionary *d in array) {
-        UsedCarInfo *info = [[UsedCarInfo alloc] init];
-        [info fromDic:d];
-        if (request.tag == 101) {
-            [self.carsTable.newCarsArray addObject:info];
-        } else if(request.tag == 102) {
-            [self.carsTable.usedCarsArray addObject:info];
+    if (request.tag == 101) {
+        [self.carsTable.newCarsArray removeAllObjects];
+        [self.carsTable.newCarsArray addObjectsFromArray:[[request responseString] JSONValue]];
+//        NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+//        for (NSDictionary *d in array) {
+//            UsedCarInfo *info = [[UsedCarInfo alloc] init];
+//            [info fromDic:d];
+//            [self.carsTable.newCarsArray addObject:info];
+//            [info release];
+//        }
+        [self.carsTable reloadData];
+        isStart = NO;
+        [self.carsTable finishEGOHead];
+    } else if (request.tag == 102) {
+        [self.typeTable.typeArray removeAllObjects];
+        NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        for (NSDictionary *d in array) {
+            VehicleType * vehicleType = [[VehicleType alloc] init];
+            [vehicleType fromDic:d];
+            [self.typeTable.typeArray addObject:vehicleType];
+            [vehicleType release];
         }
-        [info release];
+        [self.typeTable reloadData];
+        isStart = NO;
+        [self.typeTable finishEGOHead];
     }
-    [self.carsTable reloadData];
-    isStart = NO;
-    [self.carsTable finishEGOHead];
+    
+//    [self.carsTable.newCarsArray removeAllObjects];
+//    [self.typeTable.typeArray removeAllObjects];
+//    NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+//    NSLog(@"array,,,%@",[array description]);
+//    for (NSDictionary *d in array) {
+//        UsedCarInfo *info = [[UsedCarInfo alloc] init];
+//        [info fromDic:d];
+//        if (request.tag == 101) {
+//            [self.carsTable.newCarsArray addObject:info];
+//        } else if(request.tag == 102) {
+//            [self.carsTable.usedCarsArray addObject:info];
+//        }
+//        [info release];
+//    }
+    
     
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
     isStart = NO;
-    [self.carsTable finishEGOHead];
+    if (request.tag == 101) {
+        [self.carsTable finishEGOHead];
+    } else {
+        [self.typeTable finishEGOHead];
+    }
     NSLog(@"error!");
 }
 
@@ -148,12 +187,6 @@
     [_choiceView release];
     [_carsTable release];
     [super dealloc];
-}
-
-#pragma mark - CarsTableDelegate
--(UIViewController *)viewController
-{
-    return self;
 }
 
 - (BOOL)shouldEgoHeadLoading:(UITableView *)tableView {

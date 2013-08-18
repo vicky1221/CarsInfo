@@ -171,7 +171,6 @@
 								<string key="NSFrame">{{9, 580}, {303, 40}}</string>
 								<reference key="NSSuperview" ref="888269621"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -440,6 +439,7 @@
 							<bytes key="NSWhite">MQA</bytes>
 							<reference key="NSCustomColorSpace" ref="527046698"/>
 						</object>
+						<bool key="IBUIClipsSubviews">YES</bool>
 						<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics">
 							<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
 							<string key="IBUIDisplayName">Freeform</string>

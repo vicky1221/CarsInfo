@@ -11,6 +11,7 @@
 #import "TypeViewController.h"
 #import "CarsViewController.h"
 #import "UsedCarInfo.h"
+#import "NSDictionary+type.h"
 @implementation CarsTable
 
 -(void)myInit
@@ -51,24 +52,31 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.isNewCarData) { 
-        return [self.newCarsArray count];
-    }else
-    {
-        return [self.usedCarsArray count];
-    }
+    return self.newCarsArray.count;
+    // 对于bool的判断一般直接判断变量  不要==yes 你可以搜搜为什么
+//    if (new == YES) { //
+//        return [self.newCarsArray count];
+//    }else
+//    {
+//        return [self.usedCarsArray count];
+//    }
+//    if (self.isNewCarData) { 
+//        return [self.newCarsArray count];
+//    }else
+//    {
+//        return [self.usedCarsArray count];
+//    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *d = [NSDictionary dictionary];
-    if (self.isNewCarData) {
-        d = [self.newCarsArray objectAtIndex:section];
-    } else {
-        d = [self.usedCarsArray objectAtIndex:section];
-    }
-    NSArray *array = [d objectForKey:@"data"];
-    return array.count;
+    NSArray *array = [[self.newCarsArray objectAtIndex:section] objectForKey:@"subtype"];
+    return [array count];
+//    if (self.isNewCarData){
+//        return [self.newCarsArray count];
+//    }else {
+//        return [self.usedCarsArray count];
+//    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,50 +86,48 @@
     if (carsCell == nil) {
         carsCell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
     }
-    NSDictionary *d = [NSDictionary dictionary];
-    if (self.isNewCarData) {
-        d = [self.newCarsArray objectAtIndex:indexPath.section];
-    } else {
-        d = [self.usedCarsArray objectAtIndex:indexPath.section];
-    }
-    NSArray *array = [d objectForKey:@"data"];
-    if (array.count>0) {
-        UsedCarInfo * _usedCarInfo = [array objectAtIndex:indexPath.row];
-        [carsCell cellForDic:_usedCarInfo];
-    }
+    NSArray *array = [[self.newCarsArray objectAtIndex:indexPath.section] objectForKey:@"subtype"];
+    NSDictionary *d = [array objectAtIndex:indexPath.row];
     
+//    _titleLabel.text = usedCarInfo.title;
+//    _priceLabel.text = usedCarInfo.addTime;
+//    _typeLable.text = usedCarInfo.className;
+//    _displacementLabel.text = usedCarInfo.orders;
+    
+    carsCell.titleLabel.text = [d stringForKey:@"title"];
+    carsCell.priceLabel.text = [d stringForKey:@"zhidaojia"];
+    carsCell.typeLable.text = [d stringForKey:@"chejibie"];
+    carsCell.displacementLabel.text = [d stringForKey:@"pailiang"];
+//    UsedCarInfo *infor = [[[UsedCarInfo alloc] init] autorelease];
+//    [infor fromDic:d];
+//    [carsCell cellForDic:infor];
+//    if (self.isNewCarData) {
+//        UsedCarInfo * _usedCarInfo = [self.newCarsArray objectAtIndex:indexPath.row];
+//        [carsCell cellForDic:_usedCarInfo];
+//    } else {
+//        UsedCarInfo * _usedCarInfo = [self.usedCarsArray objectAtIndex:indexPath.row];
+//        [carsCell cellForDic:_usedCarInfo];
+//    }
     return carsCell;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSDictionary *d = [NSDictionary dictionary];
-    if (self.isNewCarData) {
-        d = [self.newCarsArray objectAtIndex:section];
-    } else {
-        d = [self.usedCarsArray objectAtIndex:section];
-    }
-    return [d objectForKey:@"title"];
+    NSDictionary *d = [self.newCarsArray objectAtIndex:section];
+    return [d objectForKey:@"classname"];
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];    
-    //[self.viewController.navigationController pushViewController:vc animated:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TypeViewController *vc = [[TypeViewController alloc] initWithNibName:@"TypeViewController" bundle:nil];
-    if ([self.carsDelegate respondsToSelector:@selector(viewController)]) {
-        if (self.isNewCarData) {
-            UsedCarInfo *_usedCarInfo = [self.newCarsArray objectAtIndex:indexPath.row];
-            vc.usedCarInfo = _usedCarInfo;
-            vc.isNewCarData = YES;
-        } else {
-            UsedCarInfo *_usedCarInfo = [self.usedCarsArray objectAtIndex:indexPath.row];
-            vc.isNewCarData = NO;
-            vc.usedCarInfo = _usedCarInfo;
-        }
-        [[self.carsDelegate viewController].navigationController pushViewController:vc animated:YES];
-        [vc release];
-    }
+    NSArray *array = [[self.newCarsArray objectAtIndex:indexPath.section] objectForKey:@"subtype"];
+    NSDictionary *d = [array objectAtIndex:indexPath.row];
+    vc.tid = [d objectForKey:@"tid"];
+    vc.title = [d objectForKey:@"title"];
+//    UsedCarInfo *_usedCarInfo = [self.newCarsArray objectAtIndex:indexPath.row];
+//    vc.usedCarInfo = _usedCarInfo;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 @end

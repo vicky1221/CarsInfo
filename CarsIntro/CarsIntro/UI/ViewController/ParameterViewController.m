@@ -85,11 +85,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.parameterArray = [NSMutableArray array];
 //    [self readDataSource];
-    [self.parameterArray addObjectsFromArray:self.parameterArray];
-    [self.parameterTable reloadData];
+    
     self.titleLabel.text = self.vehicleType.title;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.parameterTable.parameterArray addObjectsFromArray:self.parameterArray];
+    [self.parameterTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning

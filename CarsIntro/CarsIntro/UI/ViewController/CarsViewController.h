@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "CarsTable.h"
 #import "KBaseViewController.h"
-@interface CarsViewController : KBaseViewController<CarsTableDelegate>
+#import "TypeTable.h"
+
+@interface CarsViewController : KBaseViewController
+
 - (IBAction)back:(id)sender;
 
 @property (retain, nonatomic) IBOutlet UIView *choiceView;
 @property (retain, nonatomic) IBOutlet CarsTable *carsTable;
+@property (retain, nonatomic) IBOutlet TypeTable *typeTable;
 
 @property (retain, nonatomic) UIButton * btnNew;
 @property (retain, nonatomic) UIButton * btnUsed;

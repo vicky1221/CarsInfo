@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TypeCell.h"
-@interface TypeTable : UITableView<UITableViewDelegate, UITableViewDataSource>
+#import "KBaseTableView.h"
+@interface TypeTable : KBaseTableView<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) NSMutableArray * typeArray;
 

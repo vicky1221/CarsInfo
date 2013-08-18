@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.titleLabel.text = self.usedCarInfo.title;
+    self.titleLabel.text = self.title;
     NSLog(@"%@", self.titleLabel.text);
     [self performSelector:@selector(sendAPI)];
     self.typeTable.viewController = self;
@@ -41,12 +41,14 @@
 //二手车
 //http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
 - (void)sendAPI {
-    if (self.isNewCarData) {
-        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%d", self.usedCarInfo.usedCarTid.intValue+2] andArgs:nil delegate:self andTag:600];
-        NSLog(@"%d", self.usedCarInfo.usedCarTid.intValue + 2);
-    } else {
-        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=esc&a=info_json&id=%@", self.usedCarInfo.usedCarInfoId] andArgs:nil delegate:self andTag:601];
-    }
+    
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%@", self.tid] andArgs:nil delegate:self andTag:600];
+//    if (self.isNewCarData) {
+//        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%d", self.usedCarInfo.usedCarTid.intValue+2] andArgs:nil delegate:self andTag:600];
+//        NSLog(@"%d", self.usedCarInfo.usedCarTid.intValue + 2);
+//    } else {
+//        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=esc&a=info_json&id=%@", self.usedCarInfo.usedCarInfoId] andArgs:nil delegate:self andTag:601];
+//    }
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
@@ -94,7 +96,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
-    [_usedCarInfo release];
+    [_tid release];
     [_vehicleType release];
     [_titleLabel release];
     [_typeTable release];
