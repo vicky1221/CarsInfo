@@ -19,6 +19,7 @@
 @interface VehicleViewController ()<ASIHTTPRequestDelegate> {
     NSMutableArray *fieldArray;
     NSDictionary *dataDic;
+    NSMutableArray *parameterArray;
 }
 
 @end
@@ -292,8 +293,10 @@
         Parameter *par = [[Parameter alloc] init];
         par.title = [d objectForKey:@"fieldsname"];
         par.content = [dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]];
-        
+        [parameterArray addObject:par];
+        [par release];
     }
+    [self.vehicleTable reloadData];
 }
 
 @end
