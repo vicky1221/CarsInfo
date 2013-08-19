@@ -101,6 +101,8 @@
     }
     if ((indexPath.section == 0&&indexPath.row ==4) || (indexPath.section == 1&&indexPath.row ==9)) {
         detailedCell.backgroundColor = [UIColor lightGrayColor];
+    } else {
+        detailedCell.backgroundColor = [UIColor clearColor];
     }
     NSArray * array = [self.detailedArray objectAtIndex:indexPath.section];
     Parameter * _parameter = [array objectAtIndex:indexPath.row];

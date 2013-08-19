@@ -263,8 +263,9 @@
 - (void)onlineViewBack {
     [UIView animateWithDuration:0.5 animations:^{
         self.onlineView.transform = CGAffineTransformIdentity;
+        [self.questionView resignFirstResponder];
     } completion:^(BOOL finished) {
-
+        nil;
     }];
 }
 

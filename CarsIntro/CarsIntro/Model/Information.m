@@ -8,6 +8,7 @@
 
 #import "Information.h"
 #import "NSDictionary+type.h"
+#import "NSString+Date.h"
 @implementation Information
 
 -(id)init
@@ -21,6 +22,8 @@
         self.tid = @"";
         self.user = @"";
         self.hasPic = NO;
+        self.addtime = @"";
+        self.body = @"";
     }
     return self;
 }
@@ -32,6 +35,8 @@
     [_title release];
     [_content release];
     [_picPath release];
+    [_addtime release];
+    [_body release];
     [super dealloc];
 }
 
@@ -46,7 +51,7 @@
 //    OL       hasPic; //"isshow" : "1",
 //    NSString *tid; //"tid" : "33",
 //    NSString *user; //"user" : "admin"
-    
+    self.body = [infoDic stringForKey:@"body"];
     self.infoId = [infoDic stringForKey:@"id"];
     self.title = [infoDic stringForKey:@"title"];
     self.content = [infoDic stringForKey:@"description"];
@@ -61,6 +66,9 @@
     self.tid = [infoDic stringForKey:@"tid"];
     self.user = [infoDic stringForKey:@"user"];
     self.url = [NSString stringWithFormat:@"%@%@",ServerAddress, [infoDic stringArrayForKey:@"url"]];
+    
+     NSString * string = [infoDic stringForKey:@"addtime"];
+    self.addtime = [string dateStringSince1970];
 }
 
 @end

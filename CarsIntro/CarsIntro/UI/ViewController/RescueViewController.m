@@ -37,6 +37,7 @@
     //开始定位
     [manager startUpdatingLocation];
     [self.btnHelp setImage:[UIImage imageNamed:@"Rescue_2.png"] forState:UIControlStateNormal];
+     NSLog(@"开始定位");
 }
 
 - (void)viewDidLoad
@@ -86,11 +87,12 @@
     [self.mapKit setRegion:region animated:YES];
     //停止定位
     [manager stopUpdatingLocation];
+    NSLog(@"定位成功");
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"error");
+    NSLog(@"定位失败");
 }
 
 - (void)didReceiveMemoryWarning
@@ -140,7 +142,7 @@
     [self performSelector:@selector(senderAPI)];
 }
 - (IBAction)phone:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://15234249875"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://4006310351"]];
 }
 
 - (IBAction)back:(id)sender {

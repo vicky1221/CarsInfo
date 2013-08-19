@@ -21,6 +21,20 @@
     return self;
 }
 
+//-(id)initWithImage:(UIImage *)image Coordinate:(CLLocationCoordinate2D)coordinate 
+//{
+//    if (self = [super init]) {
+//        _image = image;
+//        _coordinate = coordinate;
+//    }
+//    return self;
+//}
+
+//-(UIImage *)image
+//{
+//    return _image;
+//}
+
 -(NSString *)title
 {
     return _title;

@@ -7,7 +7,19 @@
 //
 
 #import "KBaseViewController.h"
+#import "CIntroduceViewController.h"
+#import <MessageUI/MessageUI.h>
+@interface ShopViewController : KBaseViewController<UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
+@property (nonatomic, assign) BOOL isPhoneActionSheet;
 
-@interface ShopViewController : KBaseViewController
+@property (retain, nonatomic) IBOutlet UIButton *phoneButton;
+
+@property (retain, nonatomic) IBOutlet UIButton *emaileButton;
+
+@property (retain, nonatomic) IBOutlet UIButton *newsButton;
+
+@property (retain, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (retain, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end

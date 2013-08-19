@@ -397,7 +397,7 @@
 			<string key="Rescue_1@2x.png">{202, 70}</string>
 			<string key="Rescue_2@2x.png">{201, 70}</string>
 			<string key="Rescue_3@2x.png">{202, 70}</string>
-			<string key="back.png">{48, 23}</string>
+			<string key="back.png">{51, 30}</string>
 			<string key="nav.png">{320, 42}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

@@ -12,8 +12,9 @@
 {
     NSString * _title;
     NSString * _subtitle;
+    //UIImage * _image;
     CLLocationCoordinate2D _coordinate;
 }
 -(id)initWithTitle:(NSString *)title subTitle:(NSString *)subtitle Coordinate:(CLLocationCoordinate2D)coordinate;
-
+//-(id)initWithImage:(UIImage *)image Coordinate:(CLLocationCoordinate2D)coordinate;
 @end

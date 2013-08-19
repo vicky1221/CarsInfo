@@ -38,6 +38,8 @@
 @property (nonatomic, retain) NSString *tid; //"tid" : "33",
 @property (nonatomic, retain) NSString *user; //"user" : "admin"
 @property (nonatomic, retain) NSString * url;
+@property (nonatomic, retain) NSString * addtime;
+@property (nonatomic, retain) NSString * body;
 -(void)fromDic:(NSDictionary *)infoDic;
 
 @end
