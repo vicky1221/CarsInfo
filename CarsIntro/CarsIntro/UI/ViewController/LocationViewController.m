@@ -42,6 +42,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    //[self positioning];
+    [super viewDidAppear:animated];
     CLLocationCoordinate2D center;
     center.latitude = 37.857452100000;
     center.longitude = 112.503559700000;
@@ -59,11 +66,6 @@
     MyAnnotation * anno = [[MyAnnotation alloc] initWithTitle:@"山西君和汽车销售服务有限公司" subTitle:@"太原市万柏林区迎泽西大街170" Coordinate:center];
     [self.mapKit addAnnotation:anno];
     [anno release];
-
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    //[self positioning];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {

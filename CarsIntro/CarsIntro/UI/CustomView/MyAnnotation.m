@@ -14,6 +14,7 @@
 {
     self = [super init];
     if (self) {
+//        _image = [UIImage imageNamed:@"Location_2.png"];
         _title = title;
         _subtitle = subtitle;
         _coordinate = coordinate;
@@ -30,10 +31,10 @@
 //    return self;
 //}
 
-//-(UIImage *)image
-//{
-//    return _image;
-//}
+-(UIImage *)image
+{
+    return _image;
+}
 
 -(NSString *)title
 {
