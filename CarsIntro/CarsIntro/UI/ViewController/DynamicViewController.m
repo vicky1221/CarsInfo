@@ -50,6 +50,10 @@
     [[WebRequest instance] clearRequestWithTag:100];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

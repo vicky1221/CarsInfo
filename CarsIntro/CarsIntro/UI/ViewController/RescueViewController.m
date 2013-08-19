@@ -121,7 +121,7 @@
 //http://www.ard9.com/qiche/index.php?c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app
 -(void)senderAPI
 {
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:110];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app&uid=%@&address=山西&jd=%5.f&wd=%5.f", [DataCenter shareInstance].accont.loginUserID, [DataCenter shareInstance].latitude, [DataCenter shareInstance].longitude] andArgs:nil delegate:self andTag:110];
 }
 
 -(void)requestFinished:(ASIHTTPRequest *)request

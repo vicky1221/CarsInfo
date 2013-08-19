@@ -157,6 +157,7 @@
 								<string key="NSFrame">{{231, 4}, {25, 33}}</string>
 								<reference key="NSSuperview" ref="70837467"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -10153,7 +10154,7 @@ AAEAAQABA</bytes>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Label</string>
+						<string key="IBUIText"/>
 						<reference key="IBUITextColor" ref="990683060"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
@@ -10181,7 +10182,7 @@ AAEAAQABA</bytes>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Label</string>
+						<string key="IBUIText"/>
 						<reference key="IBUITextColor" ref="990683060"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
@@ -10486,6 +10487,40 @@ AAEAAQABA</bytes>
 				<object class="IBPartialClassDescription">
 					<string key="className">ShopViewController</string>
 					<string key="superclassName">KBaseViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="back:">id</string>
+						<string key="btnEmaile:">id</string>
+						<string key="btnNews:">id</string>
+						<string key="btnPhone:">id</string>
+						<string key="toCIntroduceVC:">id</string>
+						<string key="toLocationVC:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="back:">
+							<string key="name">back:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="btnEmaile:">
+							<string key="name">btnEmaile:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="btnNews:">
+							<string key="name">btnNews:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="btnPhone:">
+							<string key="name">btnPhone:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toCIntroduceVC:">
+							<string key="name">toCIntroduceVC:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toLocationVC:">
+							<string key="name">toLocationVC:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="emaileButton">UIButton</string>
 						<string key="newsButton">UIButton</string>

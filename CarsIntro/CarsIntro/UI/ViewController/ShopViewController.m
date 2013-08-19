@@ -16,8 +16,8 @@
 
 @interface ShopViewController ()<ASIHTTPRequestDelegate>
 {
-    DynamicViewController *EDynamicVC;
-//    EDynamicViewController * EDynamicVC;
+//    DynamicViewController *EDynamicVC;
+    EDynamicViewController * EDynamicVC;
 }
 @end
 
@@ -40,8 +40,8 @@
     self.phoneButton.adjustsImageWhenHighlighted = NO;
     self.emaileButton.adjustsImageWhenHighlighted = NO;
     self.newsButton.adjustsImageWhenHighlighted = NO;
-//    EDynamicVC = [[EDynamicViewController alloc] initWithNibName:@"EDynamicViewController" bundle:nil];
-    EDynamicVC = [[DynamicViewController alloc] initWithNibName:@"DynamicViewController" bundle:nil];
+    EDynamicVC = [[EDynamicViewController alloc] initWithNibName:@"EDynamicViewController" bundle:nil];
+//    EDynamicVC = [[DynamicViewController alloc] initWithNibName:@"DynamicViewController" bundle:nil];
 }
 
 //http://www.ard9.com/qiche/index.php?c=article&a=type_json_tuijian&tid=33
@@ -50,7 +50,6 @@
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-    NSLog(@"123");
     NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
     for (NSDictionary *d in array) {
         Information * info = [[Information alloc] init];
@@ -60,7 +59,7 @@
         self.titleLabel.text = info.title;
         self.titleLabel.numberOfLines =0;
         self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-        self.titleLabel.preferredMaxLayoutWidth = 500;
+//        self.titleLabel.preferredMaxLayoutWidth = 500;
         [info release];
     }
 }
@@ -153,7 +152,7 @@
     //设置主题
     [mailPicker setSubject: @"新邮件"];
     
-    // 添加发送者
+//    // 添加发送者
     NSArray *toRecipients = [NSArray arrayWithObject: @"sa14008@part.faw-vw.com"];
     //NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com", @"third@example.com", nil];
     //NSArray *bccRecipients = [NSArray arrayWithObject:@"fourth@example.com", nil];

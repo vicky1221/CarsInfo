@@ -239,7 +239,7 @@
         }
             break;
         case 102:{
-            UIActionSheet * as=[[UIActionSheet alloc] initWithTitle:@"拨打商家热线" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"电话-4008170818-1001" otherButtonTitles:nil, nil];
+            UIActionSheet * as=[[UIActionSheet alloc] initWithTitle:@"拨打商家热线" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"电话-400-631-0351" otherButtonTitles:nil, nil];
             [as showInView:self.view];
             [as release];
         }
@@ -256,6 +256,7 @@
         return;
     }
     if (buttonIndex==0) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://400-631-0351"]];
         NSLog(@"打电话");
     }
 }
