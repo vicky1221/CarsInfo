@@ -113,7 +113,7 @@
 
 - (void)dealloc {
     [imageArray release];
-    [self.pickerArray release];
+    [_pickerArray release];
     [_strGearbox release];
     [_strDate release];
     [_scrollView release];

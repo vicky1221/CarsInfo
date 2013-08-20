@@ -29,7 +29,8 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self == [super initWithCoder:aDecoder]) {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
         [self myInit];
     }
     return self;
@@ -71,6 +72,7 @@
     MemberCenter * memberCenter = [self.centerArray objectAtIndex:indexPath.row];
     messageVC.memberCenter = memberCenter;
     [self.viewController.navigationController pushViewController:messageVC animated:YES];
+    [messageVC release];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

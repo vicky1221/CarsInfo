@@ -29,7 +29,8 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self == [super initWithCoder:aDecoder]) {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
         [self myInit];
     }
     return self;
@@ -71,6 +72,7 @@
     Medal * medal = [self.medalArray objectAtIndex:indexPath.row];
     mdtailsVC.medal = medal;
     [self.viewController.navigationController pushViewController:mdtailsVC animated:YES];
+    [mdtailsVC release];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

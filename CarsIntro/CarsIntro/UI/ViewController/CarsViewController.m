@@ -142,10 +142,11 @@
         [self.typeTable.typeArray removeAllObjects];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
         for (NSDictionary *d in array) {
-            VehicleType * vehicleType = [[VehicleType alloc] init];
-            [vehicleType fromDic:d];
-            [self.typeTable.typeArray addObject:vehicleType];
-            [vehicleType release];
+            [self.typeTable.typeArray addObject:d];
+//            VehicleType * vehicleType = [[VehicleType alloc] init];
+//            [vehicleType fromDic:d];
+//            [self.typeTable.typeArray addObject:vehicleType];
+//            [vehicleType release];
         }
         [self.typeTable reloadData];
         isStart = NO;

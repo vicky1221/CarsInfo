@@ -94,7 +94,7 @@
 //    _typeLable.text = usedCarInfo.className;
 //    _displacementLabel.text = usedCarInfo.orders;
     
-    carsCell.titleLabel.text = [d stringForKey:@"title"];
+    carsCell.titleLabel.text = [d stringForKey:@"classname"];
     carsCell.priceLabel.text = [d stringForKey:@"zhidaojia"];
     carsCell.typeLable.text = [d stringForKey:@"chejibie"];
     carsCell.displacementLabel.text = [d stringForKey:@"pailiang"];

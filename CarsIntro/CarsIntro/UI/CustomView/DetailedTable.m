@@ -28,7 +28,8 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self == [super initWithCoder:aDecoder]) {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
         [self myInit];
     }
     return self;
@@ -59,7 +60,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView* myView = [[UIView alloc] init];
+    UIView* myView = [[[UIView alloc] init] autorelease];
     myView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 22)];
     titleLabel.textColor=[UIColor blackColor];
@@ -73,7 +74,7 @@
         titleLabel.text = @"全险";
     }
     [myView addSubview:titleLabel]; 
-    
+    [titleLabel release];
     return myView; 
 }
 

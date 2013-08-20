@@ -195,7 +195,7 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller
           didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-    NSString *msg;
+    NSString *msg=@"";
     
     switch (result)
     {

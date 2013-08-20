@@ -80,7 +80,7 @@
     NSString *kCellID = @"QuetionCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellID];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellID];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellID] autorelease];
     }
     
     NSDictionary *dic = [array objectAtIndex:indexPath.row];

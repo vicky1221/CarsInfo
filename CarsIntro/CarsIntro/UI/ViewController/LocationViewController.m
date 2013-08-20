@@ -67,7 +67,7 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    MKAnnotationView* newAnnotation=[[MKAnnotationView alloc] initWithAnnotation: (MyAnnotation *)annotation reuseIdentifier: annotation.title];
+    MKAnnotationView* newAnnotation=[[[MKAnnotationView alloc] initWithAnnotation: (MyAnnotation *)annotation reuseIdentifier: annotation.title] autorelease];
     newAnnotation.canShowCallout = YES;
     UIImage *image = [UIImage imageNamed:@"Location_1.png"];
     newAnnotation.image= image;

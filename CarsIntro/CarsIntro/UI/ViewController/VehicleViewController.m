@@ -165,6 +165,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:56];
+    [[WebRequest instance] clearRequestWithTag:57];
+}
+
 - (void)dealloc {
     [picArray release];
     [_carsImageView release];
@@ -181,7 +187,7 @@
 - (void)sendAPI {
 //    http://www.ard9.com/qiche/index.php?c=product&a=info_json_field
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json_field" andArgs:nil delegate:self andTag:56];
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json&id=20" andArgs:nil delegate:self andTag:57];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=info_json&id=%@", self.vehicleType.tid] andArgs:nil delegate:self andTag:57];
 }
 
 #pragma mark - image Action
@@ -226,7 +232,7 @@
         case 101: {
             if ([[DataCenter shareInstance].accont isAnonymous]) {
                 LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-                UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                UINavigationController *loginNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
                 loginNav.navigationBarHidden = YES;
                 [loginVC release];
                 [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:3];

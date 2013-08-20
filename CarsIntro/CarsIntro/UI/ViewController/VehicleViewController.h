@@ -23,7 +23,6 @@
 @property (retain, nonatomic) IBOutlet UIView *onlineView;
 @property (assign, nonatomic) IBOutlet UITextView *questionView;
 @property (nonatomic, retain) VehicleType *vehicleType;
-
 @property (nonatomic, assign) IBOutlet UIView *imageView;
 @property (nonatomic, assign) IBOutlet UILabel *picCountLabel;
 

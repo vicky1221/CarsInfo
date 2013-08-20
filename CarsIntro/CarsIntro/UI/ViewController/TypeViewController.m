@@ -57,10 +57,11 @@
     if (request.tag == 600) {
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
         for (NSDictionary *d in array) {
-            VehicleType * vehicleType = [[VehicleType alloc] init];
-            [vehicleType fromDic:d];
-            [self.typeTable.typeArray addObject:vehicleType];
-            [vehicleType release];
+            [self.typeTable.typeArray addObject:d];
+//            VehicleType * vehicleType = [[VehicleType alloc] init];
+//            [vehicleType fromDic:d];
+//            [self.typeTable.typeArray addObject:vehicleType];
+//            [vehicleType release];
         }
     } else if (request.tag == 601) {
         NSDictionary * dic = [NSDictionary dictionaryWithDictionary:[[request responseString] JSONValue]];
@@ -92,7 +93,7 @@
 #pragma mark - button Action
 
 - (IBAction)back:(id)sender {
-    
+    [[WebRequest instance] clearRequestWithTag:600];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
