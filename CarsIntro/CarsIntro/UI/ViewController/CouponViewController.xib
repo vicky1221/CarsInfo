@@ -124,7 +124,7 @@
 					<object class="IBUIButton" id="904687664">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{260, 8}, {52, 25}}</string>
+						<string key="NSFrame">{{260, 6}, {52, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="377539833"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -140,7 +140,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="998692173"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">backGround_btn@2x.png</string>
+							<string key="NSResourceName">backGround_btn.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="272967324"/>
 						<reference key="IBUIFont" ref="390850493"/>
@@ -265,6 +265,7 @@
 						<int key="NSvFlags">276</int>
 						<string key="NSFrame">{{0, 110}, {320, 350}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -494,7 +495,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="back.png">{51, 30}</string>
-			<string key="backGround_btn@2x.png">{103, 50}</string>
+			<string key="backGround_btn.png">{52, 30}</string>
 			<string key="nav.png">{320, 42}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

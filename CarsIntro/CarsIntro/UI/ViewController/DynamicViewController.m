@@ -16,7 +16,7 @@
 
 
 @interface DynamicViewController () <ASIHTTPRequestDelegate, MFMailComposeViewControllerDelegate> {
-    NSString *previewID;
+    NSString *previewID;    //预览preview
     NSString *nextID;
     NSString *infoTitle;
     NSDictionary *dataDic;
@@ -38,11 +38,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (self.isFromInfoVC) {
+        self.leftButton.enabled = YES;
+        self.rightButton.enabled = YES;
+    }else {
+        self.leftButton.enabled = NO;
+        self.rightButton.enabled = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self sendAPI:self.infoID];
+    [self performSelector:@selector(sendAPI:) withObject:self.infoID];
+    //[self sendAPI:self.infoID];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -67,9 +75,13 @@
     [previewID release];
     [nextID release];
     [_infoID release];
+    [_leftButton release];
+    [_rightButton release];
     [super dealloc];
 }
 - (void)viewDidUnload {
+    [self setLeftButton:nil];
+    [self setRightButton:nil];
     [super viewDidUnload];
 }
 
@@ -84,14 +96,27 @@
     self.bottomView.hidden = NO;
     NSDictionary *dic = [[request responseString] JSONValue];
     dataDic = [[NSDictionary alloc] initWithDictionary:dic];
-    NSLog(@"%@",dic);
-    [infoTitle release];
+    NSLog(@"这是企业动态%@",dic);
+    if (infoTitle) {
+        [infoTitle release];
+    }
+    //[infoTitle release];
     infoTitle = [[dic objectForKey:@"title"] retain];
-    [_infoID release];
+    NSLog(@"infoTitle,,,%@", infoTitle);
+    if (self.infoID) {
+        self.infoID = nil;
+    }
+    //[_infoID release];
     self.infoID = [[NSString stringWithFormat:@"%@", [dic objectForKey:@"aid"]] retain];
-    [previewID release];
+    if (previewID) {
+        [previewID release];
+    }
+    //[previewID release];
     previewID = [[NSString stringWithFormat:@"%@", [dic objectForKey:@"aprev"]] retain];
-    [nextID release];
+    if (nextID) {
+        [nextID release];
+    }
+    //[nextID release];
     nextID = [[NSString stringWithFormat:@"%@", [dic objectForKey:@"anext"]] retain];
     NSString *str = [dic objectForKey:@"body"];
     str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
@@ -158,8 +183,8 @@
         [self displayMailComposerSheet];
     }
 }
-
-- (IBAction)close:(id)sender {
+                                                            
+- (IBAction)close:(id)sender {                            
     [self.sinaTextView resignFirstResponder];
     [UIView animateWithDuration:0.5 animations:^{
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];

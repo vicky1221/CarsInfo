@@ -14,22 +14,12 @@
 {
     self = [super init];
     if (self) {
-//        _image = [UIImage imageNamed:@"Location_2.png"];
         _title = title;
         _subtitle = subtitle;
         _coordinate = coordinate;
     }
     return self;
 }
-
-//-(id)initWithImage:(UIImage *)image Coordinate:(CLLocationCoordinate2D)coordinate 
-//{
-//    if (self = [super init]) {
-//        _image = image;
-//        _coordinate = coordinate;
-//    }
-//    return self;
-//}
 
 -(UIImage *)image
 {

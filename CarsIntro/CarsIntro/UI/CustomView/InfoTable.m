@@ -68,6 +68,7 @@
     Information *info = [self.infoArray objectAtIndex:indexPath.row];
     DynamicViewController * dynamicVC = [[DynamicViewController alloc] initWithNibName:@"DynamicViewController" bundle:nil];
     dynamicVC.infoID = info.infoId;
+    dynamicVC.isFromInfoVC = YES;
     [self.viewController.navigationController pushViewController:dynamicVC animated:YES];
     [dynamicVC release];
 }

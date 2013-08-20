@@ -10,14 +10,12 @@
 #import "WebRequest.h"
 #import "Information.h"
 #import "JSON.h"
-#import "EDynamicViewController.h"
 #import "LocationViewController.h"
 #import "DynamicViewController.h"
 
 @interface ShopViewController ()<ASIHTTPRequestDelegate>
 {
-//    DynamicViewController *EDynamicVC;
-    EDynamicViewController * EDynamicVC;
+    DynamicViewController * dynamicVC;
 }
 @end
 
@@ -32,16 +30,24 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self performSelector:@selector(sendAPI)];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[WebRequest instance] clearRequestWithTag:1000];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self performSelector:@selector(sendAPI)];
     self.phoneButton.adjustsImageWhenHighlighted = NO;
     self.emaileButton.adjustsImageWhenHighlighted = NO;
     self.newsButton.adjustsImageWhenHighlighted = NO;
-    EDynamicVC = [[EDynamicViewController alloc] initWithNibName:@"EDynamicViewController" bundle:nil];
-//    EDynamicVC = [[DynamicViewController alloc] initWithNibName:@"DynamicViewController" bundle:nil];
+    dynamicVC = [[DynamicViewController alloc] initWithNibName:@"DynamicViewController" bundle:nil];
 }
 
 //http://www.ard9.com/qiche/index.php?c=article&a=type_json_tuijian&tid=33
@@ -54,12 +60,12 @@
     for (NSDictionary *d in array) {
         Information * info = [[Information alloc] init];
         [info fromDic:d];
-        EDynamicVC.infoID = info.infoId;
+        dynamicVC.infoID = info.infoId;
         self.timeLabel.text = info.addtime;
         self.titleLabel.text = info.title;
         self.titleLabel.numberOfLines =0;
         self.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-//        self.titleLabel.preferredMaxLayoutWidth = 500;
+        //self.titleLabel.preferredMaxLayoutWidth = 500;    ios6中的方法
         [info release];
     }
 }
@@ -86,7 +92,9 @@
 }
 
 - (IBAction)btnNews:(id)sender {
-    [self.navigationController pushViewController:EDynamicVC animated:YES];
+    NSLog(@"这个是id,%@",dynamicVC.infoID);
+    dynamicVC.isFromInfoVC = NO;
+    [self.navigationController pushViewController:dynamicVC animated:YES];
 }
 
 
@@ -231,7 +239,7 @@
 }
 
 - (void)dealloc {
-    [EDynamicVC release];
+    [dynamicVC release];
     [_phoneButton release];
     [_emaileButton release];
     [_newsButton release];

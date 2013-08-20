@@ -79,6 +79,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{11, 225}, {298, 170}}</string>
 								<reference key="NSSuperview" ref="91007799"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -191,7 +192,7 @@
 					<object class="IBUIButton" id="560951012">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{260, 8}, {51, 25}}</string>
+						<string key="NSFrame">{{260, 6}, {52, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="91007799"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -207,7 +208,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="305356813"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Advice@2x.png</string>
+							<string key="NSResourceName">advice.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -397,7 +398,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="Advice@2x.png">{103, 50}</string>
+			<string key="advice.png">{52, 30}</string>
 			<string key="back.png">{51, 30}</string>
 			<string key="nav.png">{320, 42}</string>
 		</dictionary>
