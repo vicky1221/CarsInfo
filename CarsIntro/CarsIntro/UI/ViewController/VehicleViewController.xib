@@ -390,7 +390,7 @@
 							<object class="IBUIButton" id="382181332">
 								<reference key="NSNextResponder" ref="387097963"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{259, 8}, {52, 25}}</string>
+								<string key="NSFrame">{{259, 6}, {52, 30}}</string>
 								<reference key="NSSuperview" ref="387097963"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="733156527"/>
@@ -966,7 +966,7 @@
 			<string key="back.png">{51, 30}</string>
 			<string key="backGround.png">{320, 419}</string>
 			<string key="backGround@2x.png">{640, 837}</string>
-			<string key="backGround_btn.png">{52, 25}</string>
+			<string key="backGround_btn.png">{52, 30}</string>
 			<string key="nav.png">{320, 42}</string>
 			<string key="parameterBtn.png">{303, 40}</string>
 		</dictionary>

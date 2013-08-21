@@ -12,7 +12,6 @@
 @interface RescueViewController : KBaseViewController <CLLocationManagerDelegate,MKMapViewDelegate>
 
 @property (retain, nonatomic) IBOutlet UIButton *btnHelp;
-
 @property (retain, nonatomic) IBOutlet MKMapView *mapKit;
 
 @end

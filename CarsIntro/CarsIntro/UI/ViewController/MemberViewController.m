@@ -45,12 +45,12 @@
     for (int i = 0; i <9; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag  = i+101;
-        [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"Member_%d.png", i]] forState:UIControlStateNormal];
-        if (i%2==0) {
-            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_0.png"] forState:UIControlStateNormal];
-        } else {
-            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_1.png"] forState:UIControlStateNormal];
-        }
+        [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"Member_%d.png", i]] forState:UIControlStateNormal];
+//        if (i%2==0) {
+//            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_0.png"] forState:UIControlStateNormal];
+//        } else {
+//            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_1.png"] forState:UIControlStateNormal];
+//        }
         float x = Button_Width/2 + (i%3)*Button_Width;
         float y = i/3*Button_Height  + Button_Height/2;
         NSLog(@"%f,,, %f,,,%f",x ,y, Button_Height);
@@ -67,7 +67,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.backGroudImageView.image = [[UIImage imageNamed:@"HomeBtn_backGround"] stretchableImageWithLeftCapWidth:40 topCapHeight:40];
-    Button_Height = VIEW_HEIGHT(self.memberScrollView)/3;
+    Button_Height = 101;//VIEW_HEIGHT(self.memberScrollView)/3;
     [self addButtonsToContentView];
 
 }

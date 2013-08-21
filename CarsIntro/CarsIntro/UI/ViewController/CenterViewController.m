@@ -47,7 +47,7 @@
 //  http://www.ard9.com/qiche/index.php?c=channel&a=type_json&tid=40&uid=
 -(void)senderAPI
 {
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=40&uid==%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:300];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=40&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:300];
 }
 
 -(void)requestFinished:(ASIHTTPRequest *)request

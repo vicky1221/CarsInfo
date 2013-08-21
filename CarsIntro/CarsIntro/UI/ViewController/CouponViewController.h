@@ -19,4 +19,7 @@
 
 @property (retain, nonatomic) NSString * activityID;
 @property (retain, nonatomic) NSString * activeTitle;
+
+- (IBAction)attentActive:(id)sender;
+
 @end

@@ -47,11 +47,12 @@
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:button];
     }
-    float delta = 58*j-VIEW_HEIGHT(self.contentView);
+    float delta = Button_Height*j-VIEW_HEIGHT(self.contentView);
     self.contentView.frame = VIEW_FRAME_HB(self.contentView, 0, delta);
     self.logoutButton.frame = VIEW_FRAME_HB(self.logoutButton, delta, 0);
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_BOTTOM(self.logoutButton)+20);
-}                                                            
+//    self.scrollView.contentSize = CGSizeMake(320, 600);
+    self.scrollView.contentSize =     CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_BOTTOM(self.logoutButton)+20);
+}
                                                             
 - (void)viewDidLoad
 {

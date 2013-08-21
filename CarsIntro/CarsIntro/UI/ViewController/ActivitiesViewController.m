@@ -123,6 +123,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request {
     self.activitiesTable.activityArray = [NSMutableArray arrayWithCapacity:0];
     self.activitiesTable.couponArray = [NSMutableArray arrayWithCapacity:0];
+    
     NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
     for (NSDictionary *d in array) {
         Activity * activity = [[Activity alloc] init];

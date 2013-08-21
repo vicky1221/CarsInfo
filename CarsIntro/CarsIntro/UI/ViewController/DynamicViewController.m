@@ -194,7 +194,7 @@
 }
 
 - (IBAction)send:(id)sender {
-    [[DataCenter shareInstance].sinaEngine sendWeiBoWithText:self.sinaTextView.text image:nil];
+    [[DataCenter shareInstance].sinaEngine sendWeiBoWithText:self.sinaTextView.text image:[self captureImage]];
     [self close:nil];
 }
 
@@ -236,5 +236,13 @@
             break;
     }
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (UIImage *)captureImage{
+    UIGraphicsBeginImageContext(self.webView.bounds.size);
+    [_webView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return viewImage;
 }
 @end

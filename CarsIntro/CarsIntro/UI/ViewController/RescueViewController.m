@@ -10,7 +10,9 @@
 #import "iToast.h"
 #import "WebRequest.h"
 #import "JSON.h"
-@interface RescueViewController ()<ASIHTTPRequestDelegate>
+@interface RescueViewController ()<ASIHTTPRequestDelegate> {
+    CLLocation *currentLocation;
+}
 
 @end
 
@@ -77,7 +79,8 @@
 {
     //定位后的新位置
     MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, MKCoordinateSpanMake(0.02, 0.02));
-    
+    currentLocation = [newLocation retain];
+
     MKPointAnnotation *ann = [[MKPointAnnotation alloc] init];
     ann.coordinate = newLocation.coordinate;
     //触发viewForAnnotation
@@ -92,7 +95,7 @@
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"定位失败");
+    [[iToast makeText:@"定位失败"] show];
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,7 +124,7 @@
 //http://www.ard9.com/qiche/index.php?c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app
 -(void)senderAPI
 {
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app&uid=%@&address=山西&jd=%5.f&wd=%5.f", [DataCenter shareInstance].accont.loginUserID, [DataCenter shareInstance].latitude, [DataCenter shareInstance].longitude] andArgs:nil delegate:self andTag:110];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=31&hand=161444713&id=&go=1&from=app&uid=%@&address=山西&jd=%.5f&wd=%.5f", [DataCenter shareInstance].accont.loginUserID, currentLocation.coordinate.latitude,     currentLocation.coordinate.latitude] andArgs:nil delegate:self andTag:110];
 }
 
 -(void)requestFinished:(ASIHTTPRequest *)request
@@ -135,7 +138,7 @@
 
 -(void)requestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"信息错误");
+    [[iToast makeText:@"网络请求返回错误"] show];
 }
 
 - (IBAction)help:(id)sender {

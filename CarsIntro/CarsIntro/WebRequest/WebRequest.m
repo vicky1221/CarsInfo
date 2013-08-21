@@ -38,8 +38,9 @@
 {
     if ([cata isEqualToString:@"get"]) {
         NSString *url = [NSString stringWithFormat:@"%@%@",Server,method];
+        NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSLog(@"%@",url);
-        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:saveURl]];
         request.tag = tag;
         request.delegate = delegate;
         [request startAsynchronous];

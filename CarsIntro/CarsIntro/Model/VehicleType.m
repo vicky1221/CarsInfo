@@ -39,7 +39,7 @@
 {
     self.vehicleTypeId = [vehicleTypeDic stringForKey:@"id"];
     self.title = [vehicleTypeDic stringForKey:@"title"];
-    self.price = [vehicleTypeDic stringForKey:@"price"];
+    self.price = [vehicleTypeDic stringForKey:@"zdj"];
     self.tid = [vehicleTypeDic stringForKey:@"tid"];
     self.addtime = [vehicleTypeDic stringForKey:@"addtime"];
     self.litpic = [NSString stringWithFormat:@"%@%@",ServerAddress ,[vehicleTypeDic stringForKey:@"litpic"]];

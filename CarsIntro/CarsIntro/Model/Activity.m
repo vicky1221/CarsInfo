@@ -28,12 +28,14 @@
         self.content = @"";
         self.zsl = @"";
         self.pic = @"";
+        self.sysl = @"";
     }
     return self;
 }
 
 -(void)dealloc
 {
+    [_sysl release];
     [_activityId release];
     [_tid release];
     [_title release];
@@ -51,7 +53,6 @@
     [super dealloc];
 }
 
-//title":"标题","jzsj":"截止时间","content":"内容","zsl":"总数量","sysl":"剩余数量"
 -(void)fromDic:(NSDictionary *)activityDic
 {
     self.activityId= [activityDic stringForKey:@"id"];
@@ -66,12 +67,17 @@
     self.mrank = [activityDic stringForKey:@"mrank"];
     self.mgold = [activityDic stringForKey:@"mgold"];
     self.isshow = [activityDic stringForKey:@"isshow"];
-    self.user = [activityDic stringForKey:@"admin"];
-    self.jzsj = [activityDic stringForKey:@"jzsj"];
-    self.content = [activityDic stringForKey:@"content"];
-    self.zsl = [activityDic stringForKey:@"zsl"];
+    self.user = [activityDic stringForKey:@"user"]; 
+    self.jzsj = [activityDic stringForKey:@"jzsj"]; // 截止时间
+    self.content = [activityDic stringForKey:@"content"]; 
+    self.zsl = [activityDic stringForKey:@"zsl"]; // 总数量
     self.pic = [NSString stringWithFormat:@"%@%@",ServerAddress ,[activityDic stringForKey:@"pic"]];
+    
+    if (([self.zsl integerValue]<=[self.sysl integerValue])|| [[NSDate date] timeIntervalSince1970]<=[self.jzsj integerValue]) {
+        self.isActivity = NO;
+    } else {
+        self.isActivity = YES;
+    }
 }
-
 
 @end

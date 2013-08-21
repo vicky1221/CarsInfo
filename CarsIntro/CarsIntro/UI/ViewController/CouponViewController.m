@@ -11,6 +11,7 @@
 #import "UIView+custom.h"
 #import "NSString+Date.h"
 #import "iToast.h"
+#import "NSDictionary+type.h"
 
 @interface CouponViewController ()<ASIHTTPRequestDelegate>
 
@@ -54,7 +55,7 @@
     NSDictionary *dic = [[request responseString] JSONValue];
     NSLog(@"dic,,,%@",dic);
     if ([[dic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
-        [[iToast makeText:[dic objectForKey:@"msg"]] show];
+        [[iToast makeText:[dic stringForKey:@"msg"]] show];
     } else {
         NSString *str = [dic objectForKey:@"content"];
         str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
@@ -62,8 +63,16 @@
         self.titleLabel.text = [dic objectForKey:@"title"];
         self.timeLabel.text = [[dic objectForKey:@"addtime"] dateStringSince1970];
         NSLog(@"jzsj,,,,%@", [dic objectForKey:@"jzsj"]);
-        [self.titleBtn setTitle:[dic objectForKey:@"jzsj"] forState:UIControlStateNormal];
-        self.numberLabel.text = [dic objectForKey:@"sysl"];
+        if ([[dic objectForKey:@"jzsj"] integerValue]<[[NSDate date] timeIntervalSince1970]||[[dic objectForKey:@"sysl"] integerValue]>=[[dic objectForKey:@"zsl"] integerValue]) {
+            [self.titleBtn setTitle:@"已过期" forState:UIControlStateNormal];
+            self.titleBtn.enabled = NO;
+            [self.titleBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        } else {
+            [self.titleBtn setTitle:@"可参加" forState:UIControlStateNormal];
+            self.titleBtn.enabled = NO;
+            [self.titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
+        self.numberLabel.text = [NSString stringWithFormat:@"%@/%@", [dic stringForKey:@"sysl"], [dic objectForKey:@"zsl"]];
     }
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
@@ -74,6 +83,10 @@
 
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)attentActive:(id)sender {
+    
 }
 
 - (void)dealloc {

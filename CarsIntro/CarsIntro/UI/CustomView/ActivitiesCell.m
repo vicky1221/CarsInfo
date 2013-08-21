@@ -37,10 +37,15 @@
     [self.asyImageView LoadImage:activity.pic];
     [self.asyImageView enableHighlight:NO];
     _titleLabel.text = activity.title;
-    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _titleLabel.numberOfLines = 2;
     _timeLabel.text = activity.addtime;
-    _footLabel.text = activity.jzsj;
+    if (activity.isActivity) {
+        _footLabel.textColor = [UIColor blackColor];
+        _footLabel.text = @"可参加";
+    } else {
+        _footLabel.textColor = [UIColor redColor];
+        _footLabel.text = @"已过期";
+    }
 }
 
 

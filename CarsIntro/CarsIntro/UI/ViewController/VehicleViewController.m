@@ -187,7 +187,7 @@
 - (void)sendAPI {
 //    http://www.ard9.com/qiche/index.php?c=product&a=info_json_field
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json_field" andArgs:nil delegate:self andTag:56];
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=info_json&id=%@", self.vehicleType.tid] andArgs:nil delegate:self andTag:57];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=info_json&id=%@", self.vehicleType.vehicleTypeId] andArgs:nil delegate:self andTag:57];
 }
 
 #pragma mark - image Action
@@ -290,6 +290,7 @@
     if (request.tag == 55) {
         [iToast makeText:@"提交成功"];
     } else if (request.tag == 56) {
+        
         NSArray *array = [[request responseString] JSONValue];
         [fieldArray addObjectsFromArray:array];
         if (dataDic.allKeys.count>0) {
@@ -298,8 +299,12 @@
     } else if (request.tag == 57) {
         [dataDic release];
         dataDic = [[[request responseString] JSONValue] retain];
-        if (fieldArray.count > 0) {
-            [self bindData];
+        if ([[dataDic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
+            [[iToast makeText:[dataDic objectForKey:@"msg"]] show];
+        } else {
+            if (fieldArray.count > 0) {
+                [self bindData];
+            }
         }
     }
 }

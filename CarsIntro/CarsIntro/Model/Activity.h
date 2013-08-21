@@ -34,6 +34,33 @@
 
 //活动列表和优惠劵使用同一个
 //title":"标题","jzsj":"截止时间","content":"内容","zsl":"总数量","sysl":"剩余数量"
+//addtime = 1375414800;
+//aid = 13;
+//content = "\U6211\U7684\U6d3b\U52a8";
+//description = "";
+//gourl = "";
+//hits = 0;
+//htmlfile = "";
+//htmlurl = "";
+//id = 13;
+//isshow = 1;
+//jzsj = 1375414800;
+//keywords = "";
+//mgold = 0;
+//mrank = 0;
+//orders = 0;
+//pic = "";
+//sid = 0;
+//style = "";
+//sysl = 10;
+//tid = 24;
+//"tid_leafid" = 24;
+//title = "\U6211\U7684\U6d3b\U52a8";
+//trait = "";
+//user = admin;
+//usertype = 0;
+//zsl = 0;
+
 @property (nonatomic, copy) NSString * activityId;
 @property (nonatomic, copy) NSString * tid;
 @property (nonatomic, copy) NSString * title;
@@ -48,6 +75,8 @@
 @property (nonatomic, copy) NSString * content;
 @property (nonatomic, copy) NSString * zsl;
 @property (nonatomic, copy) NSString * pic;
+@property (nonatomic, retain) NSString *sysl;
+@property (nonatomic)       BOOL       isActivity;
 
 //@property (nonatomic, copy) NSString * totalNumber;     //总数量
 //@property (nonatomic, copy) NSString * numberRemaining; //剩余数量

@@ -36,7 +36,7 @@
     [super viewWillDisappear:animated];
     [[WebRequest instance] clearRequestWithTag:570];
 }
-
+//http://www.ard9.com/qiche/index.php?c=channel&a=type_json&tid=39&uid=
 //  http://www.ard9.com/qiche/index.php?c=channel&molds=xunzhang&a=info_json&id=编号
 
 -(void)senderAPI
