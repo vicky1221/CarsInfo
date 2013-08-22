@@ -119,6 +119,7 @@
     //[nextID release];
     nextID = [[NSString stringWithFormat:@"%@", [dic objectForKey:@"anext"]] retain];
     NSString *str = [dic objectForKey:@"body"];
+//    str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
     str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
     NSLog(@"%@", str);
     [self.webView loadHTMLString:[dic objectForKey:@"body"] baseURL:nil];    

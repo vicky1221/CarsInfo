@@ -8,11 +8,43 @@
 
 #import "LocationViewController.h"
 #import "MyAnnotation.h"
-@interface LocationViewController ()
+#import "QuadCurveMenu.h"
+#import "QuadCurveMenuItem.h"
+
+@interface LocationViewController ()<QuadCurveMenuDelegate>
 
 @end
 
 @implementation LocationViewController
+
+- (void)addPath {
+//    [UIImage imageNamed:@"icon-star.png"];
+    
+    UIImage *image1 = [UIImage imageNamed:@"bg_buxing"];
+    UIImage *image2 = [UIImage imageNamed:@"bg_daohang"];
+    UIImage *image3 = [UIImage imageNamed:@"bg_dingwei"];
+    
+    QuadCurveMenuItem *starMenuItem1 = [[QuadCurveMenuItem alloc] initWithImage:image1
+                                                               highlightedImage:image1
+                                                                   ContentImage:image1
+                                                        highlightedContentImage:nil];
+    QuadCurveMenuItem *starMenuItem2 = [[QuadCurveMenuItem alloc] initWithImage:image2
+                                                               highlightedImage:image2
+                                                                   ContentImage:image2
+                                                        highlightedContentImage:nil];
+    QuadCurveMenuItem *starMenuItem3 = [[QuadCurveMenuItem alloc] initWithImage:image3
+                                                               highlightedImage:image3
+                                                                   ContentImage:image3
+                                                        highlightedContentImage:nil];
+    NSArray *menus = [NSArray arrayWithObjects:starMenuItem1, starMenuItem2, starMenuItem3, nil];
+    [starMenuItem1 release];
+    [starMenuItem2 release];
+    [starMenuItem3 release];
+    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:CGRectMake(0, 0, 200, 200) menus:menus];
+    menu.delegate = self;
+    [self.view addSubview:menu];
+    [menu release];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +73,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self addPath];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -95,4 +128,25 @@
     [self setMapKit:nil];
     [super viewDidUnload];
 }
+
+
+#pragma mark -
+
+- (void)quadCurveMenu:(QuadCurveMenu *)menu didSelectIndex:(NSInteger)idx
+{
+    switch (idx) {
+        case 0:
+            
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        default:
+            break;
+    }
+    NSLog(@"Select the index : %d",idx);
+}
+
+
 @end
