@@ -21,6 +21,7 @@
 }
 
 #define Button_Width    101
+#define Button_Height   124
 
 #pragma mark - View lifecycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,15 +46,15 @@
     for (int i = 0; i <9; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag  = i+101;
-        [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"Member_%d@2x.png", i]] forState:UIControlStateNormal];
-        if (i%2==0) {
-            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_2.png"] forState:UIControlStateNormal];
-        } else {
-            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_3.png"] forState:UIControlStateNormal];
-        }
+        [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"Member_%d.png", i]] forState:UIControlStateNormal];
+//        if (i%2==0) {
+//            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_2.png"] forState:UIControlStateNormal];
+//        } else {
+//            [button setBackgroundImage:[UIImage imageNamed:@"MemberBtn_3.png"] forState:UIControlStateNormal];
+//        }
         float x = Button_Width/2 + (i%3)*Button_Width;
         float y = i/3*Button_Height  + Button_Height/2;
-        NSLog(@"%f,,, %f,,,%f",x ,y, Button_Height);
+        NSLog(@"%f,,, %f",x ,y);
         button.frame = CGRectMake(0, 0, Button_Width, Button_Height);
         button.center = CGPointMake(x, y);
         [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -66,14 +67,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.backGroudImageView.image = [[UIImage imageNamed:@"grbj.png"] stretchableImageWithLeftCapWidth:40 topCapHeight:40];
-    Button_Height = 124;//VIEW_HEIGHT(self.memberScrollView)/3;
     [self addButtonsToContentView];
 
 }
 
 - (void)dealloc {
-    [_backGroudImageView release];
     [_memberScrollView release];
     [super dealloc];
 }

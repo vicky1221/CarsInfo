@@ -12,6 +12,5 @@
 @interface MemberViewController :KBaseViewController
 
 @property (retain, nonatomic) IBOutlet UIScrollView *memberScrollView;
-@property (retain, nonatomic) IBOutlet UIImageView *backGroudImageView;
 
 @end
