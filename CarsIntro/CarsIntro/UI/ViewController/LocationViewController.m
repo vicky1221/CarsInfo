@@ -11,6 +11,8 @@
 #import "QuadCurveMenu.h"
 #import "QuadCurveMenuItem.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @interface LocationViewController ()<QuadCurveMenuDelegate>
 
 @end
@@ -20,9 +22,9 @@
 - (void)addPath {
 //    [UIImage imageNamed:@"icon-star.png"];
     
-    UIImage *image1 = [UIImage imageNamed:@"bg_buxing"];
-    UIImage *image2 = [UIImage imageNamed:@"bg_daohang"];
-    UIImage *image3 = [UIImage imageNamed:@"bg_dingwei"];
+    UIImage *image1 = [UIImage imageNamed:@"bg_daohang"];
+    UIImage *image2 = [UIImage imageNamed:@"bg_dingwei"];
+    UIImage *image3 = [UIImage imageNamed:@"bg_buxing"];
     
     QuadCurveMenuItem *starMenuItem1 = [[QuadCurveMenuItem alloc] initWithImage:image1
                                                                highlightedImage:image1
@@ -40,7 +42,7 @@
     [starMenuItem1 release];
     [starMenuItem2 release];
     [starMenuItem3 release];
-    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:CGRectMake(0, 0, 200, 200) menus:menus];
+    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:CGRectMake(20, -20, 200, 200) menus:menus];
     menu.delegate = self;
     [self.view addSubview:menu];
     [menu release];
@@ -55,21 +57,6 @@
     return self;
 }
 
--(void)positioning
-{
-    //定位
-    CLLocationManager * manager = [[CLLocationManager alloc] init];
-    //定位的精确度
-    manager.desiredAccuracy = kCLLocationAccuracyBest;
-    //地图定位的可偏移量,超过多少米定一次位
-    manager.distanceFilter = 10.0;
-    manager.delegate = self;
-    //开始定位
-    [manager startUpdatingLocation];
-    NSLog(@"开始定位");
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -78,25 +65,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    //[self positioning];
     [super viewDidAppear:animated];
-    CLLocationCoordinate2D center;
-    center.latitude = 37.857452100000;
-    center.longitude = 112.503559700000;
-    //设置要显示的经纬度
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.02;
-    span.longitudeDelta = 0.02;
-    MKCoordinateRegion region = {center,span};
-    [self.mapKit setRegion:region];
-    //设置当前位置
-    self.mapKit.delegate = self;
-    self.mapKit.showsUserLocation = YES;
-    self.mapKit.mapType = MKMapTypeStandard;
-    
-    MyAnnotation * anno = [[MyAnnotation alloc] initWithTitle:@"山西君和汽车销售服务有限公司" subTitle:@"太原市万柏林区迎泽西大街170" Coordinate:center];
-    [self.mapKit addAnnotation:anno];
-    [anno release];
+    [self positionShop];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -136,11 +106,16 @@
 {
     switch (idx) {
         case 0:
-            
+            // 定位自己
+            [self positioning];
             break;
         case 1:
+            // 定位店铺
+            [self positionShop];
             break;
         case 2:
+            // 步行
+            [self walkWay];
             break;
         default:
             break;
@@ -148,5 +123,92 @@
     NSLog(@"Select the index : %d",idx);
 }
 
+- (void)positionShop {
+    CLLocationCoordinate2D center;
+    center.latitude = 37.857452100000;
+    center.longitude = 112.503559700000;
+    self.shopLocation = center;
+    //设置要显示的经纬度
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.02;
+    span.longitudeDelta = 0.02;
+    MKCoordinateRegion region = {center,span};
+    [self.mapKit setRegion:region];
+    //设置当前位置
+    self.mapKit.delegate = self;
+    self.mapKit.showsUserLocation = YES;
+    self.mapKit.mapType = MKMapTypeStandard;
+    
+    MyAnnotation * anno = [[MyAnnotation alloc] initWithTitle:@"山西君和汽车销售服务有限公司" subTitle:@"太原市万柏林区迎泽西大街170" Coordinate:center];
+    [self.mapKit addAnnotation:anno];
+    [anno release];
+}
+
+-(void)positioning
+{
+    //定位
+    CLLocationManager * manager = [[CLLocationManager alloc] init];
+    //定位的精确度
+    manager.desiredAccuracy = kCLLocationAccuracyBest;
+    //地图定位的可偏移量,超过多少米定一次位
+    manager.distanceFilter = 100.0;
+    manager.delegate = self;
+    //开始定位
+    [manager startUpdatingLocation];
+    NSLog(@"开始定位");
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    //定位后的新位置
+    MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, MKCoordinateSpanMake(0.02, 0.02));
+    MKPointAnnotation *ann = [[MKPointAnnotation alloc] init];
+    ann.coordinate = newLocation.coordinate;
+    self.myLocation = newLocation.coordinate;
+    self.mapKit.showsUserLocation = YES;
+    //触发viewForAnnotation
+    //    [self.mapKit addAnnotation:ann];
+    [ann release];
+    //设置地图位置,动画显示平移的效果
+    [self.mapKit setRegion:region animated:YES];
+    //停止定位
+    [manager stopUpdatingLocation];
+    NSLog(@"定位成功");
+}
+
+- (void)walkWay {
+    
+    MKMapItem *currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:self.myLocation addressDictionary:nil]];        //目的地的位置
+    MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:self.shopLocation addressDictionary:nil]];        toLocation.name = @"目的地";
+    NSArray *items = [NSArray arrayWithObjects:currentLocation, toLocation, nil];
+    /*         //keys
+     
+     
+     MKLaunchOptionsMapCenterKey:地图中心的坐标(NSValue)         MKLaunchOptionsMapSpanKey:地图显示的范围(NSValue)         MKLaunchOptionsShowsTrafficKey:是否显示交通信息(boolean NSNumber)                  //MKLaunchOptionsDirectionsModeKey: 导航类型(NSString)         {            MKLaunchOptionsDirectionsModeDriving:驾车            MKLaunchOptionsDirectionsModeWalking:步行         }                  //MKLaunchOptionsMapTypeKey:地图类型(NSNumber)         enum {         MKMapTypeStandard = 0,         MKMapTypeSatellite,         MKMapTypeHybrid         };         */
+    NSDictionary *options = @{
+                              MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeWalking,            MKLaunchOptionsMapTypeKey:[NSNumber numberWithInteger:MKMapTypeStandard],            MKLaunchOptionsShowsTrafficKey:@NO
+                              };        //打开苹果自身地图应用，并呈现特定的item
+    [MKMapItem openMapsWithItems:items launchOptions:options];
+    return;
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0"))// ios6以下，调用google map
+    {
+        NSString *urlString = [[NSString alloc]                               initWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f&dirfl=d", self.myLocation.latitude,self.myLocation.longitude,self.shopLocation.latitude,self.shopLocation.longitude];        NSURL *aURL = [NSURL URLWithString:urlString];        //打开网页google地图
+        [[UIApplication sharedApplication] openURL:aURL];
+    }else// 直接调用ios自己带的apple map
+    {        //当前的位置
+        //MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];        //起点
+        MKMapItem *currentLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:self.myLocation addressDictionary:nil]];        //目的地的位置
+        MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:self.shopLocation addressDictionary:nil]];        toLocation.name = @"目的地";
+        NSArray *items = [NSArray arrayWithObjects:currentLocation, toLocation, nil];
+        /*         //keys
+                                                                                                      
+                                                                                                      
+                MKLaunchOptionsMapCenterKey:地图中心的坐标(NSValue)         MKLaunchOptionsMapSpanKey:地图显示的范围(NSValue)         MKLaunchOptionsShowsTrafficKey:是否显示交通信息(boolean NSNumber)                  //MKLaunchOptionsDirectionsModeKey: 导航类型(NSString)         {            MKLaunchOptionsDirectionsModeDriving:驾车            MKLaunchOptionsDirectionsModeWalking:步行         }                  //MKLaunchOptionsMapTypeKey:地图类型(NSNumber)         enum {         MKMapTypeStandard = 0,         MKMapTypeSatellite,         MKMapTypeHybrid         };         */
+        NSDictionary *options = @{
+                                  MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeWalking,            MKLaunchOptionsMapTypeKey:[NSNumber numberWithInteger:MKMapTypeStandard],            MKLaunchOptionsShowsTrafficKey:@NO
+                                  };        //打开苹果自身地图应用，并呈现特定的item
+        [MKMapItem openMapsWithItems:items launchOptions:options];
+    }
+}
 
 @end

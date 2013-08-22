@@ -11,4 +11,7 @@
 @interface DetailedViewController : KBaseViewController
 
 @property (retain, nonatomic) IBOutlet DetailedTable *detailedTable;
+
+@property (nonatomic, retain) NSString *price;
+
 @end

@@ -60,6 +60,7 @@
         return;
     }
     DetailedViewController * detailedVC = [[DetailedViewController alloc] initWithNibName:@"DetailedViewController" bundle:nil];
+    detailedVC.price = self.priceTextField.text;
     [self.navigationController pushViewController:detailedVC animated:YES];
     [detailedVC release];
 }

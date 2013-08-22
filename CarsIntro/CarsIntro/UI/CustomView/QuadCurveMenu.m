@@ -9,13 +9,13 @@
 #import "QuadCurveMenu.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define NEARRADIUS 110.0f
-#define ENDRADIUS 120.0f
-#define FARRADIUS 140.0f
+#define NEARRADIUS 60.0f
+#define ENDRADIUS 70.0f
+#define FARRADIUS 90.0f
 #define STARTPOINT CGPointMake(20, 444)
 #define TIMEOFFSET 0.026f
 #define ROTATEANGLE 0
-#define MENUWHOLEANGLE  M_PI*3/5
+#define MENUWHOLEANGLE  M_PI*3/4
 
 static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float angle)
 {

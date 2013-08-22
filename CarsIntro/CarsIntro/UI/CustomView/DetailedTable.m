@@ -46,18 +46,6 @@
     return 30.0f;
 }
 
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    switch (section) {
-//        case 0:
-//            return @"基本险";
-//        case 1:
-//            return @"全险";
-//        default:
-//            return nil;
-//    }
-//}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView* myView = [[[UIView alloc] init] autorelease];
@@ -65,7 +53,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, 22)];
     titleLabel.textColor=[UIColor blackColor];
     titleLabel.backgroundColor = [UIColor clearColor];
-    
+    titleLabel.font = [UIFont boldSystemFontOfSize:16];
     if (section == 0){
         titleLabel.text = @"基本险";
     }

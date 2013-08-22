@@ -11,4 +11,7 @@
 @interface LocationViewController : KBaseViewController<CLLocationManagerDelegate,MKMapViewDelegate>
 @property (retain, nonatomic) IBOutlet MKMapView *mapKit;
 
+@property (nonatomic, assign) CLLocationCoordinate2D shopLocation;
+@property (nonatomic, assign) CLLocationCoordinate2D myLocation;
+
 @end
