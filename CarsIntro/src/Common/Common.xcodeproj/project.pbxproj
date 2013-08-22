@@ -17,13 +17,13 @@
 		7C4D7A9D178C68EE0042799A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4D7A94178C68EE0042799A /* ASINetworkQueue.m */; };
 		87E4484C16D75108004E8B09 /* UIBadgeView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E4484B16D75107004E8B09 /* UIBadgeView2.m */; };
 		AEAA1D62168D7DD5004A3CBF /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = AEAA1D61168D7DD5004A3CBF /* UILabel+VerticalAlign.m */; };
+		B15FDB1D17C5E9F200B2C05B /* NSString+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = B15FDB1C17C5E9F200B2C05B /* NSString+Date.m */; };
 		E717808E1681E3EC001A2543 /* UIImage+custom.m in Sources */ = {isa = PBXBuildFile; fileRef = E717807A1681E3EC001A2543 /* UIImage+custom.m */; };
 		E717808F1681E3EC001A2543 /* TitleBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = E717807B1681E3EC001A2543 /* TitleBoard.m */; };
 		E71780901681E3EC001A2543 /* UIBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E717807E1681E3EC001A2543 /* UIBadgeView.m */; };
 		E71780921681E3EC001A2543 /* UITableView+Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = E71780821681E3EC001A2543 /* UITableView+Cell.m */; };
 		E71780931681E3EC001A2543 /* UIView+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = E71780841681E3EC001A2543 /* UIView+Chat.m */; };
 		E71780941681E3EC001A2543 /* NSString+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = E71780861681E3EC001A2543 /* NSString+Custom.m */; };
-		E71780951681E3EC001A2543 /* NSString+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = E71780891681E3EC001A2543 /* NSString+Date.m */; };
 		E71780961681E3EC001A2543 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = E717808B1681E3EC001A2543 /* NSString+MD5.m */; };
 		E71780971681E3EC001A2543 /* PathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E717808C1681E3EC001A2543 /* PathUtils.m */; };
 		E71CADD9170C0CF4004AB938 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E71CADD8170C0CF4004AB938 /* Reachability.m */; };
@@ -90,6 +90,8 @@
 		87E4484B16D75107004E8B09 /* UIBadgeView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBadgeView2.m; sourceTree = "<group>"; };
 		AEAA1D60168D7DD5004A3CBF /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
 		AEAA1D61168D7DD5004A3CBF /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
+		B15FDB1B17C5E9F200B2C05B /* NSString+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Date.h"; sourceTree = "<group>"; };
+		B15FDB1C17C5E9F200B2C05B /* NSString+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Date.m"; sourceTree = "<group>"; };
 		E71780791681E3EC001A2543 /* UIImage+custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+custom.h"; sourceTree = "<group>"; };
 		E717807A1681E3EC001A2543 /* UIImage+custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+custom.m"; sourceTree = "<group>"; };
 		E717807B1681E3EC001A2543 /* TitleBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleBoard.m; sourceTree = "<group>"; };
@@ -103,8 +105,6 @@
 		E71780851681E3EC001A2543 /* UIView+custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+custom.h"; sourceTree = "<group>"; };
 		E71780861681E3EC001A2543 /* NSString+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Custom.m"; sourceTree = "<group>"; };
 		E71780871681E3EC001A2543 /* NSString+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Custom.h"; sourceTree = "<group>"; };
-		E71780881681E3EC001A2543 /* NSString+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Date.h"; sourceTree = "<group>"; };
-		E71780891681E3EC001A2543 /* NSString+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Date.m"; sourceTree = "<group>"; };
 		E717808A1681E3EC001A2543 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		E717808B1681E3EC001A2543 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		E717808C1681E3EC001A2543 /* PathUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathUtils.m; sourceTree = "<group>"; };
@@ -303,11 +303,11 @@
 				E71780821681E3EC001A2543 /* UITableView+Cell.m */,
 				E71780831681E3EC001A2543 /* UIView+Chat.h */,
 				E71780841681E3EC001A2543 /* UIView+Chat.m */,
+				B15FDB1B17C5E9F200B2C05B /* NSString+Date.h */,
+				B15FDB1C17C5E9F200B2C05B /* NSString+Date.m */,
 				E71780851681E3EC001A2543 /* UIView+custom.h */,
 				E71780861681E3EC001A2543 /* NSString+Custom.m */,
 				E71780871681E3EC001A2543 /* NSString+Custom.h */,
-				E71780881681E3EC001A2543 /* NSString+Date.h */,
-				E71780891681E3EC001A2543 /* NSString+Date.m */,
 				E717808A1681E3EC001A2543 /* NSString+MD5.h */,
 				E717808B1681E3EC001A2543 /* NSString+MD5.m */,
 				E717808C1681E3EC001A2543 /* PathUtils.m */,
@@ -422,7 +422,6 @@
 				E71780921681E3EC001A2543 /* UITableView+Cell.m in Sources */,
 				E71780931681E3EC001A2543 /* UIView+Chat.m in Sources */,
 				E71780941681E3EC001A2543 /* NSString+Custom.m in Sources */,
-				E71780951681E3EC001A2543 /* NSString+Date.m in Sources */,
 				E71780961681E3EC001A2543 /* NSString+MD5.m in Sources */,
 				E71780971681E3EC001A2543 /* PathUtils.m in Sources */,
 				AEAA1D62168D7DD5004A3CBF /* UILabel+VerticalAlign.m in Sources */,
@@ -441,6 +440,7 @@
 				7C4D7A9B178C68EE0042799A /* ASIHTTPRequest.m in Sources */,
 				7C4D7A9C178C68EE0042799A /* ASIInputStream.m in Sources */,
 				7C4D7A9D178C68EE0042799A /* ASINetworkQueue.m in Sources */,
+				B15FDB1D17C5E9F200B2C05B /* NSString+Date.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

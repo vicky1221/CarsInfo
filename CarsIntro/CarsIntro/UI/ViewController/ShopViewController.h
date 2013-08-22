@@ -22,4 +22,7 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *timeLabel;
 
+@property (retain, nonatomic) IBOutlet UIButton *introduceButton;
+
+@property (retain, nonatomic) IBOutlet UIButton *locationButton;
 @end

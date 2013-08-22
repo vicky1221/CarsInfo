@@ -36,8 +36,8 @@
 
 @implementation HomeViewController
 
-#define Button_Width    151
-#define Button_Height   74
+#define Button_Width    154
+#define Button_Height   76  
 
 - (void)initXLCycleScrollView {
     cycleArray = [[NSMutableArray alloc] init];

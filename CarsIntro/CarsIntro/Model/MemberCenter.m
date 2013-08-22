@@ -51,7 +51,8 @@
     self.centerID = [memberDic stringForKey:@"id"];
     self.tid = [memberDic stringForKey:@"tid"];
     self.title = [memberDic stringForKey:@"title"];
-    self.addtime = [memberDic stringForKey:@"addtime"];
+    NSString * string = [memberDic stringForKey:@"addtime"];
+    self.addtime = [string dateFormateSince1970];
     self.hits = [memberDic stringForKey:@"hits"];
     self.orders = [memberDic stringForKey:@"orders"];
     self.mrank = [memberDic stringForKey:@"mrank"];

@@ -137,7 +137,9 @@
 {
     for (int i = 0; i < 4; i++) {
         UIAsyncImageView *v = [imageArray objectAtIndex:i];
-        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@c=member&a=release&tid=30&hand=161444713&id=&go=1&from=app", Server]]];
+        NSString * url = [NSString stringWithFormat:@"%@c=member&a=release&tid=30&hand=161444713&id=&go=1&from=app", Server];
+        NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:saveURl]];
         [request setPostValue:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
         [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"pic"];
         [request setPostValue:self.textView.text forKey:@"content"];

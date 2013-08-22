@@ -60,8 +60,7 @@
     self.title = [activityDic stringForKey:@"title"];
     
     NSString * string = [activityDic stringForKey:@"addtime"];
-    self.addtime = [string dateStringSince1970];
-    
+    self.addtime = [string dateFormateSince1970];
     self.hits = [activityDic stringForKey:@"hits"];
     self.orders = [activityDic stringForKey:@"orders"];
     self.mrank = [activityDic stringForKey:@"mrank"];

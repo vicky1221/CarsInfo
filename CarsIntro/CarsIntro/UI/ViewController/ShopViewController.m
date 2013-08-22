@@ -47,6 +47,8 @@
     self.phoneButton.adjustsImageWhenHighlighted = NO;
     self.emaileButton.adjustsImageWhenHighlighted = NO;
     self.newsButton.adjustsImageWhenHighlighted = NO;
+    [self.introduceButton setImage:[UIImage imageNamed:@"Introduce_0"] forState:UIControlStateHighlighted];
+    [self.locationButton setImage:[UIImage imageNamed:@"location_0"] forState:UIControlStateHighlighted];
     dynamicVC = [[DynamicViewController alloc] initWithNibName:@"DynamicViewController" bundle:nil];
 }
 
@@ -245,6 +247,8 @@
     [_newsButton release];
     [_titleLabel release];
     [_timeLabel release];
+    [_introduceButton release];
+    [_locationButton release];
     [super dealloc];
 }
 - (void)viewDidUnload {
@@ -253,6 +257,8 @@
     [self setNewsButton:nil];
     [self setTitleLabel:nil];
     [self setTimeLabel:nil];
+    [self setIntroduceButton:nil];
+    [self setLocationButton:nil];
     [super viewDidUnload];
 }
 @end

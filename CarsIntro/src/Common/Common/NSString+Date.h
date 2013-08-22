@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (Date)
+- (NSString *)dateFormateSince1970;
 - (NSString *)dateStringSince1970;
 - (NSString *)dateStringSinceNow;
 + (NSString *)stringWithSeconds:(float)seconds;

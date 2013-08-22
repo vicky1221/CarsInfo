@@ -47,7 +47,7 @@
     
     self.nameLabel.text = order.user;
     self.phoneLabel.text = order.phone;
-    self.timeLabel.text = [order.time dateStringSince1970];
+    self.timeLabel.text = order.time;
     self.itemLabel.text = order.type;
     if ([order.type isEqualToString:@"预约试驾"]) {
         self.itemLabel.textColor = [UIColor colorWithRed:175.0/255.0 green:142.0/255.0 blue:3.0/255.0 alpha:1];

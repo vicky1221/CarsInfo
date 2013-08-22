@@ -32,7 +32,8 @@
 
 -(void)fromDic:(NSDictionary *)messageBodyDic
 {
-    self.addtime = [messageBodyDic stringForKey:@"addtime"];
+    NSString * string = [messageBodyDic stringForKey:@"addtime"];
+    self.addtime = [string dateFormateSince1970];
     self.messageBodyID = [messageBodyDic stringForKey:@"id"];
     self.user = [messageBodyDic stringForKey:@"user"];
     self.title = [messageBodyDic stringForKey:@"title"];

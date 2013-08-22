@@ -45,7 +45,7 @@
         max = 300;
         self.asyImageView.hidden = YES;
     }
-    _timeLabel.text = [[NSString stringWithFormat:@"%f", info.time] dateStringSinceNow];
+    _timeLabel.text = [[NSString stringWithFormat:@"%f", info.time] dateFormateSince1970];
     
     CGSize labelSize = [info.title sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(max, 30) lineBreakMode:_titleLabel.lineBreakMode];
     _titleLabel.frame = CGRectMake(VIEW_LEFT(_titleLabel), VIEW_TOP(_titleLabel), labelSize.width, labelSize.height);

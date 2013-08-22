@@ -68,7 +68,7 @@
     self.url = [NSString stringWithFormat:@"%@%@",ServerAddress, [infoDic stringArrayForKey:@"url"]];
     
      NSString * string = [infoDic stringForKey:@"addtime"];
-    self.addtime = [string dateStringSince1970];
+    self.addtime = [string dateFormateSince1970];
 }
 
 @end

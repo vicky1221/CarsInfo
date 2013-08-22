@@ -32,7 +32,8 @@
 
 -(void)fromDic:(NSDictionary *)medalDic
 {
-    self.addtime = [medalDic stringForKey:@"addtime"];
+    NSString * string = [medalDic stringForKey:@"addtime"];
+    self.addtime = [string dateFormateSince1970];
     self.medalID = [medalDic stringForKey:@"id"];
     self.user = [medalDic stringForKey:@"user"];
     self.title = [medalDic stringForKey:@"title"];

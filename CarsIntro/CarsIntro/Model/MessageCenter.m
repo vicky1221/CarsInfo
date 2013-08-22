@@ -7,7 +7,8 @@
 //
 
 #import "MessageCenter.h"
-
+#import "NSDictionary+type.h"
+#import "NSString+Date.h"
 @implementation MessageCenter
 
 -(id)init
@@ -36,7 +37,8 @@
     self.messageId = [messageCenterDic objectForKey:@"id"];
     self.sender= [messageCenterDic objectForKey:@"fxr"];
     self.content = [messageCenterDic objectForKey:@"content"];
-    self.time = [messageCenterDic objectForKey:@"shijian"];
+    NSString * string = [messageCenterDic stringForKey:@"shijian"];
+    self.time = [string dateFormateSince1970];
 }
 
 @end

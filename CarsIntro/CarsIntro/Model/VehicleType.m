@@ -8,6 +8,7 @@
 
 #import "VehicleType.h"
 #import "NSDictionary+type.h"
+#import "NSString+Date.h"
 @implementation VehicleType
 
 -(id)init
@@ -41,7 +42,9 @@
     self.title = [vehicleTypeDic stringForKey:@"title"];
     self.price = [vehicleTypeDic stringForKey:@"zdj"];
     self.tid = [vehicleTypeDic stringForKey:@"tid"];
-    self.addtime = [vehicleTypeDic stringForKey:@"addtime"];
+    
+    NSString * string = [vehicleTypeDic stringForKey:@"addtime"];
+    self.addtime = [string dateFormateSince1970];
     self.litpic = [NSString stringWithFormat:@"%@%@",ServerAddress ,[vehicleTypeDic stringForKey:@"litpic"]];
 }
 

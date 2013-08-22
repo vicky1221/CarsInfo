@@ -7,7 +7,8 @@
 //
 
 #import "Order.h"
-
+#import "NSString+Date.h"
+#import "NSDictionary+type.h"
 @implementation Order
 
 - (id)init {
@@ -34,7 +35,9 @@
 - (void)fromDic:(NSDictionary *)OrderDic {
     self.user = [OrderDic objectForKey:@"user"];
     self.phone = [OrderDic objectForKey:@"hits"];
-    self.time = [OrderDic objectForKey:@"addtime"];
+    
+    NSString * string = [OrderDic stringForKey:@"addtime"];
+    self.time = [string dateFormateSince1970];
     //self.type = [OrderDic objectForKey:@"style"];
     self.title = [OrderDic objectForKey:@"title"];
 }

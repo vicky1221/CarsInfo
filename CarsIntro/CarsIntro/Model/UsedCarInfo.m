@@ -8,6 +8,7 @@
 
 #import "UsedCarInfo.h"
 #import "NSDictionary+type.h"
+#import "NSString+Date.h"
 @implementation UsedCarInfo
 
 -(id)init
@@ -61,7 +62,9 @@
     self.usedCarInfoId = [usedCarInfoDic objectForKey:@"id"];
     self.usedCarTid = [usedCarInfoDic objectForKey:@"tid"];
     self.title = [usedCarInfoDic objectForKey:@"title"];
-    self.addTime = [usedCarInfoDic objectForKey:@"addtime"];
+    
+    NSString * string = [usedCarInfoDic stringForKey:@"addtime"];
+    self.addTime = [string dateFormateSince1970];
     self.hits = [usedCarInfoDic objectForKey:@"hits"];
     self.orders = [usedCarInfoDic objectForKey:@"orders"];
     self.mrank = [usedCarInfoDic objectForKey:@"mrank"];

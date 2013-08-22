@@ -92,7 +92,7 @@
     [titleLabel release];
     
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 38, 300, 16)];
-    timeLabel.text = [[dic objectForKey:@"addtime"] dateStringSince1970];
+    timeLabel.text = [[dic objectForKey:@"addtime"] dateFormateSince1970];
     timeLabel.textColor = [UIColor colorWithRed:117.0/255.0 green:117.0/255.0 blue:117.0/255.0 alpha:1];
     timeLabel.textAlignment = UITextAlignmentRight;
     [cell.contentView addSubview:timeLabel];

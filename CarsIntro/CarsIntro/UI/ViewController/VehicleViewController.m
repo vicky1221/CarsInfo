@@ -318,7 +318,7 @@
         Parameter *par = [[Parameter alloc] init];
         par.title = [d objectForKey:@"fieldsname"];
         if ([[d objectForKey:@"fields"] isEqualToString:@"sssj"]) {
-            par.content = [[dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]] dateStringSince1970];
+            par.content = [[dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]] dateFormateSince1970];
         } else {
             par.content = [dataDic objectForKey:[NSString stringWithFormat:@"%@",[d objectForKey:@"fields"]]];
         }
