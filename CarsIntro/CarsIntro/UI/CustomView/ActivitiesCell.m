@@ -38,7 +38,7 @@
     [self.asyImageView enableHighlight:NO];
     _titleLabel.text = activity.title;
     _titleLabel.numberOfLines = 2;
-    _timeLabel.text = activity.addtime;
+    _timeLabel.text = activity.jzsj;
     if (activity.isActivity) {
         _footLabel.textColor = [UIColor blackColor];
         _footLabel.text = @"可参加";

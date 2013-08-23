@@ -22,7 +22,6 @@
 #import "WeatherViewController.h"
 
 @interface HomeViewController ()<ASIHTTPRequestDelegate> {
-    NSInteger abc; //判断签到次数
     NSMutableArray *cycleArray;
     UINavigationController *infoNav;
     UINavigationController *carsNav;
@@ -78,7 +77,6 @@
 
 - (void)viewDidLoad
 {
-    abc = 0;
     [super viewDidLoad];
     [self initXLCycleScrollView];
     [self addButtonsToContentView];
@@ -258,10 +256,17 @@
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
+    static int i;
+    NSLog(@"%d",i);
     if (request.tag == 1) {
+        if (i>=1) {
+            [iToast makeText:@"今天已经签到过了."];
+            return;
+        }
         NSDictionary *dic = [[request responseString] JSONValue];
         if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
             [[iToast makeText:[dic objectForKey:@"msg"]] show];
+            i++;
         }
     } else {                                                    
         //NSString *str = [request responseString];

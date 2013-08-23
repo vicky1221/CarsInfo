@@ -8,10 +8,11 @@
 
 #import "MyActiveViewController.h"
 #import "JSON.h"
-#import "Activity.h"
+#import "MActivity.h"
 
-@interface MyActiveViewController ()<ActivitiesTableDelegate, TableEGODelegate> {
-    BOOL isStart;
+@interface MyActiveViewController ()//<ActivitiesTableDelegate, TableEGODelegate>
+{
+    //BOOL isStart;
 }
 
 @end
@@ -31,7 +32,7 @@
 {
     [super viewDidLoad];
     [self performSelector:@selector(sendAPI)];
-    myActive.ActivitiesDelegate = self;
+    //myActive.ActivitiesDelegate = self;
 //    myActive.kdelegate = self;
 //    [myActive createEGOHead];
     if (self.Type == 101) {
@@ -54,56 +55,63 @@
     // Dispose of any resources that can be recreated.
 }
 
+//http://www.ard9.com/qiche/index.php?c=member&a=myyouhuijuan&uid=&tid=
+
+//uid 用户编号
+//tid   活动类型  25 优惠劵  56 活动信息
+
 - (void)sendAPI{
-    isStart = YES;
+    //isStart = YES;
     if (self.Type == 101) {
-        ASIHTTPRequest * request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=24&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self];
+        ASIHTTPRequest * request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=myyouhuijuan&uid=%@&tid=%@", [DataCenter shareInstance].accont.loginUserID, @"56"] andArgs:nil delegate:self];
         request.tag = 101;
     } else {
-        ASIHTTPRequest * request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&a=type_json&tid=25&uid=%@", [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self];
+        ASIHTTPRequest * request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=myyouhuijuan&uid=%@&tid=%@", [DataCenter shareInstance].accont.loginUserID, @"25"] andArgs:nil delegate:self];
         request.tag = 102;
     }
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-    myActive.activityArray = [NSMutableArray arrayWithCapacity:0];
-    myActive.couponArray = [NSMutableArray arrayWithCapacity:0];
+//    myActive.activityArray = [NSMutableArray arrayWithCapacity:0];
+//    myActive.couponArray = [NSMutableArray arrayWithCapacity:0];
     NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
-    for (NSDictionary *d in array) {
-        Activity * activity = [[Activity alloc] init];
-        [activity fromDic:d];
-        if (request.tag == 101) {
-            [myActive.activityArray addObject:activity];
-            myActive.isActivityData = YES;
-        }
-        if (request.tag == 102) {
-            [myActive.couponArray addObject:activity];
-            myActive.isActivityData = NO;
-        }
-        [activity release];
+    NSLog(@"%@",array);
+    for (NSDictionary * d in array) {
+        MActivity * mactivity = [[MActivity alloc] init];
+        [mactivity fromDic:d];
+        [myActive.MActivityArray addObject:mactivity];
     }
     [myActive reloadData];
+//    for (NSDictionary *d in array) {
+//        Activity * activity = [[Activity alloc] init];
+//        [activity fromDic:d];
+//        if (request.tag == 101) {
+//            [myActive.activityArray addObject:activity];
+//            myActive.isActivityData = YES;
+//        }
+//        if (request.tag == 102) {
+//            [myActive.couponArray addObject:activity];
+//            myActive.isActivityData = NO;
+//        }
+//        [activity release];
+//    }
+//    [myActive reloadData];
 //    [myActive finishEGOHead];
-    isStart = NO;
-    
+    //isStart = NO;
+
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
 //    [myActive finishEGOHead];
-    isStart = NO;
+    //isStart = NO;
+    
 }
 
-#pragma mark - ActivitiesTableDelegate
--(UIViewController *)viewController
-{
-    return self;
-}
-
-- (BOOL)shouldEgoHeadLoading:(UITableView *)tableView {
-    return isStart;
-}
-- (void)triggerEgoHead:(UITableView *)tableView {
-    [self sendAPI];
-}
+//- (BOOL)shouldEgoHeadLoading:(UITableView *)tableView {
+//    return isStart;
+//}
+//- (void)triggerEgoHead:(UITableView *)tableView {
+//    [self sendAPI];
+//}
 
 - (IBAction)back:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];

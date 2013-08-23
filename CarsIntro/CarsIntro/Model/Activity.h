@@ -70,12 +70,12 @@
 @property (nonatomic, copy) NSString * mrank;
 @property (nonatomic, copy) NSString * mgold;
 @property (nonatomic, copy) NSString * isshow;
-@property (nonatomic, copy) NSString *user; //"user" : "admin"
+@property (nonatomic, copy) NSString *  user; //"user" : "admin"
 @property (nonatomic, copy) NSString * jzsj;
 @property (nonatomic, copy) NSString * content;
 @property (nonatomic, copy) NSString * zsl;
 @property (nonatomic, copy) NSString * pic;
-@property (nonatomic, retain) NSString *sysl;
+@property (nonatomic, retain) NSString * yysl;
 @property (nonatomic)       BOOL       isActivity;
 
 //@property (nonatomic, copy) NSString * totalNumber;     //总数量

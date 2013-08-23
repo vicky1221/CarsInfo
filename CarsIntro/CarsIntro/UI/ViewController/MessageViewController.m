@@ -37,8 +37,8 @@
 }
 
 - (void)sendAPI {
-//    http://www.ard9.com/qiche/index.php?c=channel&molds=xunzhang&a=info_json&id=编号
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=xunzhang&a=info_json&id=%@", self.memberCenter.centerID] andArgs:nil delegate:self andTag:550];
+//    http://www.ard9.com/qiche/index.php?c=channel&molds=msg&a=info_json&id=编号
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=msg&a=info_json&id=%@", self.memberCenter.centerID] andArgs:nil delegate:self andTag:550];
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
@@ -47,7 +47,7 @@
     if ([[dic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
         [[iToast makeText:[dic objectForKey:@"msg"]] show];
     } else {
-        [self.webView loadHTMLString:[dic objectForKey:@"title"] baseURL:nil];
+        [self.webView loadHTMLString:[dic objectForKey:@"content"] baseURL:nil];
         self.titleLabel.text = [dic objectForKey:@"title"];
         self.timeLabel.text = [[dic objectForKey:@"addtime"] dateStringSince1970];
         self.senderLabel.text = [dic objectForKey:@"user"];

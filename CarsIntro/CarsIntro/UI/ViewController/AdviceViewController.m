@@ -74,12 +74,8 @@
 
 -(void)requestFinished:(ASIHTTPRequest *)request
 {
-    [[iToast makeText:@"投诉建议发送成功."] show];
-}
-
--(void)requestStarted:(ASIHTTPRequest *)request
-{
     [self.navigationController popViewControllerAnimated:YES];
+    [[iToast makeText:@"投诉建议发送成功."] show];
 }
 
 -(void)requestFailed:(ASIHTTPRequest *)request

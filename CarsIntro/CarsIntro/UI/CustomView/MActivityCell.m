@@ -1,14 +1,14 @@
 //
-//  CenterCell.m
+//  MActivityCell.m
 //  CarsIntro
 //
-//  Created by cuishuai on 13-8-13.
+//  Created by cuishuai on 13-8-23.
 //  Copyright (c) 2013年 banshenggua03. All rights reserved.
 //
 
-#import "CenterCell.h"
+#import "MActivityCell.h"
 
-@implementation CenterCell
+@implementation MActivityCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -26,16 +26,16 @@
     // Configure the view for the selected state
 }
 
-- (void)cellForDic:(MemberCenter *)memberCenter
+-(void)cellForDic:(MActivity *)mactivity
 {
-    self.titleLabel.text = memberCenter.title;
-    self.sender.text = memberCenter.user;
-    self.timeLabel.text = memberCenter.addtime;
+    self.timeLabel.text = mactivity.useTime;
+    self.titleLabel.text = mactivity.title;
+    self.numberLabel.text = mactivity.yhjId;
 }
 
 - (void)dealloc {
     [_titleLabel release];
-    [_sender release];
+    [_numberLabel release];
     [_timeLabel release];
     [super dealloc];
 }

@@ -7,10 +7,10 @@
 //
 
 #import "KBaseViewController.h"
-#import "ActivitiesTable.h"
+#import "MActivityTable.h"
 
 @interface MyActiveViewController : KBaseViewController {
-    IBOutlet ActivitiesTable *myActive;
+    IBOutlet MActivityTable *myActive;
     IBOutlet UILabel *titleLabel;
 }
 

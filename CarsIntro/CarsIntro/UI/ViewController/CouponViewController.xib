@@ -132,7 +132,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">可参加</string>
+						<string key="IBUINormalTitle">Button</string>
 						<reference key="IBUIHighlightedTitleColor" ref="362088175"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">3</int>
@@ -240,7 +240,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">总数量：</string>
+						<string key="IBUIText">总数量:</string>
 						<reference key="IBUITextColor" ref="915413507"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
@@ -251,7 +251,7 @@
 					<object class="IBUILabel" id="244268389">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{260, 84}, {52, 20}}</string>
+						<string key="NSFrame">{{260, 84}, {60, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="446380968"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -334,14 +334,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">titleBtn</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="904687664"/>
-					</object>
-					<int key="connectionID">36</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">titleLabel</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="377539833"/>
@@ -373,6 +365,14 @@
 					<int key="connectionID">47</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">titleBtn</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="904687664"/>
+					</object>
+					<int key="connectionID">51</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">back:</string>
 						<reference key="source" ref="297200093"/>
@@ -388,7 +388,7 @@
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">48</int>
+					<int key="connectionID">50</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -408,11 +408,11 @@
 							<reference ref="951125334"/>
 							<reference ref="904687664"/>
 							<reference ref="377539833"/>
-							<reference ref="872497226"/>
 							<reference ref="116664430"/>
-							<reference ref="645453459"/>
-							<reference ref="244268389"/>
 							<reference ref="446380968"/>
+							<reference ref="872497226"/>
+							<reference ref="244268389"/>
+							<reference ref="645453459"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -502,7 +502,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">48</int>
+			<int key="maxID">51</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

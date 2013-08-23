@@ -72,6 +72,7 @@
         Activity * act = [self.couponArray objectAtIndex:indexPath.row];
         [activitiesCell cellForDic:act];
     }
+
     return activitiesCell;
 }
 

@@ -42,7 +42,7 @@
 							<object class="IBUILabel" id="948234819">
 								<reference key="NSNextResponder" ref="160829634"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 0}, {122, 21}}</string>
+								<string key="NSFrame">{{6, 0}, {286, 21}}</string>
 								<reference key="NSSuperview" ref="160829634"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="310099652"/>
@@ -52,7 +52,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">欢迎成为本站会员</string>
+								<string key="IBUIText">Label</string>
 								<object class="NSColor" key="IBUITextColor" id="1019317436">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -115,7 +115,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">苏州世之元捷豹</string>
+								<string key="IBUIText">Label</string>
 								<reference key="IBUITextColor" ref="1019317436"/>
 								<reference key="IBUIHighlightedColor" ref="763555258"/>
 								<int key="IBUIBaselineAdjustment">0</int>
@@ -129,13 +129,14 @@
 								<string key="NSFrame">{{155, 22}, {157, 21}}</string>
 								<reference key="NSSuperview" ref="160829634"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">2013-08-09 01：46：50</string>
+								<string key="IBUIText">Label</string>
 								<reference key="IBUITextColor" ref="1019317436"/>
 								<reference key="IBUIHighlightedColor" ref="763555258"/>
 								<int key="IBUIBaselineAdjustment">0</int>

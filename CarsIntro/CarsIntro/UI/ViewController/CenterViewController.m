@@ -70,7 +70,6 @@
 #pragma mark - button Action
 
 - (IBAction)back:(id)sender {
-    NSLog(@"123123");
     [self.navigationController popViewControllerAnimated:YES];
 }
 

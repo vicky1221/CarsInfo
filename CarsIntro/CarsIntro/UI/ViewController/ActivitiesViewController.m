@@ -110,8 +110,8 @@
 - (void)sendAPI:(NSString *)str{
     isStart = YES;
     if ([str isEqualToString:@"activity"]) {
-        //    http://www.ard9.com/qiche/index.php?c=channel&a=type_json&tid=24
-        ASIHTTPRequest * request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=channel&a=type_json&tid=24" andArgs:nil delegate:self];
+        //    http://www.ard9.com/qiche/index.php?c=channel&a=type_json&tid=56
+        ASIHTTPRequest * request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=channel&a=type_json&tid=56" andArgs:nil delegate:self];
         request.tag = 101;
     } else if ([str isEqualToString:@"coupon"]) {
         //    http://www.ard9.com/qiche/index.php?c=channel&a=type_json&tid=25
