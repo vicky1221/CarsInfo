@@ -112,6 +112,7 @@
 }
 
 - (void)sendAPI {
+//    http://www.ard9.com/qiche/index.php?c=article&a=type_json&tid=33
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=article&a=ad_list_json&tid=5" andArgs:nil delegate:self andTag:11];
 }
 

@@ -128,14 +128,14 @@
     time = [NSString stringWithFormat:@"%0.f", [date timeIntervalSince1970]];
     [dateFormatter release];
     
-    
     if ([self.titleLabel.text isEqualToString:@"预约试驾"]) {
-        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=34&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, time, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:120];
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=34&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, self.strDate, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:120];
     } else if([self.titleLabel.text isEqualToString:@"预约保养"]) {
-        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=35&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, time, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:121];
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=35&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, self.strDate, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:121];
     } else if([self.titleLabel.text isEqualToString:@"预约维修"]) {
-        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=36&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, time, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:122];
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=36&hand=160135389&id=&go=1&from=app&name=%@&tel=%@&shijian=%@&benzhu=%@&uid=%@", self.nameTextField.text, self.phoneTextField.text, self.strDate, self.remarkTextField.text, [DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:122];
     }
+//    "id":"92","tid":"34","title":"","style":"","trait":"","gourl":"","addtime":"1377103646","hits":"0","orders":"0","mrank":"0","mgold":"0","isshow":"0","description":"","htmlurl":"","htmlfile":"","1":"1","user":"","name":"df","tel":"adf","shijian":"0","url":"\/qiche\/channel\/yuyue\/921.html","yysl":"0","from":"\u5c71\u897f\u541b\u548c\u5965\u8fea"}
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
