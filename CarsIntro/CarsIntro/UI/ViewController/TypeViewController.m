@@ -12,8 +12,10 @@
 #import "JSON.h"
 #import "WebRequest.h"
 #import "iToast.h"
-@interface TypeViewController ()<ASIHTTPRequestDelegate>
-
+@interface TypeViewController ()<ASIHTTPRequestDelegate,TableEGODelegate>
+{
+    BOOL isStart;
+}
 @end
 
 @implementation TypeViewController
@@ -35,6 +37,8 @@
     NSLog(@"%@", self.titleLabel.text);
     [self performSelector:@selector(sendAPI)];
     self.typeTable.viewController = self;
+    [self.typeTable createEGOHead];
+    self.typeTable.kdelegate = self;
 }
 
 //http://www.ard9.com/qiche/index.php?c=product&a=type_json&tid=38
@@ -43,6 +47,7 @@
 - (void)sendAPI {
     
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%@", self.tid] andArgs:nil delegate:self andTag:600];
+    isStart = YES;
 //    if (self.isNewCarData) {
 //        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%d", self.usedCarInfo.usedCarTid.intValue+2] andArgs:nil delegate:self andTag:600];
 //        NSLog(@"%d", self.usedCarInfo.usedCarTid.intValue + 2);
@@ -76,13 +81,15 @@
         NSLog(@"%@",dic);
     }
     [self.typeTable reloadData];
-    
+    isStart = NO;
+    [self.typeTable finishEGOHead];
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
-    NSLog(@"请求失败了");
+    isStart = NO;
+    [self.typeTable finishEGOHead];
+    NSLog(@"error!");
    
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -103,4 +110,12 @@
     [_typeTable release];
     [super dealloc];
 }
+
+- (BOOL)shouldEgoHeadLoading:(UITableView *)tableView {
+    return isStart;
+}
+- (void)triggerEgoHead:(UITableView *)tableView {
+    [self sendAPI];
+}
+
 @end

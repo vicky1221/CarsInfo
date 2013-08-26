@@ -23,6 +23,7 @@
     NSDictionary *dataDic;
     NSMutableArray *parameterArray;
     NSMutableArray *picArray;
+    UINavigationController * loginNav;
 }
 
 @end
@@ -55,7 +56,7 @@
     [self.scrollView addSubview:button2];
     
     self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.5);
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.45);
 }
 
 - (void)initCarsImageView {
@@ -172,6 +173,7 @@
 }
 
 - (void)dealloc {
+    [loginNav release];
     [picArray release];
     [_carsImageView release];
     [_typeLabel release];
@@ -220,7 +222,6 @@
     parmeterVC.parameterArray = parameterArray;
     [self.navigationController pushViewController:parmeterVC animated:YES];
     [parmeterVC release];
-    NSLog(@"1111");
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -231,11 +232,15 @@
     switch (buttonTag) {
         case 101: {
             if ([[DataCenter shareInstance].accont isAnonymous]) {
-                LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-                UINavigationController *loginNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
-                loginNav.navigationBarHidden = YES;
-                [loginVC release];
-                [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:3];
+                if (loginNav) {
+                    [self pushCurrentViewController:self toNavigation:loginNav isAdded:YES Driection:3];
+                } else {
+                    LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+                    loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                    loginNav.navigationBarHidden = YES;
+                    [loginVC release];
+                    [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:3];
+                }
             } else {
                 [UIView animateWithDuration:0.5 animations:^{
                     self.onlineView.transform = CGAffineTransformMakeTranslation(-320, 0);
@@ -277,6 +282,11 @@
 }
 
 - (IBAction)sendQuestion:(id)sender {
+    if (self.questionView.text.length<10 || self.questionView.text.length>100) {
+        [[iToast makeText:@"问题内容输入不合法."] show];
+        [self.questionView resignFirstResponder];
+        return;
+    }
     [self onlineViewBack];
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=message&a=add&tid=11&from=app&title=在线咨询&body=%@&uid=%@", self.questionView.text,[DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:55];
 }

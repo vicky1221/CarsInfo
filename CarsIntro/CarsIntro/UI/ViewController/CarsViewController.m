@@ -182,7 +182,6 @@
 
 - (IBAction)back:(id)sender {
     [self backToHomeView:self.navigationController];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
     [_choiceView release];
