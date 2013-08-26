@@ -1,21 +1,20 @@
 //
-//  TypeTable.m
+//  UsedCarsTable.m
 //  CarsIntro
 //
-//  Created by cuishuai on 13-7-15.
+//  Created by cuishuai on 13-8-26.
 //  Copyright (c) 2013年 banshenggua03. All rights reserved.
 //
 
-#import "TypeTable.h"
-
-#import "VehicleViewController.h"
+#import "UsedCarsTable.h"
 #import "NSDictionary+type.h"
-
-@implementation TypeTable
+#import "UsedCar.h"
+#import "VehicleViewController.h"
+@implementation UsedCarsTable
 
 -(void)myInit
 {
-    self.typeArray = [[[NSMutableArray alloc] init] autorelease];
+    self.UsedCarsArray = [NSMutableArray array];
     self.dataSource = self;
     self.delegate = self;
 }
@@ -38,7 +37,7 @@
 
 -(void)dealloc
 {
-    [_typeArray release];
+    [_UsedCarsArray release];
     [super dealloc];
 }
 
@@ -49,26 +48,22 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.typeArray count];
+    return [self.UsedCarsArray count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * cellID = @"TypeCell";
-    TypeCell * typeCell = (TypeCell *)[self dequeueReusableCellWithIdentifier:cellID];
-    if (typeCell == nil) {
-        typeCell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
+    NSString * cellID = @"UsedCarsCell";
+    UsedCarsCell * usedCarscell = (UsedCarsCell *)[self dequeueReusableCellWithIdentifier:cellID];
+    if (usedCarscell == nil) {
+        usedCarscell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
     }
-    NSDictionary *d = [self.typeArray objectAtIndex:indexPath.row];
-    typeCell.titleLabel.text = [d stringForKey:@"title"];
-    typeCell.priceLabel.text = [d stringForKey:@"zdj"];
-    typeCell.gearboxLabel.text = [d stringForKey:@"bsx"];
-    typeCell.displacement.text = [d stringForKey:@"pl"];
-    [typeCell.asyImageView LoadImage:[NSString stringWithFormat:@"%@%@",ServerAddress ,[d stringForKey:@"litpic"]]];
-//    ageView *asyImageView 
-//    VehicleType * _vehicleType = [self.typeArray objectAtIndex:indexPath.row];
-//    [typeCell cellForDic:_vehicleType];
-    return typeCell;
+    NSDictionary * d = [self.UsedCarsArray objectAtIndex:indexPath.row];
+    UsedCar * usedCar = [[UsedCar alloc] init];
+    [usedCar fromDic:d];
+    [usedCarscell cellForDic:usedCar];
+    [usedCar release];
+    return usedCarscell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,12 +71,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     VehicleViewController * vehicleVC = [[VehicleViewController alloc] initWithNibName:@"VehicleViewController" bundle:nil];
-    NSDictionary *d = [self.typeArray objectAtIndex:indexPath.row];
+    NSDictionary *d = [self.UsedCarsArray objectAtIndex:indexPath.row];
     
     VehicleType * _vehicleType = [[[VehicleType alloc] init] autorelease];
     [_vehicleType fromDic:d];
+    vehicleVC.ID = [d objectForKey:@"id"];
     vehicleVC.vehicleType = _vehicleType;
-    vehicleVC.isFromUsedCars = NO;
+    //[self.viewController.navigationController pushViewController:vehicleVC animated:YES];
+    vehicleVC.isFromUsedCars = YES;
     [self.viewController.navigationController pushViewController:vehicleVC animated:YES];
     [vehicleVC release];
 }
