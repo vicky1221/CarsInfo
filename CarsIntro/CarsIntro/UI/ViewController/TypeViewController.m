@@ -53,15 +53,6 @@
 - (void)sendAPI {
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%@", self.tid] andArgs:nil delegate:self andTag:600];
     isStart = YES;
-<<<<<<< HEAD
-=======
-//    if (self.isNewCarData) {
-//        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%d", self.usedCarInfo.usedCarTid.intValue+2] andArgs:nil delegate:self andTag:600];
-//        NSLog(@"%d", self.usedCarInfo.usedCarTid.intValue + 2);
-//    } else {
-//        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=esc&a=info_json&id=%@", self.usedCarInfo.usedCarInfoId] andArgs:nil delegate:self andTag:601];
-//    }
->>>>>>> f354d5dd96512757e2c58f1896b77fea81bef5ac
 }
 
 - (void)sendAPI2 {
@@ -100,12 +91,6 @@
         isStart = NO;
         [self.typeTable finishEGOHead];
     }
-<<<<<<< HEAD
-=======
-    [self.typeTable reloadData];
-    isStart = NO;
-    [self.typeTable finishEGOHead];
->>>>>>> f354d5dd96512757e2c58f1896b77fea81bef5ac
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
     isStart = NO;
@@ -140,16 +125,12 @@
     return isStart;
 }
 - (void)triggerEgoHead:(UITableView *)tableView {
-<<<<<<< HEAD
     if (self.isFromDynamicVC) {
         [self sendAPI2];
     } else {
         [self sendAPI];
     }
 
-=======
-    [self sendAPI];
->>>>>>> f354d5dd96512757e2c58f1896b77fea81bef5ac
 }
 
 @end
