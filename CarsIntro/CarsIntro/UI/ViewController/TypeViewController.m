@@ -12,8 +12,10 @@
 #import "JSON.h"
 #import "WebRequest.h"
 #import "iToast.h"
-@interface TypeViewController ()<ASIHTTPRequestDelegate>
-
+@interface TypeViewController ()<ASIHTTPRequestDelegate,TableEGODelegate>
+{
+    BOOL isStart;
+}
 @end
 
 @implementation TypeViewController
@@ -30,39 +32,45 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    self.tidsArray = [NSMutableArray array];
     // Do any additional setup after loading the view from its nib.
-    self.titleLabel.text = self.title;
+    if (self.isFromDynamicVC) {
+        self.titleLabel.text = @"车款系列";
+        [self performSelector:@selector(sendAPI2)];
+    } else {
+        self.titleLabel.text = self.title;
+        [self performSelector:@selector(sendAPI)];
+    }
     NSLog(@"%@", self.titleLabel.text);
-    [self performSelector:@selector(sendAPI)];
     self.typeTable.viewController = self;
+    [self.typeTable createEGOHead];
+    self.typeTable.kdelegate = self;
 }
 
 //http://www.ard9.com/qiche/index.php?c=product&a=type_json&tid=38
 //二手车
 //http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
 - (void)sendAPI {
-    
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%@", self.tid] andArgs:nil delegate:self andTag:600];
-//    if (self.isNewCarData) {
-//        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%d", self.usedCarInfo.usedCarTid.intValue+2] andArgs:nil delegate:self andTag:600];
-//        NSLog(@"%d", self.usedCarInfo.usedCarTid.intValue + 2);
-//    } else {
-//        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=esc&a=info_json&id=%@", self.usedCarInfo.usedCarInfoId] andArgs:nil delegate:self andTag:601];
-//    }
+    isStart = YES;
+}
+
+- (void)sendAPI2 {
+    for (NSString *aTid in self.tidsArray) {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=type_json&tid=%@", aTid] andArgs:nil delegate:self andTag:603];
+    }
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-    [self.typeTable.typeArray removeAllObjects];
-
     if (request.tag == 600) {
+        [self.typeTable.typeArray removeAllObjects];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
         for (NSDictionary *d in array) {
             [self.typeTable.typeArray addObject:d];
-//            VehicleType * vehicleType = [[VehicleType alloc] init];
-//            [vehicleType fromDic:d];
-//            [self.typeTable.typeArray addObject:vehicleType];
-//            [vehicleType release];
         }
+        [self.typeTable reloadData];
+        isStart = NO;
+        [self.typeTable finishEGOHead];
     } else if (request.tag == 601) {
         NSDictionary * dic = [NSDictionary dictionaryWithDictionary:[[request responseString] JSONValue]];
         if ([[dic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
@@ -74,15 +82,22 @@
             [vehicleType release];
         }
         NSLog(@"%@",dic);
+    } else {
+        NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        for (NSDictionary *d in array) {
+            [self.typeTable.typeArray addObject:d];
+        }
+        [self.typeTable reloadData];
+        isStart = NO;
+        [self.typeTable finishEGOHead];
     }
-    [self.typeTable reloadData];
-    
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
-    NSLog(@"请求失败了");
+    isStart = NO;
+    [self.typeTable finishEGOHead];
+    NSLog(@"error!");
    
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -94,13 +109,28 @@
 
 - (IBAction)back:(id)sender {
     [[WebRequest instance] clearRequestWithTag:600];
+    [[WebRequest instance] clearRequestWithTag:603];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
+    [_tidsArray release];
     [_tid release];
     [_vehicleType release];
     [_titleLabel release];
     [_typeTable release];
     [super dealloc];
 }
+
+- (BOOL)shouldEgoHeadLoading:(UITableView *)tableView {
+    return isStart;
+}
+- (void)triggerEgoHead:(UITableView *)tableView {
+    if (self.isFromDynamicVC) {
+        [self sendAPI2];
+    } else {
+        [self sendAPI];
+    }
+
+}
+
 @end

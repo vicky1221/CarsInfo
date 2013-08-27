@@ -13,13 +13,15 @@
 #import <MessageUI/MessageUI.h>
 #import "UIView+custom.h"
 #import <MessageUI/MFMailComposeViewController.h>
-
+#import "NSString+Date.h"
+#import "TypeViewController.h"
 
 @interface DynamicViewController () <ASIHTTPRequestDelegate, MFMailComposeViewControllerDelegate> {
     NSString *previewID;    //预览preview
     NSString *nextID;
     NSString *infoTitle;
     NSDictionary *dataDic;
+    TypeViewController * typeVC;
 }
 
 @end
@@ -45,11 +47,11 @@
         self.leftButton.enabled = NO;
         self.rightButton.enabled = NO;
     }
+    [self performSelector:@selector(sendAPI:) withObject:self.infoID];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self performSelector:@selector(sendAPI:) withObject:self.infoID];
     //[self sendAPI:self.infoID];
 }
 
@@ -69,6 +71,7 @@
 }
 
 - (void)dealloc {
+    [typeVC release];
     [_sinaView dealloc];
     [infoTitle release];
     [dataDic release];
@@ -77,11 +80,15 @@
     [_infoID release];
     [_leftButton release];
     [_rightButton release];
+    [_titleLabel release];
+    [_timeLabel release];
     [super dealloc];
 }
 - (void)viewDidUnload {
     [self setLeftButton:nil];
     [self setRightButton:nil];
+    [self setTitleLabel:nil];
+    [self setTimeLabel:nil];
     [super viewDidUnload];
 }
 
@@ -108,6 +115,8 @@
     }
     //[_infoID release];
     self.infoID = [[NSString stringWithFormat:@"%@", [dic objectForKey:@"aid"]] retain];
+    self.titleLabel.text = [dic objectForKey:@"title"];
+    self.timeLabel.text = [[NSString stringWithFormat:@"%@", [dic objectForKey:@"addtime"]] dateFormateSince1970];
     if (previewID) {
         [previewID release];
     }
@@ -122,7 +131,13 @@
 //    str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
     str = [str stringByReplacingOccurrencesOfString:@"/qiche" withString:@"http://www.ard9.com/qiche"];
     NSLog(@"%@", str);
-    [self.webView loadHTMLString:[dic objectForKey:@"body"] baseURL:nil];    
+    [self.webView loadHTMLString:[dic objectForKey:@"body"] baseURL:nil];
+    typeVC = [[TypeViewController alloc] initWithNibName:@"TypeViewController" bundle:nil];
+    typeVC.isFromDynamicVC = YES;
+    
+    NSString *chexingstr = [dic objectForKey:@"chexing"];
+    NSArray *array = [chexingstr componentsSeparatedByString:@","];
+    typeVC.tidsArray = [NSMutableArray arrayWithArray:array];
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
     [self removeSimpleHUD];
@@ -131,6 +146,10 @@
 #pragma mark - button Action
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)lookButton:(id)sender {
+    [self.navigationController pushViewController:typeVC animated:YES];
 }
 
 - (IBAction)toHome:(id)sender {

@@ -70,10 +70,10 @@
     [self.carsTable createEGOHead];
     self.carsTable.kdelegate = self;
     
-    self.typeTable.viewController = self;
-    self.typeTable.hidden = YES;
-    self.typeTable.kdelegate = self;
-    [self.typeTable createEGOHead];
+    self.usedCarsTable.viewController = self;
+    self.usedCarsTable.hidden = YES;
+    self.usedCarsTable.kdelegate = self;
+    [self.usedCarsTable createEGOHead];
     isNew = YES;
     [self performSelector:@selector(sendAPI)];
 }
@@ -96,18 +96,18 @@
         case 101:
             [self.btnNew setBackgroundImage:[UIImage imageNamed:@"newCar_1"] forState:UIControlStateNormal];
             [self.btnUsed setBackgroundImage:[UIImage imageNamed:@"usedCar_1"] forState:UIControlStateNormal];
-//            self.carsTable.isNewCarData = YES;
+            //            self.carsTable.isNewCarData = YES;
             self.carsTable.hidden = NO;
-            self.typeTable.hidden = YES;
+            self.usedCarsTable.hidden = YES;
             isNew = YES;
             [self performSelector:@selector(sendAPI)];
             break;
         case 102:
             [self.btnNew setBackgroundImage:[UIImage imageNamed:@"newCar_2"] forState:UIControlStateNormal];
             [self.btnUsed setBackgroundImage:[UIImage imageNamed:@"usedCar_2"] forState:UIControlStateNormal];
-//            self.carsTable.isNewCarData = NO;
+            //            self.carsTable.isNewCarData = NO;
             self.carsTable.hidden = YES;
-            self.typeTable.hidden = NO;
+            self.usedCarsTable.hidden = NO;
             isNew = NO;
             [self performSelector:@selector(sendAPI)];
             break;
@@ -128,45 +128,45 @@
     if (request.tag == 101) {
         [self.carsTable.newCarsArray removeAllObjects];
         [self.carsTable.newCarsArray addObjectsFromArray:[[request responseString] JSONValue]];
-//        NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
-//        for (NSDictionary *d in array) {
-//            UsedCarInfo *info = [[UsedCarInfo alloc] init];
-//            [info fromDic:d];
-//            [self.carsTable.newCarsArray addObject:info];
-//            [info release];
-//        }
+        //        NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        //        for (NSDictionary *d in array) {
+        //            UsedCarInfo *info = [[UsedCarInfo alloc] init];
+        //            [info fromDic:d];
+        //            [self.carsTable.newCarsArray addObject:info];
+        //            [info release];
+        //        }
         [self.carsTable reloadData];
         isStart = NO;
         [self.carsTable finishEGOHead];
     } else if (request.tag == 102) {
-        [self.typeTable.typeArray removeAllObjects];
+        [self.usedCarsTable.UsedCarsArray removeAllObjects];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
         for (NSDictionary *d in array) {
-            [self.typeTable.typeArray addObject:d];
-//            VehicleType * vehicleType = [[VehicleType alloc] init];
-//            [vehicleType fromDic:d];
-//            [self.typeTable.typeArray addObject:vehicleType];
-//            [vehicleType release];
+            [self.usedCarsTable.UsedCarsArray addObject:d];
+            //            VehicleType * vehicleType = [[VehicleType alloc] init];
+            //            [vehicleType fromDic:d];
+            //            [self.typeTable.typeArray addObject:vehicleType];
+            //            [vehicleType release];
         }
-        [self.typeTable reloadData];
+        [self.usedCarsTable reloadData];
         isStart = NO;
-        [self.typeTable finishEGOHead];
+        [self.usedCarsTable finishEGOHead];
     }
     
-//    [self.carsTable.newCarsArray removeAllObjects];
-//    [self.typeTable.typeArray removeAllObjects];
-//    NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
-//    NSLog(@"array,,,%@",[array description]);
-//    for (NSDictionary *d in array) {
-//        UsedCarInfo *info = [[UsedCarInfo alloc] init];
-//        [info fromDic:d];
-//        if (request.tag == 101) {
-//            [self.carsTable.newCarsArray addObject:info];
-//        } else if(request.tag == 102) {
-//            [self.carsTable.usedCarsArray addObject:info];
-//        }
-//        [info release];
-//    }
+    //    [self.carsTable.newCarsArray removeAllObjects];
+    //    [self.typeTable.typeArray removeAllObjects];
+    //    NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+    //    NSLog(@"array,,,%@",[array description]);
+    //    for (NSDictionary *d in array) {
+    //        UsedCarInfo *info = [[UsedCarInfo alloc] init];
+    //        [info fromDic:d];
+    //        if (request.tag == 101) {
+    //            [self.carsTable.newCarsArray addObject:info];
+    //        } else if(request.tag == 102) {
+    //            [self.carsTable.usedCarsArray addObject:info];
+    //        }
+    //        [info release];
+    //    }
     
     
 }
@@ -175,18 +175,18 @@
     if (request.tag == 101) {
         [self.carsTable finishEGOHead];
     } else {
-        [self.typeTable finishEGOHead];
+        [self.usedCarsTable finishEGOHead];
     }
     NSLog(@"error!");
 }
 
 - (IBAction)back:(id)sender {
     [self backToHomeView:self.navigationController];
-//    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
     [_choiceView release];
     [_carsTable release];
+    [_usedCarsTable release];
     [super dealloc];
 }
 

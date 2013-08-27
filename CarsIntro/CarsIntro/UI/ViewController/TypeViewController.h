@@ -20,7 +20,8 @@
 @property (retain, nonatomic) IBOutlet UILabel *titleLabel;
 @property (retain, nonatomic) IBOutlet TypeTable *typeTable;
 //@property (nonatomic, assign) BOOL isNewCarData;
-
+@property (assign, nonatomic) BOOL isFromDynamicVC; //是不是从资讯进入的
+@property (nonatomic, retain) NSMutableArray *tidsArray;
 - (IBAction)back:(id)sender;
 
 @end

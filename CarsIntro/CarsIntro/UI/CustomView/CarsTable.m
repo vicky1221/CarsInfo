@@ -98,6 +98,7 @@
     carsCell.priceLabel.text = [d stringForKey:@"zhidaojia"];
     carsCell.typeLable.text = [d stringForKey:@"chejibie"];
     carsCell.displacementLabel.text = [d stringForKey:@"pailiang"];
+    [carsCell.asyImageView LoadImage:[NSString stringWithFormat:@"%@%@",ServerAddress ,[d stringForKey:@"litpic"]]];
 //    UsedCarInfo *infor = [[[UsedCarInfo alloc] init] autorelease];
 //    [infor fromDic:d];
 //    [carsCell cellForDic:infor];
@@ -123,9 +124,10 @@
     NSArray *array = [[self.newCarsArray objectAtIndex:indexPath.section] objectForKey:@"subtype"];
     NSDictionary *d = [array objectAtIndex:indexPath.row];
     vc.tid = [d objectForKey:@"tid"];
-    vc.title = [d objectForKey:@"title"];
+    vc.title = [d objectForKey:@"classname"];
 //    UsedCarInfo *_usedCarInfo = [self.newCarsArray objectAtIndex:indexPath.row];
 //    vc.usedCarInfo = _usedCarInfo;
+    vc.isFromDynamicVC = NO;
     [self.viewController.navigationController pushViewController:vc animated:YES];
     [vc release];
 }

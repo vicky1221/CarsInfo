@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface MActivityTable : UITableView<UITableViewDelegate, UITableViewDataSource>
+#import "KBaseTableView.h"
+@interface MActivityTable : KBaseTableView<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) NSMutableArray * MActivityArray;
 @end

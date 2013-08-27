@@ -9,6 +9,7 @@
 #import "AdviceViewController.h"
 #import "iToast.h"
 #import "WebRequest.h"
+#import "JSON.h"
 @interface AdviceViewController ()<ASIHTTPRequestDelegate, UITextViewDelegate>
 
 @end
@@ -75,7 +76,15 @@
 -(void)requestFinished:(ASIHTTPRequest *)request
 {
     [self.navigationController popViewControllerAnimated:YES];
-    [[iToast makeText:@"投诉建议发送成功."] show];
+    
+    NSDictionary *d = [[request responseString] JSONValue];
+    if ([[d objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+            [[iToast makeText: [d objectForKey:@"msg"]] show];
+    }else {
+        [self.navigationController popViewControllerAnimated:YES];
+        [[iToast makeText:@"投诉建议发送成功."] show];
+    }
 }
 
 -(void)requestFailed:(ASIHTTPRequest *)request

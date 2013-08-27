@@ -10,9 +10,9 @@
 #import "JSON.h"
 #import "MActivity.h"
 
-@interface MyActiveViewController ()//<ActivitiesTableDelegate, TableEGODelegate>
+@interface MyActiveViewController ()<TableEGODelegate>
 {
-    //BOOL isStart;
+    BOOL isStart;
 }
 
 @end
@@ -33,8 +33,8 @@
     [super viewDidLoad];
     [self performSelector:@selector(sendAPI)];
     //myActive.ActivitiesDelegate = self;
-//    myActive.kdelegate = self;
-//    [myActive createEGOHead];
+    myActive.kdelegate = self;
+    [myActive createEGOHead];
     if (self.Type == 101) {
         titleLabel.text = @"我的活动";
     } else {
@@ -96,22 +96,22 @@
 //        [activity release];
 //    }
 //    [myActive reloadData];
-//    [myActive finishEGOHead];
-    //isStart = NO;
+    [myActive finishEGOHead];
+    isStart = NO;
 
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
-//    [myActive finishEGOHead];
-    //isStart = NO;
+    [myActive finishEGOHead];
+    isStart = NO;
     
 }
 
-//- (BOOL)shouldEgoHeadLoading:(UITableView *)tableView {
-//    return isStart;
-//}
-//- (void)triggerEgoHead:(UITableView *)tableView {
-//    [self sendAPI];
-//}
+- (BOOL)shouldEgoHeadLoading:(UITableView *)tableView {
+    return isStart;
+}
+- (void)triggerEgoHead:(UITableView *)tableView {
+    [self sendAPI];
+}
 
 - (IBAction)back:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];

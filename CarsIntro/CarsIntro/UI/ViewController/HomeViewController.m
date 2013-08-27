@@ -261,14 +261,14 @@
     NSLog(@"%d",i);
     if (request.tag == 1) {
         if (i>=1) {
-            [iToast makeText:@"今天已经签到过了."];
+            [[iToast makeText:@"今天已经签到过了."] show];
             return;
         }
         NSDictionary *dic = [[request responseString] JSONValue];
         if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
             [[iToast makeText:[dic objectForKey:@"msg"]] show];
-            i++;
         }
+        i++;
     } else {                                                    
         //NSString *str = [request responseString];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];

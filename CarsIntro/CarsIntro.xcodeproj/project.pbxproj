@@ -198,6 +198,10 @@
 		B1347A7C17BCC4F400447E4A /* Medal.m in Sources */ = {isa = PBXBuildFile; fileRef = B1347A7B17BCC4F400447E4A /* Medal.m */; };
 		B1347A7F17BCC6B000447E4A /* MedalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1347A7E17BCC6B000447E4A /* MedalCell.m */; };
 		B1347A8117BCC6CC00447E4A /* MedalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1347A8017BCC6CC00447E4A /* MedalCell.xib */; };
+		B1375B6F17CB4F810091461A /* UsedCar.m in Sources */ = {isa = PBXBuildFile; fileRef = B1375B6E17CB4F810091461A /* UsedCar.m */; };
+		B1375B7217CB50710091461A /* UsedCarsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B1375B7117CB50710091461A /* UsedCarsTable.m */; };
+		B1375B7517CB50890091461A /* UsedCarsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1375B7417CB50890091461A /* UsedCarsCell.m */; };
+		B1375B7717CB509C0091461A /* UsedCarsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1375B7617CB509C0091461A /* UsedCarsCell.xib */; };
 		B141D48E1799398B0040B042 /* Parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = B141D48D1799398B0040B042 /* Parameter.m */; };
 		B1496A8B17B365FC001B3B63 /* MOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1496A8917B365FC001B3B63 /* MOrderViewController.m */; };
 		B1496A8C17B365FC001B3B63 /* MOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1496A8A17B365FC001B3B63 /* MOrderViewController.xib */; };
@@ -674,6 +678,13 @@
 		B1347A7D17BCC6B000447E4A /* MedalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedalCell.h; sourceTree = "<group>"; };
 		B1347A7E17BCC6B000447E4A /* MedalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedalCell.m; sourceTree = "<group>"; };
 		B1347A8017BCC6CC00447E4A /* MedalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedalCell.xib; sourceTree = "<group>"; };
+		B1375B6D17CB4F810091461A /* UsedCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsedCar.h; sourceTree = "<group>"; };
+		B1375B6E17CB4F810091461A /* UsedCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsedCar.m; sourceTree = "<group>"; };
+		B1375B7017CB50710091461A /* UsedCarsTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsedCarsTable.h; sourceTree = "<group>"; };
+		B1375B7117CB50710091461A /* UsedCarsTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsedCarsTable.m; sourceTree = "<group>"; };
+		B1375B7317CB50880091461A /* UsedCarsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsedCarsCell.h; sourceTree = "<group>"; };
+		B1375B7417CB50890091461A /* UsedCarsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsedCarsCell.m; sourceTree = "<group>"; };
+		B1375B7617CB509C0091461A /* UsedCarsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UsedCarsCell.xib; sourceTree = "<group>"; };
 		B141D48C1799398B0040B042 /* Parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parameter.h; sourceTree = "<group>"; };
 		B141D48D1799398B0040B042 /* Parameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parameter.m; sourceTree = "<group>"; };
 		B1496A8817B365FC001B3B63 /* MOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOrderViewController.h; sourceTree = "<group>"; };
@@ -1241,6 +1252,8 @@
 				B1D5D443178E615200DCFFBD /* VehicleType.m */,
 				B1D5D445178E620700DCFFBD /* UsedCarInfo.h */,
 				B1D5D446178E620700DCFFBD /* UsedCarInfo.m */,
+				B1375B6D17CB4F810091461A /* UsedCar.h */,
+				B1375B6E17CB4F810091461A /* UsedCar.m */,
 				B141D48C1799398B0040B042 /* Parameter.h */,
 				B141D48D1799398B0040B042 /* Parameter.m */,
 				7C66C75917B3FE1C001991CF /* Account.h */,
@@ -1646,6 +1659,11 @@
 				B1117534178BEC8E00C4FB1D /* CarsCell.m */,
 				B1117530178BDEF800C4FB1D /* CarsTable.h */,
 				B1117531178BDEF900C4FB1D /* CarsTable.m */,
+				B1375B7617CB509C0091461A /* UsedCarsCell.xib */,
+				B1375B7317CB50880091461A /* UsedCarsCell.h */,
+				B1375B7417CB50890091461A /* UsedCarsCell.m */,
+				B1375B7017CB50710091461A /* UsedCarsTable.h */,
+				B1375B7117CB50710091461A /* UsedCarsTable.m */,
 				B174C0AA1793C5E6004FA6EB /* TypeCell.h */,
 				B174C0AB1793C5E6004FA6EB /* TypeCell.m */,
 				B174C0A71793C39B004FA6EB /* TypeTable.h */,
@@ -2289,6 +2307,7 @@
 				B1C071CA17C7016C004F8FFA /* Member_8.png in Resources */,
 				B1C071CB17C7016C004F8FFA /* Member_8@2x.png in Resources */,
 				B1C071E317C752E3004F8FFA /* MActivityCell.xib in Resources */,
+				B1375B7717CB509C0091461A /* UsedCarsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2402,6 +2421,9 @@
 				B1C071DE17C7529C004F8FFA /* MActivityTable.m in Sources */,
 				B1C071E117C752BA004F8FFA /* MActivityCell.m in Sources */,
 				B1C071E617C75459004F8FFA /* MActivity.m in Sources */,
+				B1375B6F17CB4F810091461A /* UsedCar.m in Sources */,
+				B1375B7217CB50710091461A /* UsedCarsTable.m in Sources */,
+				B1375B7517CB50890091461A /* UsedCarsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

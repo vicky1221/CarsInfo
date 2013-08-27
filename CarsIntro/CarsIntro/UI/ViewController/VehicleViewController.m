@@ -23,6 +23,7 @@
     NSDictionary *dataDic;
     NSMutableArray *parameterArray;
     NSMutableArray *picArray;
+    UINavigationController * loginNav;
 }
 
 @end
@@ -55,11 +56,11 @@
     [self.scrollView addSubview:button2];
     
     self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.5);
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.45);
 }
 
 - (void)initCarsImageView {
-//    [self.carsImageView.layer setCornerRadius:3];
+    //    [self.carsImageView.layer setCornerRadius:3];
     [self.carsImageView.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [self.carsImageView.layer setShadowOpacity:0.5];
     [self.carsImageView.layer setShadowOffset:CGSizeMake(2, 2)];
@@ -78,50 +79,50 @@
 -(void)readDataSource
 {
     Parameter * parameter1 = [[Parameter alloc] init];
-    parameter1.title = @"厂商指导价";
-    parameter1.content = [dataDic objectForKey:@"zdj"];
+    parameter1.title = @"品牌";
+    parameter1.content = [dataDic objectForKey:@"pinpai"];
     [self.vehicleTable.vehicleArray addObject:parameter1];
     [parameter1 release];
     
     Parameter * parameter2 = [[Parameter alloc] init];
-    parameter2.title = @"变速箱";
-    parameter2.content = [dataDic objectForKey:@"bsx"];
+    parameter2.title = @"颜色";
+    parameter2.content = [dataDic objectForKey:@"yanse"];
     [self.vehicleTable.vehicleArray addObject:parameter2];
     [parameter2 release];
     
     Parameter * parameter3 = [[Parameter alloc] init];
-    parameter3.title = @"驱动方式";
-    parameter3.content = [dataDic objectForKey:@"qdfs"];
+    parameter3.title = @"变速箱";
+    parameter3.content = [dataDic objectForKey:@"bsx"];
     [self.vehicleTable.vehicleArray addObject:parameter3];
     [parameter3 release];
     
     Parameter * parameter4 = [[Parameter alloc] init];
-    parameter4.title = @"排量";
-    parameter4.content = [dataDic objectForKey:@"pl"];
+    parameter4.title = @"行驶里程";
+    parameter4.content = [dataDic objectForKey:@"xslc"];
     [self.vehicleTable.vehicleArray addObject:parameter4];
     [parameter4 release];
     
     Parameter * parameter5 = [[Parameter alloc] init];
-    parameter5.title = @"质保";
-    parameter5.content = [dataDic objectForKey:@"zczb"];
+    parameter5.title = @"上牌日期";
+    parameter5.content = [dataDic objectForKey:@"spsj"];
     [self.vehicleTable.vehicleArray addObject:parameter5];
     [parameter5 release];
     
     Parameter * parameter6 = [[Parameter alloc] init];
-    parameter6.title = @"综合工况油耗";
-    parameter6.content = [dataDic objectForKey:@"scyh"];
+    parameter6.title = @"联系人";
+    parameter6.content = [dataDic objectForKey:@"lxr"];
     [self.vehicleTable.vehicleArray addObject:parameter6];
     [parameter6 release];
     
-//    Parameter * parameter7 = [[Parameter alloc] init];
-//    parameter7.title = @"厂家";
-//    parameter7.content = [dataDic objectForKey:@"bsx"];
-//    [self.vehicleTable.vehicleArray addObject:parameter7];
-//    [parameter7 release];
+    Parameter * parameter7 = [[Parameter alloc] init];
+    parameter7.title = @"联系电话";
+    parameter7.content = [dataDic objectForKey:@"lxdh"];
+    [self.vehicleTable.vehicleArray addObject:parameter7];
+    [parameter7 release];
     
     Parameter * parameter8 = [[Parameter alloc] init];
-    parameter8.title = @"车体结构";
-    parameter8.content = [dataDic objectForKey:@"ctjg"];
+    parameter8.title = @"详细描述";
+    parameter8.content = [dataDic objectForKey:@"xxms"];
     [self.vehicleTable.vehicleArray addObject:parameter8];
     [parameter8 release];
     
@@ -134,10 +135,17 @@
 - (void)viewDidLoad
 {
     
-//    http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
-//    http://www.ard9.com/qiche/index.php?c=product&a=info_json&id=20
+    //    http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
+    //    http://www.ard9.com/qiche/index.php?c=product&a=info_json&id=20
     
     [super viewDidLoad];
+    
+    if (self.isFromUsedCars) {
+        self.button.hidden = YES;
+    } else {
+        self.button.hidden = NO;
+    }
+    
     dataDic = [[NSDictionary alloc] init];
     fieldArray = [[NSMutableArray alloc] init];
     parameterArray = [[NSMutableArray alloc] init];
@@ -145,7 +153,7 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     [self addButtonsToScrollview];
-//    [self readDataSource];
+    //    [self readDataSource];
     [self initCarsImageView];
     
     self.typeLabel.text = self.vehicleType.title;
@@ -169,9 +177,12 @@
     [super viewWillDisappear:animated];
     [[WebRequest instance] clearRequestWithTag:56];
     [[WebRequest instance] clearRequestWithTag:57];
+    [[WebRequest instance] clearRequestWithTag:58];
 }
 
 - (void)dealloc {
+    [_ID release];
+    [loginNav release];
     [picArray release];
     [_carsImageView release];
     [_typeLabel release];
@@ -181,13 +192,19 @@
     [_vehicleTable release];
     [fieldArray release];
     [dataDic release];
+    [_button release];
     [super dealloc];
 }
 
 - (void)sendAPI {
-//    http://www.ard9.com/qiche/index.php?c=product&a=info_json_field
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json_field" andArgs:nil delegate:self andTag:56];
-    [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=info_json&id=%@", self.vehicleType.vehicleTypeId] andArgs:nil delegate:self andTag:57];
+    //    http://www.ard9.com/qiche/index.php?c=product&a=info_json_field
+    //[[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json_field" andArgs:nil delegate:self andTag:56];
+    //http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
+    if (self.isFromUsedCars) {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=esc&a=info_json&id=%@", self.ID] andArgs:nil delegate:self andTag:58];
+    }else {
+        [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=product&a=info_json&id=%@", self.vehicleType.vehicleTypeId] andArgs:nil delegate:self andTag:57];
+    }
 }
 
 #pragma mark - image Action
@@ -220,7 +237,6 @@
     parmeterVC.parameterArray = parameterArray;
     [self.navigationController pushViewController:parmeterVC animated:YES];
     [parmeterVC release];
-    NSLog(@"1111");
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -231,11 +247,15 @@
     switch (buttonTag) {
         case 101: {
             if ([[DataCenter shareInstance].accont isAnonymous]) {
-                LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-                UINavigationController *loginNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
-                loginNav.navigationBarHidden = YES;
-                [loginVC release];
-                [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:3];
+                if (loginNav) {
+                    [self pushCurrentViewController:self toNavigation:loginNav isAdded:YES Driection:3];
+                } else {
+                    LoginViewController * loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+                    loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                    loginNav.navigationBarHidden = YES;
+                    [loginVC release];
+                    [self pushCurrentViewController:self toNavigation:loginNav isAdded:NO Driection:3];
+                }
             } else {
                 [UIView animateWithDuration:0.5 animations:^{
                     self.onlineView.transform = CGAffineTransformMakeTranslation(-320, 0);
@@ -277,6 +297,11 @@
 }
 
 - (IBAction)sendQuestion:(id)sender {
+    if (self.questionView.text.length<10 || self.questionView.text.length>100) {
+        [[iToast makeText:@"问题内容输入不合法."] show];
+        [self.questionView resignFirstResponder];
+        return;
+    }
     [self onlineViewBack];
     [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=message&a=add&tid=11&from=app&title=在线咨询&body=%@&uid=%@", self.questionView.text,[DataCenter shareInstance].accont.loginUserID] andArgs:nil delegate:self andTag:55];
 }
@@ -304,7 +329,18 @@
         } else {
             if (fieldArray.count > 0) {
                 [self bindData];
+                [self loadImage];
             }
+        }
+    } else if (request.tag == 58) {
+        [dataDic release];
+        dataDic = [[[request responseString] JSONValue] retain];
+        NSLog(@"这个是字典中的数据%@",dataDic);
+        if ([[dataDic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
+            [[iToast makeText:[dataDic objectForKey:@"msg"]] show];
+        } else {
+            [self readDataSource];
+            [self loadImage];
         }
     }
 }
@@ -329,9 +365,18 @@
         [par release];
     }
     [self readDataSource];    
-//    "\/qiche\/uploads\/2013\/08\/031056327723.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056328657.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056324006.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056339538.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056337814.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056202230.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056205338.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056205499.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056195083.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056195760.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056202809.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056199190.jpg|,|"
-//    NSString *str = @"\/qiche\/uploads\/2013\/08\/031056327723.jpg";
-    NSString *str = [dataDic objectForKey:@"photo"];
+}
+
+-(void)loadImage{
+    //    "\/qiche\/uploads\/2013\/08\/031056327723.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056328657.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056324006.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056339538.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056337814.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056202230.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056205338.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056205499.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056195083.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056195760.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056202809.jpg|,||-|\/qiche\/uploads\/2013\/08\/031056199190.jpg|,|"
+    //    NSString *str = @"\/qiche\/uploads\/2013\/08\/031056327723.jpg";
+    NSString * str = @"";
+    if (self.isFromUsedCars) {
+        str = [dataDic objectForKey:@"pic"];
+    } else {
+        str = [dataDic objectForKey:@"photo"];
+    }
+    
     NSLog(@"pic address%@", str);
     NSArray *array = [str componentsSeparatedByString:@"|,||-|"];
     picArray = [[NSMutableArray alloc] initWithCapacity:10];
@@ -347,6 +392,7 @@
     }];
 }
 
+
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
     return picArray.count;
 }
@@ -356,4 +402,8 @@
     return nil;
 }
 
+- (void)viewDidUnload {
+    [self setButton:nil];
+    [super viewDidUnload];
+}
 @end

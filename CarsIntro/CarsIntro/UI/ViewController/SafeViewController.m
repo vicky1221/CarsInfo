@@ -29,7 +29,7 @@
 {
     self.pickerArray = [NSMutableArray arrayWithCapacity:0];
     for (int i=2013; i>1973; i--) {
-        NSString * str = [NSString stringWithFormat:@"%d",i];
+        NSString * str = [NSString stringWithFormat:@"%d年",i];
         [self.pickerArray addObject:str];
     }
 }
@@ -87,7 +87,7 @@
 
 - (IBAction)sure:(UIBarButtonItem *)sender {
     NSInteger row = [self.pickView selectedRowInComponent:0];
-    self.timeField.text = [self.pickerArray objectAtIndex:row];
+    self.timeField.text =  [NSString stringWithFormat:@"  %@", [self.pickerArray objectAtIndex:row]];
     [UIView animateWithDuration:0.4 animations:^{
         self.contentView.frame = CGRectMake(0, VIEW_HEIGHT(self.view), VIEW_WIDTH(self.contentView), VIEW_HEIGHT(self.contentView));
     } completion:^(BOOL finished) {

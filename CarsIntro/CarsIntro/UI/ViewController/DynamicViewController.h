@@ -25,4 +25,8 @@
 
 @property (retain, nonatomic) IBOutlet UIButton *rightButton;
 
+@property (retain, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (retain, nonatomic) IBOutlet UILabel *timeLabel;
+
 @end

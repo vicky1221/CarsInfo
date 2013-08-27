@@ -27,6 +27,9 @@
 @property (nonatomic, assign) IBOutlet UILabel *picCountLabel;
 
 - (IBAction)sendQuestion:(id)sender;
+@property (retain, nonatomic) NSString * ID;
+@property (nonatomic, assign) BOOL isFromUsedCars;
 
-
+@property (retain, nonatomic) IBOutlet UIButton *button;
+//查看详细参数配置
 @end
