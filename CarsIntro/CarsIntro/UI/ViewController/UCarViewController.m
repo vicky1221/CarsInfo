@@ -168,33 +168,6 @@
 
 -(void)senderAPI
 {
-//    if (self.brandTextField.text.length == 0) {
-//        [[iToast makeText:@"品牌不可为空."] show];
-//        return;
-//    } else if(self.colorTextField.text.length == 0) {
-//        [[iToast makeText:@"颜色不可为空."] show];
-//        return;
-//    } else if(self.lengthTextField.text.length ==0) {
-//        [[iToast makeText:@"行驶里程不可为空."] show];
-//        return;
-//    } else if(self.describeTextField.text.length == 0) {
-//        [[iToast makeText:@"详细描述不可为空."] show];
-//        return;
-//    } else if(self.personTextField.text.length == 0) {
-//        [[iToast makeText:@"联系人不可为空."] show];
-//        return;
-//    } else if(self.phoneTextField.text.length == 0) {
-//        [[iToast makeText:@"联系电话不可为空."] show];
-//        return;
-//    }
-    
-//    NSString *url = [NSString stringWithFormat:@"%@%@",Server,method];
-//    NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    NSLog(@"%@",url);
-//    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:saveURl]];
-    
-//    NSString *url = [NSString stringWithFormat:@"%@",Server];
-//    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:url]];
     self.senderButton.enabled = NO;
     for (int i = 0; i < 4; i++) {
         UIAsyncImageView *v = [imageArray objectAtIndex:i];
@@ -213,6 +186,19 @@
         [request setPostValue:self.personTextField.text forKey:@"lxr"];
         [request setPostValue:self.phoneTextField.text forKey:@"lxdh"];
         request.tag = i;
+        request.delegate = self;
+        [request startAsynchronous];
+    }
+}
+
+// 上传图片
+- (void)uploadPic {
+    for (int i = 0; i < 4; i++) {
+        UIAsyncImageView *v = [imageArray objectAtIndex:i];
+        NSString * url = [NSString stringWithFormat:@"%@c=uploads", Server];
+        NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:saveURl]];
+        [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"Isfiles "];
         request.delegate = self;
         [request startAsynchronous];
     }

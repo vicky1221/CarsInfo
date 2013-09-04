@@ -192,8 +192,6 @@
     } else if (request.tag == 3) {
         NSDictionary *dic = [[request responseString] JSONValue];
         if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
-            //[self back:nil];
-            NSLog(@"%@,,,,,", [dic description]);
             NSArray *cells = [self.registerTable visibleCells];
             NSMutableArray *textArray = [NSMutableArray array];
             for (RegisterCell *cell in cells) {
@@ -201,9 +199,23 @@
             }
             NSString *userName = [textArray objectAtIndex:0];
             NSString *passWord = [textArray objectAtIndex:1];
-            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=login&go=1&from=app&url=?c=member&user=%@&pass=%@",userName, passWord] andArgs:nil delegate:self andTag:2];
+            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=login&go=1&from=app&url=?c=member&user=%@&pass=%@",userName, passWord] andArgs:nil delegate:self andTag:4];
+            [self toHomeVC:nil];
         }
         [iToast makeText:[dic objectForKey:@"msg"]];
+    } else if (request.tag == 4) {
+        NSDictionary *dic = [[request responseString] JSONValue];
+        if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
+            NSString *path = [NSString stringWithFormat:@"%@/%@",[[DataCenter shareInstance] documentPath],UserInfo];
+            Account *account = [[Account alloc] init];
+            [account fromDic:dic];
+            NSDictionary *saveDic = [account toDic];
+            if([saveDic writeToFile:path atomically:YES])
+            {
+                [[DataCenter shareInstance] updateUserInfo];
+            }
+            [account release];
+        }
     }
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
