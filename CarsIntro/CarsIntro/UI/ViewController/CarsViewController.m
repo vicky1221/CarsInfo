@@ -141,6 +141,7 @@
     } else if (request.tag == 102) {
         [self.usedCarsTable.UsedCarsArray removeAllObjects];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];
+        NSLog(@"%@,,,,,", [array description]);
         for (NSDictionary *d in array) {
             [self.usedCarsTable.UsedCarsArray addObject:d];
             //            VehicleType * vehicleType = [[VehicleType alloc] init];

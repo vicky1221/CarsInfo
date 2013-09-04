@@ -56,7 +56,7 @@
     [self.scrollView addSubview:button2];
     
     self.scrollView.scrollEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.45);
+    self.scrollView.contentSize = CGSizeMake(VIEW_WIDTH(self.scrollView), VIEW_HEIGHT(self.scrollView)*1.5);
 }
 
 - (void)initCarsImageView {
@@ -76,7 +76,64 @@
     return self;
 }
 
--(void)readDataSource
+-(void)readNewDataSource
+{
+    Parameter * parameter1 = [[Parameter alloc] init];
+    parameter1.title = @"品牌";
+    parameter1.content = [dataDic objectForKey:@"title"];
+    [self.vehicleTable.vehicleArray addObject:parameter1];
+    [parameter1 release];
+    
+    Parameter * parameter2 = [[Parameter alloc] init];
+    parameter2.title = @"颜色";
+    parameter2.content = [dataDic objectForKey:@"yanse"];
+    [self.vehicleTable.vehicleArray addObject:parameter2];
+    [parameter2 release];
+    
+    Parameter * parameter3 = [[Parameter alloc] init];
+    parameter3.title = @"变速箱";
+    parameter3.content = [dataDic objectForKey:@"bsx"];
+    [self.vehicleTable.vehicleArray addObject:parameter3];
+    [parameter3 release];
+    
+    Parameter * parameter4 = [[Parameter alloc] init];
+    parameter4.title = @"行驶里程";
+    parameter4.content = [dataDic objectForKey:@"kd"];
+    [self.vehicleTable.vehicleArray addObject:parameter4];
+    [parameter4 release];
+    
+    Parameter * parameter5 = [[Parameter alloc] init];
+    parameter5.title = @"上牌日期";
+    NSString * str = [dataDic objectForKey:@"addtime"];
+    parameter5.content = [str dateFormateSince1970];
+    [self.vehicleTable.vehicleArray addObject:parameter5];
+    [parameter5 release];
+    
+    Parameter * parameter6 = [[Parameter alloc] init];
+    parameter6.title = @"联系人";
+    parameter6.content = [dataDic objectForKey:@"lxr"];
+    [self.vehicleTable.vehicleArray addObject:parameter6];
+    [parameter6 release];
+    
+    Parameter * parameter7 = [[Parameter alloc] init];
+    parameter7.title = @"联系电话";
+    parameter7.content = [dataDic objectForKey:@"lxdh"];
+    [self.vehicleTable.vehicleArray addObject:parameter7];
+    [parameter7 release];
+    
+    Parameter * parameter8 = [[Parameter alloc] init];
+    parameter8.title = @"详细描述";
+    parameter8.content = [dataDic objectForKey:@"description"];
+    [self.vehicleTable.vehicleArray addObject:parameter8];
+    [parameter8 release];
+    
+    self.vehicleTable.backgroundColor = [UIColor clearColor];
+    self.vehicleTable.backgroundView = nil;
+    [self.vehicleTable reloadData];
+    self.vehicleTable.scrollEnabled = NO;
+}
+
+-(void)readUsedDataSource
 {
     Parameter * parameter1 = [[Parameter alloc] init];
     parameter1.title = @"品牌";
@@ -104,7 +161,8 @@
     
     Parameter * parameter5 = [[Parameter alloc] init];
     parameter5.title = @"上牌日期";
-    parameter5.content = [dataDic objectForKey:@"spsj"];
+    NSString * str = [dataDic objectForKey:@"addtime"];
+    parameter5.content = [str dateFormateSince1970];
     [self.vehicleTable.vehicleArray addObject:parameter5];
     [parameter5 release];
     
@@ -122,7 +180,7 @@
     
     Parameter * parameter8 = [[Parameter alloc] init];
     parameter8.title = @"详细描述";
-    parameter8.content = [dataDic objectForKey:@"xxms"];
+    parameter8.content = [dataDic objectForKey:@"description"];
     [self.vehicleTable.vehicleArray addObject:parameter8];
     [parameter8 release];
     
@@ -198,7 +256,7 @@
 
 - (void)sendAPI {
     //    http://www.ard9.com/qiche/index.php?c=product&a=info_json_field
-    //[[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json_field" andArgs:nil delegate:self andTag:56];
+    [[WebRequest instance] requestWithCatagory:@"get" MothodName:@"c=product&a=info_json_field" andArgs:nil delegate:self andTag:56];
     //http://www.ard9.com/qiche/index.php?c=channel&molds=esc&a=info_json&id=编号
     if (self.isFromUsedCars) {
         [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=channel&molds=esc&a=info_json&id=%@", self.ID] andArgs:nil delegate:self andTag:58];
@@ -313,7 +371,11 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
     if (request.tag == 55) {
-        [iToast makeText:@"提交成功"];
+        NSDictionary * dic = [[request responseString] JSONValue];
+        if ([[dic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
+            [[iToast makeText:[dic objectForKey:@"msg"]] show];
+        }
+        //[iToast makeText:@"提交成功"];
     } else if (request.tag == 56) {
         
         NSArray *array = [[request responseString] JSONValue];
@@ -324,6 +386,7 @@
     } else if (request.tag == 57) {
         [dataDic release];
         dataDic = [[[request responseString] JSONValue] retain];
+        NSLog(@"%@,,,,,,,", dataDic);
         if ([[dataDic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
             [[iToast makeText:[dataDic objectForKey:@"msg"]] show];
         } else {
@@ -335,11 +398,11 @@
     } else if (request.tag == 58) {
         [dataDic release];
         dataDic = [[[request responseString] JSONValue] retain];
-        NSLog(@"这个是字典中的数据%@",dataDic);
         if ([[dataDic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
             [[iToast makeText:[dataDic objectForKey:@"msg"]] show];
         } else {
-            [self readDataSource];
+            //[self readDataSource];
+            [self bindData];
             [self loadImage];
         }
     }
@@ -364,7 +427,11 @@
         [parameterArray addObject:par];
         [par release];
     }
-    [self readDataSource];    
+    if (self.isFromUsedCars) {
+        [self readUsedDataSource];
+    } else {
+        [self readNewDataSource];
+    }
 }
 
 -(void)loadImage{

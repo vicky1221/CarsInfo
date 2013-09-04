@@ -49,7 +49,7 @@
     } else {
         [self.webView loadHTMLString:[dic objectForKey:@"content"] baseURL:nil];
         self.titleLabel.text = [dic objectForKey:@"title"];
-        self.timeLabel.text = [[dic objectForKey:@"addtime"] dateStringSince1970];
+        self.timeLabel.text = [[dic objectForKey:@"addtime"] dateFormateSince1970];
         self.senderLabel.text = [dic objectForKey:@"user"];
     }
     NSLog(@"%@",dic);

@@ -149,7 +149,9 @@
 }
 
 - (IBAction)lookButton:(id)sender {
-    [self.navigationController pushViewController:typeVC animated:YES];
+    if (typeVC.tidsArray.count > 0) {
+        [self.navigationController pushViewController:typeVC animated:YES];
+    }
 }
 
 - (IBAction)toHome:(id)sender {

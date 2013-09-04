@@ -44,4 +44,7 @@
 @property (assign) BOOL btn3HasImage;
 @property (assign) BOOL btn4HasImage;
 
+
+@property (retain, nonatomic) IBOutlet UIButton *senderButton;
+
 @end

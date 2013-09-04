@@ -77,10 +77,16 @@
     
     VehicleViewController * vehicleVC = [[VehicleViewController alloc] initWithNibName:@"VehicleViewController" bundle:nil];
     NSDictionary *d = [self.typeArray objectAtIndex:indexPath.row];
-    
+    NSLog(@",,,,,,,,%@", [d description]);
+    //vehicleVC.vehicleType.vehicleTypeId = [d stringForKey:@"id"];
+   
     VehicleType * _vehicleType = [[[VehicleType alloc] init] autorelease];
-    [_vehicleType fromDic:d];
+    _vehicleType.vehicleTypeId = [d stringForKey:@"id"];
+     NSLog(@".....%@",_vehicleType.vehicleTypeId);
+    
     vehicleVC.vehicleType = _vehicleType;
+    NSLog(@",,,,,%@",vehicleVC.vehicleType.vehicleTypeId);
+   // vehicleVC.ID = [d stringForKey:@"id"];
     vehicleVC.isFromUsedCars = NO;
     [self.viewController.navigationController pushViewController:vehicleVC animated:YES];
     [vehicleVC release];

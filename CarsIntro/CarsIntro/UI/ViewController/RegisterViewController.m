@@ -192,7 +192,16 @@
     } else if (request.tag == 3) {
         NSDictionary *dic = [[request responseString] JSONValue];
         if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
-            [self back:nil];
+            //[self back:nil];
+            NSLog(@"%@,,,,,", [dic description]);
+            NSArray *cells = [self.registerTable visibleCells];
+            NSMutableArray *textArray = [NSMutableArray array];
+            for (RegisterCell *cell in cells) {
+                [textArray addObject:cell.textField.text];
+            }
+            NSString *userName = [textArray objectAtIndex:0];
+            NSString *passWord = [textArray objectAtIndex:1];
+            [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=login&go=1&from=app&url=?c=member&user=%@&pass=%@",userName, passWord] andArgs:nil delegate:self andTag:2];
         }
         [iToast makeText:[dic objectForKey:@"msg"]];
     }

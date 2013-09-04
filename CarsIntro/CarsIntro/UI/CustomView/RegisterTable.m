@@ -67,7 +67,7 @@
     if (registerCell == nil) {
         registerCell = [[[NSBundle mainBundle] loadNibNamed:cellID owner:nil options:nil] objectAtIndex:0];
     }
-    if (indexPath.row == 1 || indexPath.row == 2) {
+    if (indexPath.row == 1) {
         //加密
         registerCell.textField.secureTextEntry = YES;
     }

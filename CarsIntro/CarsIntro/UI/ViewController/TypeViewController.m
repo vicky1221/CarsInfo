@@ -62,6 +62,7 @@
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
+    NSLog(@"tid......%@",self.tid);
     if (request.tag == 600) {
         [self.typeTable.typeArray removeAllObjects];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];

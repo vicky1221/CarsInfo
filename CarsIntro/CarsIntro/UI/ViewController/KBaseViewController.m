@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSLog(@"当前的VC,%@",self);
     UIImageView *m_background = [[UIImageView alloc] init];
 	m_background.contentMode = UIViewContentModeScaleToFill;
 	m_background.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);

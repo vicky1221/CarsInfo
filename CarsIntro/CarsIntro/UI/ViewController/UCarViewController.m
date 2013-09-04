@@ -130,6 +130,7 @@
     [_datePicker release];
     [_dataPickerLabel release];
     [_pickerView release];
+    [_senderButton release];
     [super dealloc];
 }
 - (void)viewDidUnload {
@@ -147,6 +148,7 @@
     [self setDatePicker:nil];
     [self setDataPickerLabel:nil];
     [self setPickerView:nil];
+    [self setSenderButton:nil];
     [super viewDidUnload];
 }
 
@@ -166,25 +168,25 @@
 
 -(void)senderAPI
 {
-    if (self.brandTextField.text.length == 0) {
-        [[iToast makeText:@"品牌不可为空."] show];
-        return;
-    } else if(self.colorTextField.text.length == 0) {
-        [[iToast makeText:@"颜色不可为空."] show];
-        return;
-    } else if(self.lengthTextField.text.length ==0) {
-        [[iToast makeText:@"行驶里程不可为空."] show];
-        return;
-    } else if(self.describeTextField.text.length == 0) {
-        [[iToast makeText:@"详细描述不可为空."] show];
-        return;
-    } else if(self.personTextField.text.length == 0) {
-        [[iToast makeText:@"联系人不可为空."] show];
-        return;
-    } else if(self.phoneTextField.text.length == 0) {
-        [[iToast makeText:@"联系电话不可为空."] show];
-        return;
-    }
+//    if (self.brandTextField.text.length == 0) {
+//        [[iToast makeText:@"品牌不可为空."] show];
+//        return;
+//    } else if(self.colorTextField.text.length == 0) {
+//        [[iToast makeText:@"颜色不可为空."] show];
+//        return;
+//    } else if(self.lengthTextField.text.length ==0) {
+//        [[iToast makeText:@"行驶里程不可为空."] show];
+//        return;
+//    } else if(self.describeTextField.text.length == 0) {
+//        [[iToast makeText:@"详细描述不可为空."] show];
+//        return;
+//    } else if(self.personTextField.text.length == 0) {
+//        [[iToast makeText:@"联系人不可为空."] show];
+//        return;
+//    } else if(self.phoneTextField.text.length == 0) {
+//        [[iToast makeText:@"联系电话不可为空."] show];
+//        return;
+//    }
     
 //    NSString *url = [NSString stringWithFormat:@"%@%@",Server,method];
 //    NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -193,7 +195,7 @@
     
 //    NSString *url = [NSString stringWithFormat:@"%@",Server];
 //    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:url]];
-    
+    self.senderButton.enabled = NO;
     for (int i = 0; i < 4; i++) {
         UIAsyncImageView *v = [imageArray objectAtIndex:i];
         NSString * url = [NSString stringWithFormat:@"%@c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app", Server];
@@ -204,8 +206,9 @@
         [request setPostValue:self.brandTextField.text forKey:@"pinpai"];
         [request setPostValue:self.colorTextField.text forKey:@"yanse"];
         [request setPostValue:self.strGearbox forKey:@"bsx"];
-        [request setPostValue:self.lengthTextField.text forKey:@"xxlc"];
-        [request setPostValue:self.brandTextField.text forKey:@"spsj"];
+        [request setPostValue:self.lengthTextField.text forKey:@"xslc"];
+        [request setPostValue:self.btnTime.titleLabel.text forKey:@"spsj"];
+        //[request setPostValue:self.brandTextField.text forKey:@"spsj"];
         [request setPostValue:self.describeTextField.text forKey:@"xxms"];
         [request setPostValue:self.personTextField.text forKey:@"lxr"];
         [request setPostValue:self.phoneTextField.text forKey:@"lxdh"];
@@ -223,6 +226,7 @@ static int total = 0;
     if ([[d objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
         total+=1;
         if (total == 4) {
+            self.senderButton.enabled = YES;
             [self.navigationController popViewControllerAnimated:YES];
             [[iToast makeText:@"发送成功."] show];
         }
@@ -231,7 +235,7 @@ static int total = 0;
 
 -(void)requestFailed:(ASIHTTPRequest *)request
 {
-
+    self.senderButton.enabled = YES;
 }
 
 #pragma mark - button Action
@@ -272,6 +276,7 @@ static int total = 0;
         return;
     }
     [self performSelector:@selector(senderAPI)];
+    
 }
 
 - (IBAction)gearboxButton:(id)sender {
@@ -390,9 +395,14 @@ static int total = 0;
 -(void)pickerChanged:(id)sender
 {
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     self.strDate = [dateFormatter stringFromDate:[sender date]];
     [dateFormatter release];
+//    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+//    self.strDate = [dateFormatter stringFromDate:[sender date]];
+//    //    self.strDate= [NSString stringWithFormat:@"%f",[[sender date] timeIntervalSince1970]];
+//    [dateFormatter release];
 }
 
 - (IBAction)cancel:(id)sender {

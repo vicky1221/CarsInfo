@@ -151,9 +151,21 @@
             if ([[DataCenter shareInstance].accont isAnonymous]) {
                 [self toMemberView:nil];
             } else {
-//                http://www.ard9.com/qiche/index.php?c=member&a=release&tid=32&hand=161444713&id=&go=1&from=app
-                ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=32&hand=161444713&id=&go=1&from=app&uid=%@&qdsj=%0.f", [DataCenter shareInstance].accont.loginUserID, [[NSDate date] timeIntervalSince1970]] andArgs:nil delegate:self];
-                request.tag = 1;
+                NSUserDefaults *defaluts = [NSUserDefaults standardUserDefaults];
+                NSString *qiandao = [defaluts objectForKey:@"qiandao"];
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"MMdd"];
+                NSString *now = [formatter stringFromDate:[NSDate date]];
+                if ([now isEqualToString:qiandao]) {
+                    // 已经签到过
+                    [[iToast makeText:@"今天已经签到过"] show];
+                } else {
+                    // 发请求
+                    ASIHTTPRequest* request = [[WebRequest instance] requestWithCatagory:@"get" MothodName:[NSString stringWithFormat:@"c=member&a=release&tid=32&hand=161444713&id=&go=1&from=app&uid=%@&qdsj=%.0f", [DataCenter shareInstance].accont.loginUserID, [[NSDate date] timeIntervalSince1970]] andArgs:nil delegate:self];
+                    request.tag = 1;
+                    [defaluts setObject:now forKey:@"qiandao"];
+                    [defaluts synchronize];
+                }
             }
         }
             break;
@@ -257,18 +269,12 @@
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-    static int i;
-    NSLog(@"%d",i);
     if (request.tag == 1) {
-        if (i>=1) {
-            [[iToast makeText:@"今天已经签到过了."] show];
-            return;
-        }
         NSDictionary *dic = [[request responseString] JSONValue];
         if ([[dic objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
-            [[iToast makeText:[dic objectForKey:@"msg"]] show];
+            NSString * str = [dic objectForKey:@"msg"];
+            [[iToast makeText:str] show];
         }
-        i++;
     } else {                                                    
         //NSString *str = [request responseString];
         NSArray *array = [NSArray arrayWithArray:[[request responseString] JSONValue]];

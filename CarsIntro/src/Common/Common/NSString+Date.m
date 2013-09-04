@@ -14,7 +14,7 @@
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
     NSDateFormatter *formate = [[NSDateFormatter alloc] init];
 //    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    [formate setDateFormat:@"yyyy-MM-dd"];
+    [formate setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *str = [formate stringFromDate:date];
     [formate release];
     return str;
