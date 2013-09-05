@@ -178,7 +178,8 @@
         [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"pic"];
         [request setPostValue:self.brandTextField.text forKey:@"pinpai"];
         [request setPostValue:self.colorTextField.text forKey:@"yanse"];
-        [request setPostValue:self.strGearbox forKey:@"bsx"];
+        //[request setPostValue:self.strGearbox forKey:@"bsx"];
+        [request setPostValue:self.btnGearbox.titleLabel.text forKey:@"bsx"];
         [request setPostValue:self.lengthTextField.text forKey:@"xslc"];
         [request setPostValue:self.btnTime.titleLabel.text forKey:@"spsj"];
         //[request setPostValue:self.brandTextField.text forKey:@"spsj"];
@@ -354,6 +355,7 @@ static int total = 0;
         default:
             break;
     }
+    //[self uploadPic];
     UIAsyncImageView *v= [imageArray objectAtIndex:a];
     v.image = image;
     [picker dismissModalViewControllerAnimated:YES];

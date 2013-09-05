@@ -78,52 +78,54 @@
 
 -(void)readNewDataSource
 {
+    [self.vehicleTable.vehicleArray removeAllObjects];
     Parameter * parameter1 = [[Parameter alloc] init];
-    parameter1.title = @"品牌";
-    parameter1.content = [dataDic objectForKey:@"title"];
+    parameter1.title = @"厂商指导价";
+    parameter1.content = [dataDic objectForKey:@"zdj"];
     [self.vehicleTable.vehicleArray addObject:parameter1];
     [parameter1 release];
     
     Parameter * parameter2 = [[Parameter alloc] init];
-    parameter2.title = @"颜色";
-    parameter2.content = [dataDic objectForKey:@"yanse"];
+    parameter2.title = @"变速箱";
+    parameter2.content = [dataDic objectForKey:@"bsx"];
     [self.vehicleTable.vehicleArray addObject:parameter2];
     [parameter2 release];
     
     Parameter * parameter3 = [[Parameter alloc] init];
-    parameter3.title = @"变速箱";
-    parameter3.content = [dataDic objectForKey:@"bsx"];
+    parameter3.title = @"驱动方式";
+    parameter3.content = [dataDic objectForKey:@"qdfs"];
     [self.vehicleTable.vehicleArray addObject:parameter3];
     [parameter3 release];
     
     Parameter * parameter4 = [[Parameter alloc] init];
-    parameter4.title = @"行驶里程";
-    parameter4.content = [dataDic objectForKey:@"kd"];
+    parameter4.title = @"排量";
+    parameter4.content = [dataDic objectForKey:@"pl"];
     [self.vehicleTable.vehicleArray addObject:parameter4];
     [parameter4 release];
     
     Parameter * parameter5 = [[Parameter alloc] init];
-    parameter5.title = @"上牌日期";
-    NSString * str = [dataDic objectForKey:@"addtime"];
-    parameter5.content = [str dateFormateSince1970];
+    parameter5.title = @"质保";
+//    NSString * str = [dataDic objectForKey:@"addtime"];
+//    parameter5.content = [str dateFormateSince1970];
+    parameter5.content = [dataDic objectForKey:@"zczb"];
     [self.vehicleTable.vehicleArray addObject:parameter5];
     [parameter5 release];
     
     Parameter * parameter6 = [[Parameter alloc] init];
-    parameter6.title = @"联系人";
-    parameter6.content = [dataDic objectForKey:@"lxr"];
+    parameter6.title = @"综合工况消耗";
+    parameter6.content = [dataDic objectForKey:@"scyh"];
     [self.vehicleTable.vehicleArray addObject:parameter6];
     [parameter6 release];
     
     Parameter * parameter7 = [[Parameter alloc] init];
-    parameter7.title = @"联系电话";
-    parameter7.content = [dataDic objectForKey:@"lxdh"];
+    parameter7.title = @"厂家";
+    parameter7.content = @"";
     [self.vehicleTable.vehicleArray addObject:parameter7];
     [parameter7 release];
     
     Parameter * parameter8 = [[Parameter alloc] init];
-    parameter8.title = @"详细描述";
-    parameter8.content = [dataDic objectForKey:@"description"];
+    parameter8.title = @"车体结构";
+    parameter8.content = [dataDic objectForKey:@"csjg"];
     [self.vehicleTable.vehicleArray addObject:parameter8];
     [parameter8 release];
     
@@ -135,6 +137,7 @@
 
 -(void)readUsedDataSource
 {
+    [self.vehicleTable.vehicleArray removeAllObjects];
     Parameter * parameter1 = [[Parameter alloc] init];
     parameter1.title = @"品牌";
     parameter1.content = [dataDic objectForKey:@"pinpai"];
@@ -214,7 +217,6 @@
     //    [self readDataSource];
     [self initCarsImageView];
     
-    self.typeLabel.text = self.vehicleType.title;
     [self.asyImageView  LoadImage:self.vehicleType.litpic];
     UITapGestureRecognizer * imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imagePress:)];
     [self.asyImageView addGestureRecognizer:imageTap];
@@ -387,6 +389,7 @@
         [dataDic release];
         dataDic = [[[request responseString] JSONValue] retain];
         NSLog(@"%@,,,,,,,", dataDic);
+        self.typeLabel.text = [dataDic objectForKey:@"title"];
         if ([[dataDic objectForKey:@"result"] isEqualToString:@"FAILURE"]) {
             [[iToast makeText:[dataDic objectForKey:@"msg"]] show];
         } else {
