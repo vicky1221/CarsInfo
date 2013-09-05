@@ -171,7 +171,6 @@
 -(void)senderAPI
 {
     self.senderButton.enabled = NO;
-<<<<<<< HEAD
     NSMutableString *picStr = [[NSMutableString alloc] init];
     for (int i = 0; i < self.imagesURLArray.count; i++) {
         NSString *str = [self.imagesURLArray objectAtIndex:i];
@@ -180,28 +179,6 @@
         } else {
             [picStr appendString:[NSString stringWithFormat:@"\/qiche\%@|,||-|", str]];
         }
-=======
-    for (int i = 0; i < 4; i++) {
-        UIAsyncImageView *v = [imageArray objectAtIndex:i];
-        NSString * url = [NSString stringWithFormat:@"%@c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app", Server];
-        NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:saveURl]];
-        [request setPostValue:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
-        [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"pic"];
-        [request setPostValue:self.brandTextField.text forKey:@"pinpai"];
-        [request setPostValue:self.colorTextField.text forKey:@"yanse"];
-        //[request setPostValue:self.strGearbox forKey:@"bsx"];
-        [request setPostValue:self.btnGearbox.titleLabel.text forKey:@"bsx"];
-        [request setPostValue:self.lengthTextField.text forKey:@"xslc"];
-        [request setPostValue:self.btnTime.titleLabel.text forKey:@"spsj"];
-        //[request setPostValue:self.brandTextField.text forKey:@"spsj"];
-        [request setPostValue:self.describeTextField.text forKey:@"xxms"];
-        [request setPostValue:self.personTextField.text forKey:@"lxr"];
-        [request setPostValue:self.phoneTextField.text forKey:@"lxdh"];
-        request.tag = i;
-        request.delegate = self;
-        [request startAsynchronous];
->>>>>>> baa554fa6cff5ad86984865956e80a8a947b299f
     }
     NSString * url = [NSString stringWithFormat:@"%@c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app", Server];
     NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -373,29 +350,8 @@ static int total = 0;
 
 //选择相片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
-<<<<<<< HEAD
 {
     
-=======
-{    
-    switch (a+1) {
-        case 1:
-            self.btn1HasImage = YES;
-            break;
-        case 2:
-            self.btn2HasImage = YES;
-            break;
-        case 3:
-            self.btn3HasImage = YES;
-            break;
-        case 4:
-            self.btn4HasImage = YES;
-            break;
-        default:
-            break;
-    }
-    //[self uploadPic];
->>>>>>> baa554fa6cff5ad86984865956e80a8a947b299f
     UIAsyncImageView *v= [imageArray objectAtIndex:a];
     v.image = image;
     [self uploadPic:v];
