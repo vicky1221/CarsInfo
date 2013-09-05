@@ -71,6 +71,7 @@
 {
     [super viewDidLoad];
     imageArray = [[NSMutableArray alloc] init];
+    _imagesURLArray = [[NSMutableArray alloc] initWithCapacity:4];
     // Do any additional setup after loading the view from its nib.
     [self addButtonsToScrollView];
     [self.contentView.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -112,6 +113,7 @@
 }
 
 - (void)dealloc {
+    [_imagesURLArray release];
     [imageArray release];
     [_pickerArray release];
     [_strGearbox release];
@@ -169,53 +171,64 @@
 -(void)senderAPI
 {
     self.senderButton.enabled = NO;
-    for (int i = 0; i < 4; i++) {
-        UIAsyncImageView *v = [imageArray objectAtIndex:i];
-        NSString * url = [NSString stringWithFormat:@"%@c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app", Server];
-        NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:saveURl]];
-        [request setPostValue:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
-        [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"pic"];
-        [request setPostValue:self.brandTextField.text forKey:@"pinpai"];
-        [request setPostValue:self.colorTextField.text forKey:@"yanse"];
-        [request setPostValue:self.strGearbox forKey:@"bsx"];
-        [request setPostValue:self.lengthTextField.text forKey:@"xslc"];
-        [request setPostValue:self.btnTime.titleLabel.text forKey:@"spsj"];
-        //[request setPostValue:self.brandTextField.text forKey:@"spsj"];
-        [request setPostValue:self.describeTextField.text forKey:@"xxms"];
-        [request setPostValue:self.personTextField.text forKey:@"lxr"];
-        [request setPostValue:self.phoneTextField.text forKey:@"lxdh"];
-        request.tag = i;
-        request.delegate = self;
-        [request startAsynchronous];
+    NSMutableString *picStr = [[NSMutableString alloc] init];
+    for (int i = 0; i < self.imagesURLArray.count; i++) {
+        NSString *str = [self.imagesURLArray objectAtIndex:i];
+        if (i+1 == self.imagesURLArray.count) {
+            [picStr appendString:[NSString stringWithFormat:@"%@", str]];
+        } else {
+            [picStr appendString:[NSString stringWithFormat:@"\/qiche\%@|,||-|", str]];
+        }
     }
+    NSString * url = [NSString stringWithFormat:@"%@c=member&a=release&tid=26&hand=161444713&id=&go=1&from=app", Server];
+    NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:saveURl]];
+    [request setPostValue:[DataCenter shareInstance].accont.loginUserID forKey:@"uid"];
+    [request setPostValue:picStr forKey:@"pic"];
+    [request setPostValue:self.brandTextField.text forKey:@"pinpai"];
+    [request setPostValue:self.colorTextField.text forKey:@"yanse"];
+    [request setPostValue:self.strGearbox forKey:@"bsx"];
+    [request setPostValue:self.lengthTextField.text forKey:@"xslc"];
+    [request setPostValue:self.btnTime.titleLabel.text forKey:@"spsj"];
+    //[request setPostValue:self.brandTextField.text forKey:@"spsj"];
+    [request setPostValue:self.describeTextField.text forKey:@"xxms"];
+    [request setPostValue:self.personTextField.text forKey:@"lxr"];
+    [request setPostValue:self.phoneTextField.text forKey:@"lxdh"];
+    request.tag = 5;
+    request.delegate = self;
+    [request startAsynchronous];
+    [picStr release];
 }
 
 // 上传图片
-- (void)uploadPic {
-    for (int i = 0; i < 4; i++) {
-        UIAsyncImageView *v = [imageArray objectAtIndex:i];
-        NSString * url = [NSString stringWithFormat:@"%@c=uploads", Server];
-        NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:saveURl]];
-        [request setData:UIImageJPEGRepresentation(v.image, 0.5) forKey:@"Isfiles "];
-        request.delegate = self;
-        [request startAsynchronous];
-    }
+- (void)uploadPic:(UIAsyncImageView *)imageV {
+    NSString * url = [NSString stringWithFormat:@"%@c=uploads", Server];
+    NSString *saveURl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:saveURl]];
+    [request setData:UIImageJPEGRepresentation(imageV.image, 0.5) forKey:@"Isfiles"];
+    request.tag = imageV.tag;
+    request.delegate = self;
+    [request startAsynchronous];
+    
 }
 
 static int total = 0;
 
 -(void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSDictionary *d = [[request responseString] JSONValue];
-    if ([[d objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
-        total+=1;
-        if (total == 4) {
+    if (request.tag == 5) {
+        NSDictionary *d = [[request responseString] JSONValue];
+        if ([[d objectForKey:@"result"] isEqualToString:@"SUCCESS"]) {
             self.senderButton.enabled = YES;
             [self.navigationController popViewControllerAnimated:YES];
             [[iToast makeText:@"发送成功."] show];
         }
+    } else {
+        NSDictionary *d = [[request responseString] JSONValue];
+        if (self.imagesURLArray.count >= 4) {
+            [self.imagesURLArray removeObjectAtIndex:0];
+        }
+        [self.imagesURLArray addObject:[d objectForKey:@"msg"]];
     }
 }
 
@@ -337,25 +350,11 @@ static int total = 0;
 
 //选择相片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
-{    
-    switch (a+1) {
-        case 1:
-            self.btn1HasImage = YES;
-            break;
-        case 2:
-            self.btn2HasImage = YES;
-            break;
-        case 3:
-            self.btn3HasImage = YES;
-            break;
-        case 4:
-            self.btn4HasImage = YES;
-            break;
-        default:
-            break;
-    }
+{
+    
     UIAsyncImageView *v= [imageArray objectAtIndex:a];
     v.image = image;
+    [self uploadPic:v];
     [picker dismissModalViewControllerAnimated:YES];
 }
 //取消

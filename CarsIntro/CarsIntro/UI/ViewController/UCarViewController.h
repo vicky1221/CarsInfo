@@ -38,6 +38,7 @@
 @property (retain, nonatomic) NSArray * pickerArray;
 
 @property (retain, nonatomic) IBOutlet UIPickerView *pickerView;
+@property (retain, nonatomic) NSMutableArray *imagesURLArray;
 
 @property (assign) BOOL btn1HasImage;
 @property (assign) BOOL btn2HasImage;
